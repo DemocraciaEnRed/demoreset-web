@@ -1,0 +1,21 @@
+//==========================
+
+@mixin font-weight($weight) {
+  font-weight: $weight !important;
+}
+
+//==========================
+
+@for $i from 1 through 9 {
+  .is-#{100 * $i} {
+    @include font-weight(100 * $i)
+  }
+}
+
+.is-poppins{
+  font-family: 'Poppins', sans-serif;
+}
+
+.is-mono, .is-monospace{
+  font-family: 'Roboto Mono', monospace;
+}
