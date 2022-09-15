@@ -8,6 +8,6 @@
 
 <script>
 export default {
-  name: 'ContactPage'
+  name: 'MasterClassPage'
 }
 </script>
