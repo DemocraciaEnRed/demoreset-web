@@ -72,7 +72,7 @@ export default {
     },
     {
       code: 'es',
-      iso: 'en-ES',
+      iso: 'es-ES',
       name: 'Español'
     }],
     defaultLocale: 'en',
