@@ -44,7 +44,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/buefy
-    'nuxt-buefy',
+    ['nuxt-buefy', { css: false }],
     // https://github.com/nuxt-community/style-resources-module
     '@nuxtjs/style-resources',
     // https://go.nuxtjs.dev/axios
@@ -60,7 +60,8 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+    baseUrl: process.env.API_URL || 'https://demoreset.democraciaenred.org',
+    prefix: '/graphql'
   },
   i18n: {
     /* module options */
