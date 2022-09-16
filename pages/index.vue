@@ -60,6 +60,43 @@
         </ul>
       </div>
     </div>
+    <section class="container">
+      <div class="has-border-top mb-5" />
+      <h3 class="is-mono is-uppercase project-by-title">
+        {{ $t('home.proyectBy') }}
+      </h3>
+      <div class="columns">
+        <div class="column is-one-third">
+          <img src="~/assets/img/advisers/DR_PAGWEB-47-1.png" alt="">
+        </div>
+        <div class="column is-one-third">
+          <img src="~/assets/img/advisers/DR_PAGWEB-46-nobg.png" alt="">
+        </div>
+      </div>
+    </section>
+    <section class="container">
+      <div class="has-border-top mb-5" />
+      <h3 class="is-mono is-uppercase project-by-title mb-6">
+        {{ $t('home.committee') }}
+      </h3>
+      <div class="columns is-align-items-center">
+        <div class="column is-one-fifth">
+          <img src="~/assets/img/advisers/demsoc_logo2020-01-371x200-1.png" alt="">
+        </div>
+        <div class="column is-one-fifth">
+          <img src="~/assets/img/advisers/participedia.png" alt="">
+        </div>
+        <div class="column is-one-fifth">
+          <img src="~/assets/img/advisers/der-nobg.png" alt="">
+        </div>
+        <div class="column is-one-fifth">
+          <img src="~/assets/img/advisers/DR_PAGWEB-45-nobg.png" alt="">
+        </div>
+        <div class="column is-one-fifth">
+          <img src="~/assets/img/advisers/ifpf.png" alt="">
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -195,5 +232,17 @@ export default {
   font-size: 26px;
   line-height: 50px;
   color: #000;
+}
+
+.has-border-top {
+  border-top: 1px solid #000;
+  width: 60%;
+}
+
+.project-by-title {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 50px;
 }
 </style>
