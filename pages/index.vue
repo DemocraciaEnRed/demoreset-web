@@ -21,28 +21,36 @@
             </div>
           </div>
         </div>
-        <div class="is-flex is-flex-direction-row has-text-left about-section">
-          <div class="about-section_container">
-            <h2 class="is-poppins about-title is-uppercase mb-5">{{$t('home.aboutDemoReset')}}</h2>
+        <div class="has-text-left about-section columns">
+          <div class="about-section_container column is-half">
+            <h2 class="is-poppins about-title is-uppercase mb-5">
+              {{ $t('home.aboutDemoReset') }}
+            </h2>
             <p v-html="$t('home.aboutDemoResetText')" />
           </div>
-          <div class="about-section_container">
-            <h2 class="is-poppins about-title is-uppercase mb-5">{{$t('home.whyBePart')}}</h2>
+          <div class="about-section_container column is-half">
+            <h2 class="is-poppins about-title is-uppercase mb-5">
+              {{ $t('home.whyBePart') }}
+            </h2>
             <p v-html="$t('home.whyBePartText')" />
           </div>
         </div>
         <div>
-          <button class="button is-rounded is-large my-6 is-uppercase is-mono">{{$t('home.aboutButton')}}</button>
+          <button class="button is-rounded is-large my-6 is-uppercase is-mono">
+            {{ $t('home.aboutButton') }}
+          </button>
         </div>
       </div>
     </section>
-    <div class="has-background-gray py-6">
-      <div class="container has-text-centered is-mono is-uppercase">
+    <div class="has-background-gray py-6 columns">
+      <div class="container has-text-centered is-mono is-uppercase column is-full">
         <img src="~/assets/img/logo-paranewsletter.png" alt="">
-        <p>{{$t('home.newsletterListTitle')}}</p>
+        <p class="py-6">
+          {{ $t('home.newsletterListTitle') }}
+        </p>
         <ul>
           <li v-for="item in newsletter" :key="item.id">
-            {{$t(`home.newsletterList.${item.listItem}`)}}
+            {{ $t(`home.newsletterList.${item.listItem}`) }}
           </li>
         </ul>
       </div>
@@ -144,16 +152,12 @@ export default {
   background: #F1F1F1;
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 27px;
   // padding-top: 3rem;
   // padding-bottom: 3rem;
   ul li {
-    padding-bottom: 10px;
-  }
-
-  ul li:first-child {
-    padding-top: 15px;
+    padding-bottom: 20px;
   }
 }
 
