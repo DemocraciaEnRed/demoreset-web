@@ -5,19 +5,10 @@
       <div class="container has-text-centered">
         <p>{{ $t("home.hello") }}</p>
         <div class="columns my-5">
-          <div
-            v-for="item in buttons"
-            :key="item.id"
-            class="column is-one-quarter"
-          >
-            <div
-              class="card is-flex is-flex-direction-column is-justify-content-center"
-            >
+          <div v-for="item in buttons" :key="item.id" class="column is-one-quarter">
+            <div class="card is-flex is-flex-direction-column is-justify-content-center">
               <div class="card-content">
-                <div
-                  class="content is-uppercase"
-                  v-html="$t(`home.mainButtons.${item.translationId}`)"
-                />
+                <div class="content is-uppercase" v-html="$t(`home.mainButtons.${item.translationId}`)" />
               </div>
             </div>
           </div>
@@ -46,9 +37,7 @@
       </div>
     </section>
     <div class="has-background-gray py-6 columns">
-      <div
-        class="container has-text-centered is-mono is-uppercase column is-full"
-      >
+      <div class="container has-text-centered is-mono is-uppercase column is-full">
         <img src="~/assets/img/logo-paranewsletter.png" alt="">
         <p class="py-6">
           {{ $t("home.newsletterListTitle") }}
@@ -81,10 +70,7 @@
       </h3>
       <div class="columns is-align-items-center mb-6">
         <div class="column is-2 is-offset-1">
-          <img
-            src="~/assets/img/advisers/demsoc_logo2020-01-371x200-1.png"
-            alt=""
-          >
+          <img src="~/assets/img/advisers/demsoc_logo2020-01-371x200-1.png" alt="">
         </div>
         <div class="column is-2">
           <img src="~/assets/img/advisers/participedia.png" alt="">
@@ -156,6 +142,7 @@ hr {
   width: 50%;
   height: 0.5px;
 }
+
 .card {
   margin: auto;
   border: 3px solid #000;
