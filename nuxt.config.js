@@ -74,13 +74,13 @@ export default {
     locales: [{
       code: 'en',
       iso: 'en-US',
-      name: 'English',
+      name: 'English'
       // file: 'en.js'
     },
     {
       code: 'es',
       iso: 'es-ES',
-      name: 'Español',
+      name: 'Español'
       // file: 'es.js'
     }],
     // lazy: true,
