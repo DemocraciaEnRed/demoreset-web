@@ -5,7 +5,8 @@
     >
       {{ $t('home.hubsTitle') }}
     </h2>
-    <img class="my-6" src="~/assets/img/mapaHomeEsp.svg" alt="hubs map">
+    <img v-if="$i18n.locale == 'es'" class="my-6" src="~/assets/img/mapaHomeEsp.svg" alt="hubs map">
+    <img v-else class="my-6" src="~/assets/img/mapaHomeIngles.svg" alt="hubs map">
     <button class="button is-rounded is-uppercase is-mono is-centered">
       {{ $t('home.hubsButton') }}
     </button>
