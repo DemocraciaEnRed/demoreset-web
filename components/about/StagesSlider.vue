@@ -1,7 +1,7 @@
 <template>
-  <div class="has-background-light">
+  <div class="has-background-grey-lighter">
     <h2
-      class="has-text-centered is-poppins is-uppercase has-text-weight-bold mt-5 is-size-3"
+      class="has-text-centered is-poppins is-uppercase has-text-weight-bold pt-4 is-size-3"
     >
       Etapas del proyecto
     </h2>
@@ -16,44 +16,39 @@
       :icon-size="iconSize"
       :autoplay="autoPlay"
     >
-      <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
-        <section :class="`hero is-medium`">
-          <div class="hero-body has-text-centered">
-            <!-- <p :class="faseActualColor(carousel.id)"> -->
-            <p v-if="(carousel.id) == currentStage" class="outline-shadow-red has-text-light is-poppins has-text-weight-bold is-size-2">
-              {{ "FASE " + carousel.id }}
+      <b-carousel-item v-for="(slide, i) in carousels" :key="i">
+        <section class="section is-medium has-text-centered pt-6">
+          <div class="pt-6">
+            <p
+              v-if="slide.id == currentStage"
+              class="outline-shadow-red is-poppins has-text-grey-lighter has-text-weight-bold is-size-2 pb-6"
+            >
+              {{ "FASE " + slide.id }}
             </p>
-            <p v-else class="outline-shadow-black has-text-light is-poppins has-text-weight-bold is-size-2">
-              {{ "FASE " + carousel.id }}
+            <p
+              v-else
+              class="outline-shadow-black is-poppins has-text-grey-lighter has-text-weight-bold is-size-2 pb-6"
+            >
+              {{ "FASE " + slide.id }}
             </p>
             <h1 class="title">
-              {{ carousel.title }}
+              {{ slide.title }}
             </h1>
-            <p class="content">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod,
-              quae ut iste excepturi eos deserunt, repellendus cum nesciunt
-              architecto cumque repellat eum ab blanditiis accusantium facilis
-              error obcaecati magni. Quo. Nostrum, velit beatae eos eveniet
-              sapiente laboriosam soluta similique ipsa, vel, illum laudantium
-              nisi minima cumque dicta fuga ut quam earum reiciendis fugit sit
-              delectus? Nostrum repudiandae hic molestiae consectetur. Dicta,
-              aspernatur autem veritatis doloremque animi mollitia totam
-              sapiente, illum perferendis nam aperiam ad beatae earum? Dolorem,
-              asperiores dolorum commodi numquam itaque praesentium ad quibusdam
-              id temporibus voluptatem aut deserunt! Suscipit exercitationem
-              consequuntur ullam? Aspernatur, libero atque esse ea minus quam
-              molestiae rem cum quasi molestias porro eum repellendus
-              praesentium, consectetur in corrupti quaerat error rerum.
-              Repudiandae eum magni quam. Ratione vitae, nihil dicta totam
-              assumenda perferendis fugit corrupti, ea numquam sunt quia
-              accusantium! Necessitatibus quo, sint natus expedita neque odit
-              aspernatur voluptas! Officia nam veritatis, cum repellat quam
-              dolorem.
+            <p
+              v-for="(paragraph, i2) in slide.content"
+              :key="i2"
+              class="content has-text-left is-size-6"
+            >
+              {{ paragraph }}
             </p>
-            <ol>
-              <li>step 1</li>
-              <li>step 2</li>
-              <li>step 3</li>
+            <ol
+              type="1"
+              class="column is-mono has-text-left is-offset-2 is-size-5"
+            >
+              <span>Actividades:</span>
+              <li v-for="(item, i3) in slide.activities" :key="i3">
+                {{ item }}
+              </li>
             </ol>
           </div>
         </section>
@@ -69,7 +64,7 @@ export default {
     const currentStage = 3
     return {
       currentStage,
-      carousel: (currentStage - 1), // valor dinámico que cambia cuando cambiamos de slide
+      carousel: currentStage - 1, // valor dinámico que cambia cuando cambiamos de slide
       arrow: true,
       arrowBoth: false,
       arrowHover: false,
@@ -77,42 +72,66 @@ export default {
       iconPack: 'fa',
       iconPrev: 'solid fa-chevron-left',
       iconNext: 'solid fa-chevron-right',
-      iconSize: '',
+      iconSize: 'is-large',
       carousels: [
-        { id: 1, title: 'Slide 1', color: 'info' },
-        { id: 2, title: 'Slide 2', color: 'success' },
-        { id: 3, title: 'Slide 3', color: 'warning' },
-        { id: 4, title: 'Slide 4', color: 'danger' }
+        {
+          id: 1,
+          title: 'SÉ PARTE DE ESTA RED GLOBAL; DEMO.RESET',
+          content: [
+            'Esta fase contribuirá a permitir el intercambio entre todos los profesionales del Sur Global estarán en contacto.',
+            'El proyecto creará subgrupos en función de estos intereses. Los participantes tendrán la oportunidad de intercambiar, cuestionar y fortalecer sus proyectos en espacios rigurosamente diseñados donde diversas iniciativas se reunirán para intercambiar sus experiencias, mejores prácticas, aprendizajes, metodologías y estrategias.'
+          ],
+          activities: [
+            'GRUPOS DE ENFOQUE',
+            'MODELO DE INTERCAMBIO DE EXPERIENCIA',
+            'DEMO.TALKS'
+          ]
+        },
+        {
+          id: 2,
+          title:
+            'RECONOCER LOS MUROS DE LA DEMOCRACIA DELIBERATIVA EN EL SUR GLOBAL',
+          content: [
+            'La segunda fase del proyecto reconoce el impacto de la primera fase, reforzando los subgrupos temáticos de deliberación creados previamente. En cada subgrupo temático se llevará a cabo una evaluación de las necesidades: se evaluarán los principales obstáculos, retos y cuestiones metodológicas y técnicas.',
+            'El resto de la fase se centrará en desarrollar respuestas y prototipos de soluciones a los problemas identificados. Para ello, se invitará a 30 profesionales a participar en un Bootcamp experimental para trabajar colectivamente en la resolución de sus problemas y los de otros subgrupos.'
+          ],
+          activities: ['DEMO.RESET/LAB', 'MAPA DE DELIBERACIÓN INTERACTIVO']
+        },
+        {
+          id: 3,
+          title: 'TEJER NUESTRAS EXPERIENCIAS',
+          content: [
+            'En esta fase se pondrá a prueba la replicabilidad, adaptabilidad y eficacia de los prototipos. Esta implementación será posible gracias a un modelo de residencia de movilidad de expertos, en el que personas con conocimientos específicos acompañarán todas las acciones.',
+            'En esta fase se probará la replicabilidad, adaptabilidad y eficacia de los prototipos. Esta aplicación será posible gracias a un modelo de residencia de movilidad de expertos, en el que personas con conocimientos específicos acompañarán todas las acciones.'
+          ],
+          activities: ['RESIDENCE FOR THE ACTION', 'RESIDENCIA PARA EXPERTOS']
+        },
+        {
+          id: 4,
+          title: 'SALTAR LOS MUROS HACIA UNA DEMOCRACIA DELIBERATIVA.',
+          content: [
+            'En esta última fase, el equipo ofrece recomendaciones para mejorar la eficacia de los procesos de deliberación recogidos a lo largo del proyecto. Se identificaron los retos relacionados con la práctica de la deliberación, se crearon y probaron prototipos de soluciones y es fundamental analizar los resultados de forma consciente y rigurosa.'
+          ],
+          activities: ['RESIDENCE FOR THE ACTION', 'RESIDENCIA PARA EXPERTOS']
+        }
       ]
-    }
-  },
-  methods: {
-    faseActualColor (slideID) {
-      console.log(slideID)
-      console.log(this.currentStage)
-      let color = 'black'
-      if (this.currentStage === slideID) { color = 'red' }
-      return `outline-shadow-${color} has-text-light is-poppins has-text-weight-bold is-size-2`
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 @mixin stroke($color, $size) {
-  text-shadow:
-    -#{$size} -#{$size} 0 $color,
-     0        -#{$size} 0 $color,
-     #{$size} -#{$size} 0 $color,
-     #{$size}  0        0 $color,
-     #{$size}  #{$size} 0 $color,
-     0         #{$size} 0 $color,
-    -#{$size}  #{$size} 0 $color,
-    -#{$size}  0        0 $color;
+  text-shadow: -#{$size} -#{$size} 0 $color, 0 -#{$size} 0 $color,
+    #{$size} -#{$size} 0 $color, #{$size} 0 0 $color, #{$size} #{$size} 0 $color,
+    0 #{$size} 0 $color, -#{$size} #{$size} 0 $color, -#{$size} 0 0 $color;
 }
-  .outline-shadow-black {
-    @include stroke(black, 1px)
+.outline-shadow-black {
+  @include stroke(black, 1px);
 }
-  .outline-shadow-red {
-    @include stroke(red, 1px)
+.outline-shadow-red {
+  @include stroke(red, 1px);
+}
+ol li {
+  list-style-position: inside;
 }
 </style>
