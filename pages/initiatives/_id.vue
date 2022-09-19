@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="container">
-      This is the initiative page for <b>{{ initiative.title}}</b>
+      This is the initiative page for <b>{{ initiative.title }}</b>
     </div>
   </section>
 </template>
