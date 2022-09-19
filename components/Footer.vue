@@ -5,7 +5,9 @@
         <img src="@/assets/img/footer-logo.png" alt="" width="150" class="image mx-auto my-5">
         <p>DEMO.RESET 2022 © ALL RIGHTS RESERVED</p>
         <br>
-        <p class="data-privacy">{{ $t('footer.privacy') }}</p>
+        <p class="data-privacy">
+          {{ $t('footer.privacy') }}
+        </p>
       </div>
     </div>
   </footer>

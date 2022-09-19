@@ -1,8 +1,6 @@
 <template>
   <section>
-    <h2
-      class="column is-four-fifths is-poppins is-uppercase is-size-2 has-text-weight-bold has-text-left"
-    >
+    <h2 class="column is-four-fifths is-poppins is-uppercase is-size-2 has-text-weight-bold has-text-left">
       Elige un Hub y conoce las barreras a las que se enfrenta
     </h2>
     <img class="my-6" src="~/assets/img/mapaHomeEsp.svg" alt="hubs map">
