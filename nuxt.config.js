@@ -1,7 +1,8 @@
-import es from './locales/es.json'
-import en from './locales/en.json'
+import i18n from './locales/i18n'
 
 export default {
+  target: 'static', // Default: 'server'
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'DemoReset',
@@ -30,6 +31,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/graphql.js' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -38,15 +40,17 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    // https://github.com/nuxt-community/style-resources-module
+    '@nuxtjs/style-resources'
+    // '@nuxt/postcss8'
   ],
-
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/buefy
     ['nuxt-buefy', { css: false }],
     // https://github.com/nuxt-community/style-resources-module
-    '@nuxtjs/style-resources',
+    // '@nuxtjs/style-resources',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://i18n.nuxtjs.org/setup
@@ -61,7 +65,8 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseUrl: process.env.API_URL || 'https://demoreset.democraciaenred.org',
-    prefix: '/graphql'
+    prefix: '/graphql',
+    credentials: true
   },
   i18n: {
     /* module options */
@@ -69,21 +74,19 @@ export default {
     locales: [{
       code: 'en',
       iso: 'en-US',
-      name: 'English'
+      name: 'English',
+      // file: 'en.js'
     },
     {
       code: 'es',
       iso: 'es-ES',
-      name: 'Español'
+      name: 'Español',
+      // file: 'es.js'
     }],
+    // lazy: true,
+    // langDir: '~/locales',
     defaultLocale: 'en',
-    vueI18n: {
-      fallbackLocale: 'en',
-      messages: {
-        en,
-        es
-      }
-    }
+    vueI18n: i18n
   },
   loading: {
     color: '#E4EEFA',
@@ -91,5 +94,12 @@ export default {
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    postcss: {
+      plugins: {
+      },
+      preset: {
+      }
+    }
+    // postcss: null
   }
 }
