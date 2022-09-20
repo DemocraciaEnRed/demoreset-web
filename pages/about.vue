@@ -8,7 +8,6 @@
       </h1>
       <div class="columns">
         <img
-          id="about-img"
           class="column is-5 about-img"
           src="~/assets/img/About.png"
           alt=""
@@ -59,6 +58,7 @@ export default {
 <style lang="scss" scoped>
 .about-img{
   object-fit: contain;
+  border-radius: 3px;
 }
 h1.has-border-top{
   border-top: 1px solid black;
