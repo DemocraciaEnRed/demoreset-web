@@ -2,7 +2,7 @@ import i18n from './locales/i18n'
 
 export default {
   target: 'static', // Default: 'server'
-  ssr: false,
+  // ssr: false,
   router: {
     base: '/demoreset-web/'
   },
