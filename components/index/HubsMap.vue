@@ -5,8 +5,12 @@
     >
       {{ $t('home.hubsTitle') }}
     </h2>
-    <img v-if="$i18n.locale == 'es'" class="my-6" src="~/assets/img/mapaHomeEsp.svg" alt="hubs map">
-    <img v-else class="my-6" src="~/assets/img/mapaHomeIngles.svg" alt="hubs map">
+    <div v-if="$i18n.locale == 'es'" class="my-6">
+      <esMap />
+    </div>
+    <div v-else class="my-6">
+      <enMap />
+    </div>
     <button class="button is-rounded is-uppercase is-mono is-centered">
       {{ $t('home.hubsButton') }}
     </button>
@@ -14,8 +18,15 @@
 </template>
 
 <script>
+import esMap from './map/esMap.vue'
+import enMap from './map/enMap.vue'
+
 export default {
-  name: 'HubsMap'
+  name: 'HubsMap',
+  components: {
+    esMap,
+    enMap
+  }
 }
 </script>
 
