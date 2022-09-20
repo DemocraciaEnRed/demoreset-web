@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/es/masterclass", {data:[{}],fetch:{},mutations:void 0});
