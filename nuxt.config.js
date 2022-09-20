@@ -3,6 +3,9 @@ import i18n from './locales/i18n'
 export default {
   target: 'static', // Default: 'server'
   ssr: false,
+  router: {
+    base: '/demoreset-web/'
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'DemoReset',
