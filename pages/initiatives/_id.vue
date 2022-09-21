@@ -1,58 +1,58 @@
 <template>
   <section class="section">
     <div class="container">
-      <h2 class="title is-poppins is-size-2-tablet is-size-3-touch">
-        {{ initiative.title }}
-      </h2>
-      <div class="columns py-5">
-        <div class="column pl-5">
-          <div class="block">
-            <p class="is-size-5 is-mono has-text-weight-semibold">
-              HUB:?
-            </p>
-            <p class="is-size-5 is-mono has-text-weight-semibold">
-              REGION:?
-            </p>
+      <div class="box py-6">
+        <h2 class="title is-poppins is-size-2-tablet is-size-3-touch">
+          {{ initiative.title }}
+        </h2>
+        <div class="columns py-5">
+          <div class="column pl-5">
+            <div class="block">
+              <p class="is-size-5 is-mono has-text-weight-semibold">
+                HUB:?
+              </p>
+              <p class="is-size-5 is-mono has-text-weight-semibold">
+                REGION:?
+              </p>
+            </div>
+            <div class="block">
+              <p class="is-size-5 is-mono has-text-weight-semibold">
+                BARRERAS:
+              </p>
+              <b-field>
+                <b-tag v-for="(barrier,i) in initiative.call_for_barriers" :key="i" class="has-background-grey-lighter is-mono" rounded>
+                  {{ barrier.name }}
+                </b-tag>
+              </b-field>
+            </div>
+            <div class="block">
+              <p class="is-size-5 is-mono has-text-weight-semibold">
+                TEMAS:
+              </p>
+              <b-field>
+                <b-tag v-for="(topic,i) in initiative.topics" :key="i" class="has-background-grey-lighter is-mono" rounded>
+                  {{ topic.initiative_topics_id.name }}
+                </b-tag>
+              </b-field>
+            </div>
           </div>
-          <div class="block">
-            <p class="is-size-5 is-mono has-text-weight-semibold">
-              BARRERAS:
-            </p>
-            <b-field>
-              <b-tag v-for="(barrier,i) in initiative.call_for_barriers" :key="i" class="has-background-grey-lighter is-mono" rounded>
-                {{ barrier.name }}
-              </b-tag>
-            </b-field>
-          </div>
-          <div class="block">
-            <p class="is-size-5 is-mono has-text-weight-semibold">
-              TEMAS:
-            </p>
-            <b-field>
-              <b-tag v-for="(topic,i) in initiative.topics" :key="i" class="has-background-grey-lighter is-mono" rounded>
-                {{ topic.initiative_topics_id.name }}
-              </b-tag>
-            </b-field>
+          <div class="column p-1">
+            <div class="block maxContent p-2 has-background-grey-lighter">
+              <p class="is-size-5">
+                ESTADO DE LA INICIATIVA: {{ initiative.initiative_status }}
+              </p>
+              <p><b>Fecha de inicio:</b> {{ initiative.start_date }} </p>
+              <p v-if="initiative.start_date">
+                <b>Fecha de cierre:</b> {{ initiative.start_date }}
+              </p>
+              <p v-else>
+                <b>Fecha de cierre:</b>
+              </p>
+            </div>
           </div>
         </div>
-        <div class="column p-1">
-          <div class="block maxContent p-2 has-background-grey-lighter">
-            <p class="is-size-5">
-              ESTADO DE LA INICIATIVA: {{ initiative.initiative_status }}
-            </p>
-            <p><b>Fecha de inicio:</b> {{ initiative.start_date }} </p>
-            <p v-if="initiative.start_date">
-              <b>Fecha de cierre:</b> {{ initiative.start_date }}
-            </p>
-            <p v-else>
-              <b>Fecha de cierre:</b>
-            </p>
-          </div>
-        </div>
+        <InitiativeTabs :initiative="initiative" />
       </div>
-    </div>
-    <div>
-      <InitiativeTabs :initiative="initiative" />
     </div>
   </section>
 </template>
