@@ -46,7 +46,7 @@
       </div>
 
       <div class="column">
-        <b-dropdown aria-role="list">
+        <b-dropdown aria-role="list" disabled>
           <template #trigger="{ active }">
             <p>Tipología de barrera</p>
             <b-button
@@ -56,7 +56,7 @@
             />
           </template>
 
-          <b-dropdown-item aria-role="listitem" class="dropdown">
+          <!-- <b-dropdown-item aria-role="listitem" class="dropdown">
             <label class="checkbox">
               <input type="checkbox">
               America Latina
@@ -85,12 +85,12 @@
               <input type="checkbox">
               Sudeste asiático
             </label>
-          </b-dropdown-item>
+          </b-dropdown-item> -->
         </b-dropdown>
       </div>
 
       <div class="column">
-        <b-dropdown aria-role="list">
+        <b-dropdown aria-role="list" disabled>
           <template #trigger="{ active }">
             <p>Categoría</p>
             <b-button
@@ -100,7 +100,7 @@
             />
           </template>
 
-          <b-dropdown-item aria-role="listitem" class="dropdown">
+          <!-- <b-dropdown-item aria-role="listitem" class="dropdown">
             <label class="checkbox">
               <input type="checkbox">
               America Latina
@@ -129,12 +129,12 @@
               <input type="checkbox">
               Sudeste asiático
             </label>
-          </b-dropdown-item>
+          </b-dropdown-item> -->
         </b-dropdown>
       </div>
 
       <div class="column">
-        <b-dropdown aria-role="list">
+        <b-dropdown aria-role="list" disabled>
           <template #trigger="{ active }">
             <p>Tema</p>
             <b-button
@@ -144,7 +144,7 @@
             />
           </template>
 
-          <b-dropdown-item aria-role="listitem" class="dropdown">
+          <!-- <b-dropdown-item aria-role="listitem" class="dropdown">
             <label class="checkbox">
               <input type="checkbox">
               America Latina
@@ -173,32 +173,31 @@
               <input type="checkbox">
               Sudeste asiático
             </label>
-          </b-dropdown-item>
+          </b-dropdown-item> -->
         </b-dropdown>
       </div>
     </div>
-    <OrganizationCard :initiatives="initiatives" />
+    <OrganizationCard />
   </section>
 </template>
 
 <script>
-import OrganizationCard from './organizationCard.vue'
+import OrganizationCard from './OrganizationCard.vue'
 
 export default {
   name: 'DropdownButtons',
   components: {
     OrganizationCard
   },
-  props: {
-    initiatives: {
-      type: Array,
-      default: null
-    }
-  },
   data () {
     return {
+      hubs: []
     }
+  },
+  async fetch () {
+
   }
+
 }
 </script>
 

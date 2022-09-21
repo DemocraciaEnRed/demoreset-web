@@ -5,7 +5,7 @@
         <h2 class="mb-4 is-poppins is-uppercase initiatives-title">
           {{ $t('initiatives.title') }}
         </h2>
-        <DropdownButtons :initiatives="initiatives" />
+        <InitiativeList :initiatives="initiatives" />
       </div>
     </section>
     <section class="container my-6">
@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import DropdownButtons from '../../components/initiatives/DropdownButtons.vue'
+import InitiativeList from '../../components/initiatives/InitiativeList.vue'
 export default {
   name: 'InitiativePage',
   components: {
-    DropdownButtons
+    InitiativeList
   },
   async asyncData ({ params, $axios, i18n, $router, $graphql }) {
     const theQuery = {
