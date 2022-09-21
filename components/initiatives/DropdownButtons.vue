@@ -177,7 +177,7 @@
         </b-dropdown>
       </div>
     </div>
-    <OrganizationCard />
+    <OrganizationCard :initiatives="initiatives" />
   </section>
 </template>
 
@@ -188,6 +188,16 @@ export default {
   name: 'DropdownButtons',
   components: {
     OrganizationCard
+  },
+  props: {
+    initiatives: {
+      type: Array,
+      default: null
+    }
+  },
+  data () {
+    return {
+    }
   }
 }
 </script>

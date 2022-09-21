@@ -1,36 +1,48 @@
 <template>
-  <div class="card container organization-card">
-    <div class="card-content">
-      <div class="content is-flex is-flex-direction-row is-align-items-center">
-        <div class="column is-flex is-flex-direction-row">
-          <img src="~/assets/img/card-der.png" alt="organization logotype" class="image is-128x128">
-          <div class="is-flex-direction-column has-text-left ml-4">
-            <p class="is-mono organization-name">
-              Democracia En Red <img src="~/assets/img/emailIcon.svg" alt="">
-            </p>
-            <h4 class="is-mono is-uppercase initiative-title">
-              Presupuesto participato general pueyrredon
-            </h4>
+  <section class="container">
+    <div v-for="(initiative, i) in initiatives" :key="i" class="card organization-card">
+      <div class="card-content">
+        <div class="content is-flex is-flex-direction-row is-align-items-center">
+          <div class="column is-flex is-flex-direction-row">
+            <img src="~/assets/img/card-der.png" alt="organization logotype" class="image is-128x128">
+            <div class="is-flex-direction-column has-text-left ml-4">
+              <p class="is-mono organization-name">
+                {{ initiatives[i].organization.name }} <img src="~/assets/img/emailIcon.svg" alt="">
+              </p>
+              <h4 class="is-mono is-uppercase initiative-title">
+                Presupuesto participativo general pueyrredon
+              </h4>
+            </div>
           </div>
-        </div>
-        <div class="is-flex is-flex-direction-column initiative-date has-text-right">
-          <div>
-            <p>Fecha de inicio:</p>
-            <span>18/02/2022</span>
-          </div>
-          <div>
-            <p>Fecha de finalización:</p>
-            <span>En curso</span>
+          <div class="is-flex is-flex-direction-column initiative-date has-text-right">
+            <div>
+              <p>Fecha de inicio:</p>
+              <span>18/02/2022</span>
+            </div>
+            <div>
+              <p>Fecha de finalización:</p>
+              <span>En curso</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: 'OrganizationCard'
+  name: 'OrganizationCard',
+  props: {
+    initiatives: {
+      type: Array,
+      default: null
+    }
+  },
+  data () {
+    return {
+    }
+  }
 }
 </script>
 

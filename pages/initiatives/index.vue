@@ -5,7 +5,7 @@
         <h2 class="mb-4 is-poppins is-uppercase initiatives-title">
           {{ $t('initiatives.title') }}
         </h2>
-        <DropdownButtons />
+        <DropdownButtons :initiatives="initiatives" />
       </div>
     </section>
     <section class="container my-6">
@@ -22,6 +22,31 @@ export default {
   name: 'InitiativePage',
   components: {
     DropdownButtons
+  },
+  async asyncData ({ params, $axios, i18n, $router, $graphql }) {
+    const theQuery = {
+      query: $graphql.getQueryForAllInitiatives()
+    }
+    try {
+      const response = await $axios.post('/graphql', theQuery)
+      // if status is not published, redirect to home
+      // if (response.data.data.campaigns_by_id.status !== 'published') {
+      //   $router.push('/')
+      // }
+      // console.log(response.data.data)
+      const theInitiative = response.data.data.initiatives
+      $graphql.mergeFieldTranslations(theInitiative)
+      return {
+        initiatives: theInitiative
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err.response.data.errors[0].extensions)
+    }
+  },
+  data () {
+    return {
+    }
   }
 }
 </script>

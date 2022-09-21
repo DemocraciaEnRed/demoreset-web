@@ -28,6 +28,25 @@ export default ({ app, i18n, params }, inject) => {
         return
       }
     },
+    getQueryForAllInitiatives () {
+      return `
+      {
+        initiatives{
+          id
+          initiative_status
+          organization{
+              logo{
+                  filename_download
+                  id
+              }
+              name
+          }
+          start_date
+          end_date
+        }
+      }
+      `
+    },
     getQueryForInitiativeById (id, langCode) {
       return `
       {
