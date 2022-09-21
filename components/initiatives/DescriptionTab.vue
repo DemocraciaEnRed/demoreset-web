@@ -76,20 +76,26 @@
       <div class="title is-mono is-size-5 is-uppercase">
         CANTIDAD DE PERSONAS PARTICIPANTES
       </div>
-      <li class="is-size-4 has-text-weight-light">
-        {{ initiative.participation_individuals_count }}
-        <!-- roboto condensed pending -->
-      </li>
+      <div class="">
+        <ul>
+          <li class="is-size-4 has-text-weight-light is-roboto-condensed">
+            {{ initiative.participation_individuals_count }}
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="block">
       <div class="title is-mono is-size-5 is-uppercase">
         CANTIDAD DE ORGANIZACIONES, FAMILIAS, GRUPOS O COMUNIDADES PARTICIPANTES
       </div>
-      <li class="is-size-4 has-text-weight-light">
-        {{ initiative.participation_groups_count ? initiative.participation_groups_count : 'UNKNOWN' }}
-        <!-- roboto condensed pending -->
-        <!-- test conditional on vue (WIP) -->
-      </li>
+      <div class="content">
+        <ul>
+          <li class="is-size-4 has-text-weight-light is-roboto-condensed">
+            {{ initiative.participation_groups_count ? initiative.participation_groups_count : 'UNKNOWN' }}
+          </li>
+        </ul>
+      </div>
+      <!-- test conditional on vue (WIP) -->
     </div>
   </div>
 </template>
