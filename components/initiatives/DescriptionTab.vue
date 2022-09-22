@@ -5,7 +5,7 @@
     </div>
     <div class="block">
       <div class="title is-mono is-size-5 is-uppercase">
-        REDES DEL PROYECTO
+        {{ $t('initiatives.descriptionTab.projNetworks') }}
       </div>
       <NuxtLink to="#">
         <b-icon
@@ -20,19 +20,19 @@
         />
       </NuxtLink>
     </div>
-    <div class="block">
+    <div class="content">
       <div class="title is-mono is-size-5 is-uppercase">
-        PROPOSITO
+        {{ $t('initiatives.descriptionTab.purpose') }}
       </div>
       <ul>
-        <li v-for="(purpose,i) in initiative?.purpose" :key="i">
-          {{ purpose }}
+        <li v-for="(purpose,i) in initiative.purpose" :key="i">
+          {{ purpose.name }}
         </li>
       </ul>
     </div>
-    <div class="block">
+    <div class="content">
       <div class="title is-mono is-size-5 is-uppercase">
-        ENFOQUE INICIATIVA Y/O SOLUCIÓN
+        {{ $t('initiatives.descriptionTab.approach') }}
       </div>
       <ul>
         <li v-for="(approach,i) in initiative.approaches" :key="i">
@@ -42,7 +42,7 @@
     </div>
     <div class="block">
       <div class="title is-mono is-size-5 is-uppercase">
-        PROBLEMA O RETO
+        {{ $t('initiatives.descriptionTab.challenge') }}
       </div>
       <div class="block">
         {{ initiative.challenge }}
@@ -50,7 +50,7 @@
     </div>
     <div class="block">
       <div class="title is-mono is-size-5 is-uppercase">
-        OBJETIVO
+        {{ $t('initiatives.descriptionTab.objective') }}
       </div>
       <div class="block">
         {{ initiative.objective }}
@@ -58,7 +58,7 @@
     </div>
     <div class="block">
       <div class="title is-mono is-size-5 is-uppercase">
-        SUJETO DEL CAMBIO
+        {{ $t('initiatives.descriptionTab.subjectOfChange') }}
       </div>
       <div class="block">
         {{ initiative.subject_of_change }}
@@ -66,36 +66,31 @@
     </div>
     <div class="block">
       <div class="title is-mono is-size-5 is-uppercase">
-        ACTIVIDADES CLAVE
+        {{ $t('initiatives.descriptionTab.keyActivities') }}
       </div>
       <div class="block">
         {{ initiative.key_activities }}
       </div>
     </div>
-    <div class="block">
+    <div class="content">
       <div class="title is-mono is-size-5 is-uppercase">
-        CANTIDAD DE PERSONAS PARTICIPANTES
+        {{ $t('initiatives.descriptionTab.individualsCount') }}
       </div>
-      <div class="">
-        <ul>
-          <li class="is-size-4 has-text-weight-light is-roboto-condensed">
-            {{ initiative.participation_individuals_count }}
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li class="is-size-4 has-text-weight-light is-roboto-condensed">
+          {{ initiative.participation_individuals_count ? initiative.participation_individuals_count: $t('initiatives.descriptionTab.unknown') }}
+        </li>
+      </ul>
     </div>
-    <div class="block">
+    <div class="content">
       <div class="title is-mono is-size-5 is-uppercase">
-        CANTIDAD DE ORGANIZACIONES, FAMILIAS, GRUPOS O COMUNIDADES PARTICIPANTES
+        {{ $t('initiatives.descriptionTab.groupsCount') }}
       </div>
-      <div class="content">
-        <ul>
-          <li class="is-size-4 has-text-weight-light is-roboto-condensed">
-            {{ initiative.participation_groups_count ? initiative.participation_groups_count : 'UNKNOWN' }}
-          </li>
-        </ul>
-      </div>
-      <!-- test conditional on vue (WIP) -->
+      <ul>
+        <li class="is-size-4 has-text-weight-light is-roboto-condensed">
+          {{ initiative.participation_groups_count ? initiative.participation_groups_count : $t('initiatives.descriptionTab.unknown') }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>

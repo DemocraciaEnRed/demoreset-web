@@ -8,26 +8,26 @@
         <div class="columns py-5">
           <div class="column pl-5">
             <div class="block">
-              <p class="is-size-5 is-mono has-text-weight-semibold">
-                HUB:?
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                HUB:{{ initiative.country.hub.name }}
               </p>
-              <p class="is-size-5 is-mono has-text-weight-semibold">
-                REGION:?
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                {{ $t('initiatives.region') }}: {{ initiative.location }}
               </p>
             </div>
             <div class="block">
-              <p class="is-size-5 is-mono has-text-weight-semibold">
-                BARRERAS:
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                {{ $t('initiatives.barriers') }}:
               </p>
               <b-field>
-                <b-tag v-for="(barrier,i) in initiative.call_for_barriers" :key="i" class="has-background-grey-lighter is-mono" rounded>
+                <b-tag v-for="(barrier,i) in initiative.call_for_barriers.barriers_id" :key="i" class="has-background-grey-lighter is-mono" rounded>
                   {{ barrier.name }}
                 </b-tag>
               </b-field>
             </div>
             <div class="block">
-              <p class="is-size-5 is-mono has-text-weight-semibold">
-                TEMAS:
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                {{ $t('initiatives.topics') }}:
               </p>
               <b-field>
                 <b-tag v-for="(topic,i) in initiative.topics" :key="i" class="has-background-grey-lighter is-mono" rounded>
@@ -38,15 +38,15 @@
           </div>
           <div class="column p-1">
             <div class="block maxContent p-2 has-background-grey-lighter">
-              <p class="is-size-5">
-                ESTADO DE LA INICIATIVA: {{ initiative.initiative_status }}
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                {{ $t('initiatives.status') }}: {{ initiative.initiative_status }}
               </p>
-              <p><b>Fecha de inicio:</b> {{ initiative.start_date }} </p>
-              <p v-if="initiative.start_date">
-                <b>Fecha de cierre:</b> {{ initiative.start_date }}
+              <p><b>{{ $t('initiatives.startDate') }}: </b> {{ initiative.start_date }} </p>
+              <p v-if="initiative.end_date">
+                <b>{{ $t('initiatives.endDate') }}: </b> {{ initiative.end_date }}
               </p>
               <p v-else>
-                <b>Fecha de cierre:</b>
+                <b>{{ $t('initiatives.endDate') }}: {{ $t('initiatives.ongoing') }}</b>
               </p>
             </div>
           </div>
