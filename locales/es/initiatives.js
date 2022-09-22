@@ -20,6 +20,17 @@ const initiatives = {
     individualsCount: 'Cantidad de personas participantes',
     groupsCount: 'Cantidad de organizaciones, familias, grupos o comunidades participantes',
     unknown: 'Dato desconocido'
+  },
+  methodologyTab: {
+    usedMethods: 'Metodología/s utilizadas en la iniciativa',
+    methodsType: 'Tipo de metodologías',
+    methodsTechniques: 'Técnicas de metodología',
+    participationLadder: 'Escalera de participación',
+    learningInfo: 'Recursos de información',
+    decisionMethods: 'Métodos de decisión',
+    votingType: 'Tipo de votación',
+    recruitmentMethod: 'Método de reclutamiento para las poblaciones participantes',
+    noData: 'No hay información disponible.'
   }
 }
 
