@@ -28,18 +28,21 @@ export default ({ app, i18n, params }, inject) => {
         return
       }
     },
-    getQueryForAllInitiatives () {
+    getQueryForAllInitiatives (langCode) {
       return `
       {
         initiatives{
           id
+          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+            title
+          }
           initiative_status
           organization{
-              logo{
-                  filename_download
-                  id
-              }
-              name
+            logo{
+              id
+            }
+            name
+            email
           }
           start_date
           end_date
@@ -68,6 +71,16 @@ export default ({ app, i18n, params }, inject) => {
             name
             logo {
               id
+            }
+          }
+          country {
+            hub {
+              translations (filter: {languages_id: {code: {_eq: "${langCode}"}}}){
+                name
+              }
+            }
+            translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+              name
             }
           }
           initiative_status
