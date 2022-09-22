@@ -185,7 +185,7 @@
 import InitiativeCard from './InitiativeCard.vue'
 
 export default {
-  name: 'DropdownButtons',
+  name: 'InitiativeList',
   components: {
     InitiativeCard
   },

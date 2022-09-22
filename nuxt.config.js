@@ -36,7 +36,9 @@ export default {
   plugins: [
     { src: '~/plugins/graphql.js' }
   ],
-
+  env: {
+    API_URL: process.env.API_URL || 'https://demoreset.democraciaenred.org'
+  },
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
