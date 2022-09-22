@@ -140,7 +140,7 @@ export default ({ app, i18n, params }, inject) => {
             }
           }
           purpose {
-            purpose_id {
+            purposes_id {
               translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
                 name
               }

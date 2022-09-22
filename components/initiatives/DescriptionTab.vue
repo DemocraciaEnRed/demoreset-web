@@ -25,7 +25,7 @@
         {{ $t('initiatives.descriptionTab.purpose') }}
       </div>
       <ul>
-        <li v-for="(purpose,i) in initiative.purpose" :key="i">
+        <li v-for="(purpose,i) in initiative.purpose.purposes_id" :key="i">
           {{ purpose.name }}
         </li>
       </ul>
@@ -78,7 +78,7 @@
       </div>
       <ul>
         <li class="is-size-4 has-text-weight-light is-roboto-condensed">
-          {{ initiative.participation_individuals_count ? initiative.participation_individuals_count: $t('initiatives.descriptionTab.unknown') }}
+          {{ initiative.participation_individuals_count ? initiative.participation_individuals_count: $t('initiatives.descriptionTab.noData') }}
         </li>
       </ul>
     </div>
@@ -88,7 +88,7 @@
       </div>
       <ul>
         <li class="is-size-4 has-text-weight-light is-roboto-condensed">
-          {{ initiative.participation_groups_count ? initiative.participation_groups_count : $t('initiatives.descriptionTab.unknown') }}
+          {{ initiative.participation_groups_count ? initiative.participation_groups_count : $t('initiatives.descriptionTab.noData') }}
         </li>
       </ul>
     </div>

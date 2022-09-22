@@ -18,7 +18,8 @@ const initiatives = {
     subjectOfChange: 'Subject of change',
     keyActivities: 'Key activities',
     individualsCount: 'Number of individual participants',
-    groupsCount: 'Number of participating organizations, families, groups or communities'
+    groupsCount: 'Number of participating organizations, families, groups or communities',
+    noData: 'No information available.'
   },
   methodologyTab: {
     usedMethods: 'Methodologies used in the initiative',

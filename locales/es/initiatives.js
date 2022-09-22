@@ -19,7 +19,7 @@ const initiatives = {
     keyActivities: 'Actividades clave',
     individualsCount: 'Cantidad de personas participantes',
     groupsCount: 'Cantidad de organizaciones, familias, grupos o comunidades participantes',
-    unknown: 'Dato desconocido'
+    noData: 'No hay información disponible.'
   },
   methodologyTab: {
     usedMethods: 'Metodología/s utilizadas en la iniciativa',
