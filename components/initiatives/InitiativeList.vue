@@ -177,27 +177,24 @@
         </b-dropdown>
       </div>
     </div>
-    <OrganizationCard />
+    <InitiativeCard v-for="initiative in initiatives" :key="`initiative-${initiative.id}`" :initiative="initiative" />
   </section>
 </template>
 
 <script>
-import OrganizationCard from './OrganizationCard.vue'
+import InitiativeCard from './InitiativeCard.vue'
 
 export default {
   name: 'DropdownButtons',
   components: {
-    OrganizationCard
+    InitiativeCard
   },
-  data () {
-    return {
-      hubs: []
+  props: {
+    initiatives: {
+      type: Array,
+      default: () => []
     }
-  },
-  async fetch () {
-
   }
-
 }
 </script>
 
