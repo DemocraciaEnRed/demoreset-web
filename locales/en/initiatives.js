@@ -32,6 +32,14 @@ const initiatives = {
     votingType: 'Type of voting',
     recruitmentMethod: 'recruitment method for participating populations'
   },
+  organizationTab: {
+    contactInfo: 'Contact information',
+    profileButton: 'Complete profile'
+  },
+  resultsTab: {
+    goalsAccomplishment: 'Degree of compliance with objectives',
+    initiativeResult: 'Results of the initiative'
+  },
   card: {
     startDate: 'Start date',
     endDate: 'End date',

@@ -31,6 +31,14 @@ const initiatives = {
     votingType: 'Tipo de votación',
     recruitmentMethod: 'Método de reclutamiento para las poblaciones participantes'
   },
+  organizationTab: {
+    contactInfo: 'Información de contacto',
+    profileButton: 'Perfil completo'
+  },
+  resultsTab: {
+    goalsAccomplishment: 'Grado de cumplimiento de los objetivos',
+    initiativeResult: 'Resultados de la iniciativa'
+  },
   card: {
     startDate: 'Fecha de inicio',
     endDate: 'Fecha de finalización',
