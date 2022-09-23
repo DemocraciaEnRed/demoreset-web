@@ -69,6 +69,7 @@ export default ({ app, i18n, params }, inject) => {
           organization {
             id
             name
+            email
             logo {
               id
             }
