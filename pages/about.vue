@@ -4,45 +4,31 @@
       <h1
         class="column is-poppins is-uppercase has-text-weight-bold is-5 mb-5 has-border-top is-size-2"
       >
-        Sobre el proyecto de demoreset
+        {{ $t('about.title') }}
       </h1>
       <div class="columns">
         <img
           class="column is-5 about-img"
           src="~/assets/img/About.png"
-          alt=""
+          :alt="$t('about')"
         >
-        <div class="content column">
+        <div class="column content">
           <p>
-            En colaboración con la oficina global de la National Endowment for
-            Democracy NED y el Extituto de Política Abierta (Colombia),
-            reunimos 100 organizaciones del Sur Global, situadas especialmente
-            en el África Subsahariana, Europa del Este, el Sudeste Asiático y
-            América Latina para restablecer nuestras democracias.
+            {{ $t('about.content1') }}
           </p>
-          <p>
-            En este proyecto, se incorporarán las iniciativas para participar
-            en una experiencia que
-            <strong>transformará el panorama de la democracia en el Sur
-              Global</strong>. Desde este espacio, podrás encontrar herramientas y soluciones
-            de todo el mundo para hacer frente a los desafíos que
-            organizaciones como la tuya enfrentan en el proceso de despliegue
-            de la innovación democrática. Tendrás una red de organizaciones en
-            4 regiones del Sur Global, que compartirán sus mejores prácticas y
-            con las que podrás construir alianzas, espacios para desarrollar y
-            afinar tus propuestas de cambio en una Cumbre del Sur Global.
-            Podrás implementar una herramienta/solución en tu región
-            específica con apoyo especializado, mentoría internacional, entre
-            otras sorpresas.
-          </p>
-          <strong>
-            Es hora de transformar la democracia desde propuestas y narrativas
-            del Sur Global.
-          </strong>
+          <p v-html="$t('about.content2')" />
+          <b>
+            {{ $t('about.content3') }}
+          </b>
         </div>
       </div>
     </section>
     <StagesSlider />
+    <section class="section">
+      <div class="title is-uppercase is-poppins">
+        {{ $t('about.title3') }}
+      </div>
+    </section>
   </div>
 </template>
 

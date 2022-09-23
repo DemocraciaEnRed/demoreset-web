@@ -1,19 +1,19 @@
 <template>
   <section>
     <b-tabs v-model="activeTab" expanded>
-      <b-tab-item label="DESCRIPCION">
+      <b-tab-item :label="$t('initiatives.TabLabels.description')">
         <DescriptionTab :initiative="initiative" />
       </b-tab-item>
-      <b-tab-item label="METODOLOGIA">
+      <b-tab-item :label="$t('initiatives.TabLabels.methodology')">
         <MetodologyTab :initiative="initiative" />
       </b-tab-item>
-      <b-tab-item label="RESULTADOS">
+      <b-tab-item :label="$t('initiatives.TabLabels.results')">
         <ResultsTab :initiative="initiative" />
       </b-tab-item>
-      <b-tab-item label="RECURSOS">
+      <b-tab-item :label="$t('initiatives.TabLabels.resources')">
         <ResourcesTab :initiative="initiative" />
       </b-tab-item>
-      <b-tab-item label="ORGANIZACION">
+      <b-tab-item :label="$t('initiatives.TabLabels.organization')">
         <OrganizationTab :initiative="initiative" />
       </b-tab-item>
     </b-tabs>

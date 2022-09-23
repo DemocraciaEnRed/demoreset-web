@@ -19,7 +19,7 @@ const initiatives = {
     subjectOfChange: 'Subject of change',
     keyActivities: 'Key activities',
     individualsCount: 'Number of individual participants',
-    groupsCount: 'Number of participating organizations, families, groups or communities',
+    groupsCount: 'Number of participating organizations, families, groups or communities'
 
   },
   methodologyTab: {
@@ -30,7 +30,30 @@ const initiatives = {
     learningInfo: 'Information or learning resources',
     decisionMethods: 'Decision methods',
     votingType: 'Type of voting',
-    recruitmentMethod: 'recruitment method for participating populations',
+    recruitmentMethod: 'recruitment method for participating populations'
+  },
+  card: {
+    startDate: 'Start date',
+    endDate: 'End date',
+    status: 'Status'
+  },
+  filtersList: {
+    LATAM: 'Latin America',
+    EE: 'Eastern Europe',
+    SSA: 'Sub-saharan Africa',
+    SEA: 'Southeast Asia',
+    IN: 'India',
+    barrierTypes: 'Barrier typology',
+    category: 'Category',
+    topic: 'Topic',
+    topicLabel: 'Lack of guarantee of...'
+  },
+  TabLabels: {
+    description: 'DESCRIPTION',
+    methodology: 'METHODOLOGY',
+    results: 'RESULTS',
+    resources: 'RESOURCES',
+    organization: 'ORGANIZATION'
   }
 }
 

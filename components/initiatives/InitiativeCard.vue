@@ -22,11 +22,11 @@
         </div>
         <div class="column is-3 initiative-date has-text-right-desktop has-text-centered-touch">
           <div>
-            <p>Año de inicio:</p>
+            <p>{{ $t('initiatives.card.startDate') }}:</p>
             <span>{{ initiative.start_date }}</span>
           </div>
           <div>
-            <p>Estado</p>
+            <p>{{ $t('initiatives.card.status') }}</p>
             <div>{{ initiative.initiative_status == 'ongoing' ? $t('initiatives.ongoing') : $t('initiatives.finished') }}</div>
           </div>
         </div>

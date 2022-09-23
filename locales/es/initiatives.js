@@ -19,7 +19,7 @@ const initiatives = {
     subjectOfChange: 'Sujeto del cambio',
     keyActivities: 'Actividades clave',
     individualsCount: 'Cantidad de personas participantes',
-    groupsCount: 'Cantidad de organizaciones, familias, grupos o comunidades participantes',
+    groupsCount: 'Cantidad de organizaciones, familias, grupos o comunidades participantes'
   },
   methodologyTab: {
     usedMethods: 'Metodología/s utilizadas en la iniciativa',
@@ -29,7 +29,30 @@ const initiatives = {
     learningInfo: 'Recursos de información',
     decisionMethods: 'Métodos de decisión',
     votingType: 'Tipo de votación',
-    recruitmentMethod: 'Método de reclutamiento para las poblaciones participantes',
+    recruitmentMethod: 'Método de reclutamiento para las poblaciones participantes'
+  },
+  card: {
+    startDate: 'Fecha de inicio',
+    endDate: 'Fecha de finalización',
+    status: 'Estado'
+  },
+  filtersList: {
+    LATAM: 'América Latina',
+    EE: 'Europa del Este',
+    SSA: 'Africa Sub-sahariana',
+    SEA: 'Sudeste asiático',
+    IN: 'India',
+    barrierTypes: 'Tipología de barrera',
+    category: 'Categoría',
+    topic: 'Tema',
+    topicLabel: 'Falta de garantía de...'
+  },
+  TabLabels: {
+    description: 'DESCRIPCIÓN',
+    methodology: 'METODOLOGÍA',
+    results: 'RESULTADOS',
+    resources: 'RECURSOS',
+    organization: 'ORGANIZACIÓN'
   }
 }
 

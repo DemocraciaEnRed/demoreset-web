@@ -15,31 +15,25 @@
           <b-dropdown-item aria-role="listitem" class="dropdown">
             <label class="checkbox">
               <input type="checkbox">
-              America Latina
+              {{ $t('initiatives.filtersList.SSA') }}
             </label>
           </b-dropdown-item>
           <b-dropdown-item aria-role="listitem" class="dropdown">
             <label class="checkbox">
               <input type="checkbox">
-              Africa Sub-sahariana
+              {{ $t('initiatives.filtersList.EE') }}
             </label>
           </b-dropdown-item>
           <b-dropdown-item aria-role="listitem" class="dropdown">
             <label class="checkbox">
               <input type="checkbox">
-              Europa del Este
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              India
+              {{ $t('initiatives.filtersList.IN') }}
             </label>
           </b-dropdown-item>
           <b-dropdown-item aria-role="listitem">
             <label class="checkbox">
               <input type="checkbox">
-              Sudeste asiático
+              {{ $t('initiatives.filtersList.SEA') }}
             </label>
           </b-dropdown-item>
         </b-dropdown>
@@ -48,9 +42,9 @@
       <div class="column">
         <b-dropdown aria-role="list" disabled>
           <template #trigger="{ active }">
-            <p>Tipología de barrera</p>
+            <p>{{ $t('initiatives.filtersList.barrierTypes') }}</p>
             <b-button
-              label="Tipo de barrera"
+              :label="$t('initiatives.filtersList.barrierTypes')"
               :icon-right="active ? 'menu-up' : 'menu-down'"
               class="button-hub my-5"
             />
@@ -92,9 +86,9 @@
       <div class="column">
         <b-dropdown aria-role="list" disabled>
           <template #trigger="{ active }">
-            <p>Categoría</p>
+            <p>{{ $t('initiatives.filtersList.category') }}</p>
             <b-button
-              label="Categoría"
+              :label="$t('initiatives.filtersList.category')"
               :icon-right="active ? 'menu-up' : 'menu-down'"
               class="button-hub my-5"
             />
@@ -136,9 +130,9 @@
       <div class="column">
         <b-dropdown aria-role="list" disabled>
           <template #trigger="{ active }">
-            <p>Tema</p>
+            <p>{{ $t('initiatives.filtersList.topic') }}</p>
             <b-button
-              label="Falta de garantía de..."
+              :label="$t('initiatives.filtersList.topicLabel')"
               :icon-right="active ? 'menu-up' : 'menu-down'"
               class="button-hub my-5"
             />

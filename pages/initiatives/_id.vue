@@ -9,7 +9,7 @@
           <div class="column pl-5">
             <div class="block">
               <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
-                HUB:{{ initiative.country.hub.name }}
+                HUB: {{ initiative.country.hub.name }}
               </p>
               <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
                 {{ $t('initiatives.region') }}: {{ initiative.location ? initiative.location : $t('initiatives.noData') }}
