@@ -37,10 +37,13 @@
         {{ $t('initiatives.methodologyTab.participationLadder') }}
       </div>
       <div class="content">
-        <ul>
-          <li v-for="(ladder, i) in (initiative?.citizen_participation_ladder)" :key="i">
-            {{ ladder.citizen_participation_ladder_id.description ? ladder.citizen_participation_ladder_id.description : $t('initiatives.noData') }}
+        <ul v-if="initiative.citizen_participation_ladder.length > 0">
+          <li v-for="(ladder, i) in (initiative.citizen_participation_ladder)" :key="i">
+            {{ ladder.citizen_participation_ladder_id.description }}
           </li>
+        </ul>
+        <ul v-else>
+          <li>{{ $t('initiatives.noData') }}</li>
         </ul>
       </div>
     </div>
