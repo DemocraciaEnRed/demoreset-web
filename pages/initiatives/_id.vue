@@ -40,7 +40,7 @@
               </p>
             </div>
           </div>
-          <div class="column p-1">
+          <div class="column is-narrow">
             <div class="block maxContent p-2 has-background-white-ter">
               <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
                 {{ $t('initiatives.status') }}: {{ initiative.initiative_status }}
