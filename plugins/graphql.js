@@ -248,6 +248,51 @@ export default ({ app, i18n, params }, inject) => {
         }
       }
       `
+    },
+    getQueryAllMasterclasses (langCode) {
+      return `
+      {
+        masterclasses (filter: {_or: [{status: {_eq: "published"}},{status: {_eq: "upcoming"}}]}, sort: ["date_published","sort"]) {
+          id
+          date_published
+          author
+          author_url
+          author_avatar{
+            id
+          }
+          status
+          sort
+          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}){
+            title
+            description
+            objective
+          }
+        }
+      }
+      `
+    },
+    getQueryForMasterclassById (id, langCode) {
+      return `
+      {
+        masterclasses_by_id (id: "${id}"){
+          id
+          date_published
+          author
+          author_url
+          author_avatar{
+            id
+          }
+          youtube_url
+          status
+          sort
+          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}){
+            title
+            description
+            objective
+          }
+        }
+      }
+      `
     }
   })
 }
