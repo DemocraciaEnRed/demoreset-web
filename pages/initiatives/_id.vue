@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section v-if="initiative" class="section">
     <div class="container">
       <div class="box py-6">
         <h2 class="title is-poppins is-size-2-tablet is-size-3-touch">
@@ -12,7 +12,7 @@
                 HUB:{{ initiative.country.hub.name }}
               </p>
               <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
-                {{ $t('initiatives.region') }}: {{ initiative.location }}
+                {{ $t('initiatives.region') }}: {{ initiative.location ? initiative.location : $t('initiatives.noData') }}
               </p>
             </div>
             <div class="block">
@@ -20,8 +20,9 @@
                 {{ $t('initiatives.barriers') }}:
               </p>
               <b-field>
-                <b-tag v-for="(barrier,i) in initiative.call_for_barriers.barriers_id" :key="i" class="has-background-grey-lighter is-mono" rounded>
-                  {{ barrier.name }}
+                <b-tag v-for="(barrier,i) in initiative.call_for_barriers.barriers_id" :key="i" class="is-mono" rounded>
+                  {{ barrier.length>0 ? barrier.name : $t('initiatives.noData') }}
+                  <!-- verificar si acá va call_for_barriers -->
                 </b-tag>
               </b-field>
             </div>
@@ -29,24 +30,24 @@
               <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
                 {{ $t('initiatives.topics') }}:
               </p>
-              <b-field>
-                <b-tag v-for="(topic,i) in initiative.topics" :key="i" class="has-background-grey-lighter is-mono" rounded>
+              <b-field v-if="initiative.topics.length > 0">
+                <b-tag v-for="(topic,i) in initiative.topics" :key="i" class="is-mono" rounded>
                   {{ topic.initiative_topics_id.name }}
                 </b-tag>
               </b-field>
+              <p v-else>
+                {{ $t('initiatives.noData') }}
+              </p>
             </div>
           </div>
           <div class="column p-1">
-            <div class="block maxContent p-2 has-background-grey-lighter">
+            <div class="block maxContent p-2 has-background-white-ter">
               <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
                 {{ $t('initiatives.status') }}: {{ initiative.initiative_status }}
               </p>
               <p><b>{{ $t('initiatives.startDate') }}: </b> {{ initiative.start_date }} </p>
-              <p v-if="initiative.end_date">
-                <b>{{ $t('initiatives.endDate') }}: </b> {{ initiative.end_date }}
-              </p>
-              <p v-else>
-                <b>{{ $t('initiatives.endDate') }}: {{ $t('initiatives.ongoing') }}</b>
+              <p>
+                <b>{{ $t('initiatives.endDate') }}: </b> {{ initiative.end_date ? initiative.end_date : $t('initiatives.ongoing') }}
               </p>
             </div>
           </div>

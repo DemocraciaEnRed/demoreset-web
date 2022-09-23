@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-if="initiative" class="container">
     <div class="block">
       {{ initiative.description }}
     </div>
@@ -25,8 +25,8 @@
         {{ $t('initiatives.descriptionTab.purpose') }}
       </div>
       <ul>
-        <li v-for="(purpose,i) in initiative.purpose.purposes_id" :key="i">
-          {{ purpose.name }}
+        <li v-for="(purpose,i) in initiative.purpose" :key="i">
+          {{ purpose.purposes_id.name ? purpose.purposes_id.name : $t('initiatives.noData') }}
         </li>
       </ul>
     </div>
@@ -36,7 +36,7 @@
       </div>
       <ul>
         <li v-for="(approach,i) in initiative.approaches" :key="i">
-          {{ approach.approaches_id.description }}
+          {{ approach.approaches_id.description ? approach.approaches_id.description : $t('initiatives.noData') }}
         </li>
       </ul>
     </div>
@@ -45,7 +45,7 @@
         {{ $t('initiatives.descriptionTab.challenge') }}
       </div>
       <div class="block">
-        {{ initiative.challenge }}
+        {{ initiative.challenge ? initiative.challenge : $t('initiatives.noData') }}
       </div>
     </div>
     <div class="block">
@@ -53,7 +53,7 @@
         {{ $t('initiatives.descriptionTab.objective') }}
       </div>
       <div class="block">
-        {{ initiative.objective }}
+        {{ initiative.objective ? initiative.objective : $t('initiatives.noData') }}
       </div>
     </div>
     <div class="block">
@@ -61,7 +61,7 @@
         {{ $t('initiatives.descriptionTab.subjectOfChange') }}
       </div>
       <div class="block">
-        {{ initiative.subject_of_change }}
+        {{ initiative.subject_of_change ? initiative.subject_of_change : $t('initiatives.noData') }}
       </div>
     </div>
     <div class="block">
@@ -69,7 +69,7 @@
         {{ $t('initiatives.descriptionTab.keyActivities') }}
       </div>
       <div class="block">
-        {{ initiative.key_activities }}
+        {{ initiative.key_activities ? initiative.key_activities : $t('initiatives.noData') }}
       </div>
     </div>
     <div class="content">
@@ -78,7 +78,7 @@
       </div>
       <ul>
         <li class="is-size-4 has-text-weight-light is-roboto-condensed">
-          {{ initiative.participation_individuals_count ? initiative.participation_individuals_count: $t('initiatives.descriptionTab.noData') }}
+          {{ initiative.participation_individuals_count ? initiative.participation_individuals_count: $t('initiatives.noData') }}
         </li>
       </ul>
     </div>
@@ -88,7 +88,7 @@
       </div>
       <ul>
         <li class="is-size-4 has-text-weight-light is-roboto-condensed">
-          {{ initiative.participation_groups_count ? initiative.participation_groups_count : $t('initiatives.descriptionTab.noData') }}
+          {{ initiative.participation_groups_count ? initiative.participation_groups_count : $t('initiatives.noData') }}
         </li>
       </ul>
     </div>

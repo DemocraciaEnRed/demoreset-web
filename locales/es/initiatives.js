@@ -9,6 +9,7 @@ const initiatives = {
   status: 'Estado de la iniciativa',
   startDate: 'Fecha de inicio',
   endDate: 'Fecha de cierre',
+  noData: 'No hay información disponible.',
   descriptionTab: {
     projNetworks: 'Redes del proyecto',
     purpose: 'Propósito',
@@ -19,7 +20,6 @@ const initiatives = {
     keyActivities: 'Actividades clave',
     individualsCount: 'Cantidad de personas participantes',
     groupsCount: 'Cantidad de organizaciones, familias, grupos o comunidades participantes',
-    noData: 'No hay información disponible.'
   },
   methodologyTab: {
     usedMethods: 'Metodología/s utilizadas en la iniciativa',
@@ -30,7 +30,6 @@ const initiatives = {
     decisionMethods: 'Métodos de decisión',
     votingType: 'Tipo de votación',
     recruitmentMethod: 'Método de reclutamiento para las poblaciones participantes',
-    noData: 'No hay información disponible.'
   }
 }
 
