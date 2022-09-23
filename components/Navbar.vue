@@ -33,7 +33,7 @@
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/initiatives')}">
           {{ $t('navbar.initiatives') }}
         </b-navbar-item>
-        <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/masterclass')}">
+        <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/masterclasses')}">
           {{ $t('navbar.masterclass') }}
         </b-navbar-item>
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/about')}">
