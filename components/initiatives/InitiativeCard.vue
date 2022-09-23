@@ -2,16 +2,17 @@
   <div class="card organization-card my-2">
     <div class="card-content">
       <div class="columns is-vcentered">
-        <div v-if="initiative.organization.logo" class="column is-narrow">
+        <div v-if="initiative.organization?.logo" class="column is-narrow">
           <nuxt-link :to="{ path: localePath('/initiatives/' + initiative.id) }">
-            <img :src="`${apiUrl}/assets/${initiative.organization.logo.id}?width=120&height=120&fit=cover`" alt="Logo" class="organization-logo">
+            <img :src="`${apiUrl}/assets/${initiative.organization.logo?.id}?width=120&height=120&fit=cover`" alt="Logo" class="organization-logo">
           </nuxt-link>
         </div>
         <div class="column">
           <div class="has-text-left ml-4">
-            <p class="is-mono organization-name m">
-              {{ initiative.organization.name }} <a v-if="initiative.organization.email" :href="`mailto:${initiative.organization.email}`"><i class="fas fa-envelope has-text-primary fa-lg" /></a>
+            <p class="is-mono organization-name">
+              {{ initiative.organization?.name }} <a v-if="initiative.organization?.email" :href="`mailto:${initiative.organization?.email}`"><i class="fas fa-envelope has-text-primary fa-lg" /></a>
             </p>
+            <!-- ANALIZAR CONSISTENCIA DE DATOS ORGANIZACION - CONDICIONAL NECESARIO? -->
             <nuxt-link :to="{ path: localePath('/initiatives/' + initiative.id) }" class="has-text-black">
               <h4 class="is-mono is-uppercase initiative-title">
                 {{ initiative.title }}

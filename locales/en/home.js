@@ -9,6 +9,7 @@ const home = {
   bannerTitle: 'Deliberative Democracy in the Global South',
   bannerDescription: 'About description',
   bannerButton: 'Learn more',
+  bannerPhrase: 'Consolidating the current wave of <b>deliberative democracy</b>',
   hubsTitle: 'Choose a Hub and know the barriers it faces',
   hubsButton: 'Join the network',
   aboutDemoReset: 'About Demoreset',

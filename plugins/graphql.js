@@ -140,6 +140,13 @@ export default ({ app, i18n, params }, inject) => {
               }
             }
           }
+          purpose {
+            purposes_id {
+              translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+                name
+              }
+            }
+          }
           general_methodologies {
             general_methodologies_id {
               id
