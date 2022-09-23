@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .button {
     border: 2px solid #000;
     font-weight: 500;
