@@ -12,24 +12,24 @@
           <span class="is-mono"><i class="fa-solid fa-location-dot" /> {{ initiative.country.name }}</span>
         </div>
         <div class="mt-5">
-          <p>Información de contacto</p>
+          <p>{{ $t('initiatives.organizationTab.contactInfo') }}</p>
           <p v-if="initiative.organization.web" class="is-mono">
             <span>WEB:</span> <a :href="`${initiative.organization.web}`" target="_blank" class="is-uppercase">{{ initiative.organization.web }}</a>
           </p>
           <p v-else class="is-mono is-uppercase">
-            WEB: No hay información disponible
+            WEB: {{ $t('initiatives.noData') }}
           </p>
           <p v-if="initiative.organization.email" class="is-mono">
             <span>EMAIL:</span> <a :href="`mailto:${initiative.organization.email}` " class="is-uppercase">{{ initiative.organization.email }}</a>
           </p>
           <p v-else class="is-mono is-uppercase">
-            EMAIL: No hay información disponible
+            EMAIL: {{ $t('initiatives.noData') }}
           </p>
         </div>
       </div>
       <div class="column">
         <button class="button is-rounded is-uppercase is-mono">
-          Perfil completo
+          {{ $t('initiatives.organizationTab.profileButton') }}
         </button>
       </div>
     </div>
