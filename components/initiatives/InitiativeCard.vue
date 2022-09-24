@@ -9,24 +9,28 @@
         </div>
         <div class="column">
           <div class="has-text-left ml-4">
-            <p class="is-mono organization-name">
+            <p class="is-mono">
               {{ initiative.organization?.name }} <a v-if="initiative.organization?.email" :href="`mailto:${initiative.organization?.email}`"><i class="fas fa-envelope has-text-primary fa-lg" /></a>
             </p>
             <!-- ANALIZAR CONSISTENCIA DE DATOS ORGANIZACION - CONDICIONAL NECESARIO? -->
             <nuxt-link :to="{ path: localePath('/initiatives/' + initiative.id) }" class="has-text-black">
-              <h4 class="is-mono is-uppercase initiative-title">
+              <h4 class="is-mono is-uppercase has-text-weight-semibold is-size-5">
                 {{ initiative.title }}
               </h4>
             </nuxt-link>
           </div>
         </div>
-        <div class="column is-3 initiative-date has-text-right-desktop has-text-centered-touch">
-          <div>
-            <p>{{ $t('initiatives.card.startDate') }}:</p>
+        <div class="column is-3 has-text-right-desktop has-text-centered-touch">
+          <div class="mb-5">
+            <p class="has-text-weight-semibold mb-2">
+              {{ $t('initiatives.card.startDate') }}:
+            </p>
             <span>{{ initiative.start_date }}</span>
           </div>
           <div>
-            <p>{{ $t('initiatives.card.status') }}</p>
+            <p class="has-text-weight-semibold mb-2">
+              {{ $t('initiatives.card.status') }}
+            </p>
             <div>{{ initiative.initiative_status == 'ongoing' ? $t('initiatives.ongoing') : $t('initiatives.finished') }}</div>
           </div>
         </div>
@@ -57,36 +61,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.initiative-title {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 27px;
-}
-
-.organization-name {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 29px;
-}
-
 .organization-logo{
   width: 120px;
   height: auto;
-  // border: 1px solid #cacaca;
-  // border-radius: 50%;
-}
-
-.initiative-date {
-  p {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 29px;
-    margin-bottom: 0;
-  }
-
-  span {
-    font-size: 16px;
-    line-height: 29px;
-  }
 }
 </style>
