@@ -19,12 +19,15 @@
               <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
                 {{ $t('initiatives.barriers') }}:
               </p>
-              <b-field>
-                <b-tag v-for="(barrier,i) in initiative.call_for_barriers.barriers_id" :key="i" class="is-mono" rounded>
-                  {{ barrier.length>0 ? barrier.name : $t('initiatives.noData') }}
+              <b-field v-if="initiative.call_for_barriers.length > 0">
+                <b-tag v-for="(barrier,i) in initiative.call_for_barriers?.barriers_id" :key="i" class="is-mono" rounded>
+                  {{ barrier.name }}
                   <!-- verificar si acá va call_for_barriers -->
                 </b-tag>
               </b-field>
+              <p v-else>
+                {{ $t('initiatives.noData') }}
+              </p>
             </div>
             <div class="block">
               <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">

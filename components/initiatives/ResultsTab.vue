@@ -7,7 +7,7 @@
       <div class="content is-uppercase is-condensed">
         <ul>
           <li>
-            {{ initiative.goal_accomplishment.name ? initiative.goal_accomplishment.name : $t('initiatives.noData') }}
+            {{ initiative.goal_accomplishment?.name ? initiative.goal_accomplishment.name : $t('initiatives.noData') }}
           </li>
         </ul>
       </div>

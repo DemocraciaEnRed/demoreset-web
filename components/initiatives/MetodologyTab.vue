@@ -13,9 +13,14 @@
         {{ $t('initiatives.methodologyTab.methodsType') }}
       </div>
       <div class="content">
-        <ul>
+        <ul v-if="initiative.general_methodologies.length != 0">
           <li v-for="(methodType,i) in initiative.general_methodologies" :key="i">
-            {{ methodType.general_methodologies_id.name ? methodType.general_methodologies_id.name : $t('initiatives.noData') }}
+            {{ methodType.general_methodologies_id.name }}
+          </li>
+        </ul>
+        <ul v-else>
+          <li>
+            {{ $t('initiatives.noData') }}
           </li>
         </ul>
       </div>
@@ -25,9 +30,14 @@
         {{ $t('initiatives.methodologyTab.methodsTechniques') }}
       </div>
       <div class="content">
-        <ul>
-          <li v-for="(techniques, i) in (initiative?.specific_techniques)" :key="i">
-            {{ techniques.specific_techniques_id.description ? techniques.specific_techniques_id.description : $t('initiatives.noData') }}
+        <ul v-if="initiative.specific_techniques.length != 0">
+          <li v-for="(techniques, i) in (initiative.specific_techniques)" :key="i">
+            {{ techniques.specific_techniques_id.description }}
+          </li>
+        </ul>
+        <ul v-else>
+          <li>
+            {{ $t('initiatives.noData') }}
           </li>
         </ul>
       </div>
@@ -37,10 +47,13 @@
         {{ $t('initiatives.methodologyTab.participationLadder') }}
       </div>
       <div class="content">
-        <ul>
-          <li v-for="(ladder, i) in (initiative?.citizen_participation_ladder)" :key="i">
-            {{ ladder.citizen_participation_ladder_id.description ? ladder.citizen_participation_ladder_id.description : $t('initiatives.noData') }}
+        <ul v-if="initiative.citizen_participation_ladder.length > 0">
+          <li v-for="(ladder, i) in (initiative.citizen_participation_ladder)" :key="i">
+            {{ ladder.citizen_participation_ladder_id.description }}
           </li>
+        </ul>
+        <ul v-else>
+          <li>{{ $t('initiatives.noData') }}</li>
         </ul>
       </div>
     </div>
@@ -49,9 +62,14 @@
         {{ $t('initiatives.methodologyTab.learningInfo') }}
       </div>
       <div class="content">
-        <ul>
-          <li v-for="(learning, i) in (initiative?.information_resources)" :key="i">
-            {{ learning.information_resources_id.name ? learning.information_resources_id.name : $t('initiatives.noData') }}
+        <ul v-if="initiative.information_resources.length > 0">
+          <li v-for="(learning, i) in (initiative.information_resources)" :key="i">
+            {{ learning.information_resources_id.name }}
+          </li>
+        </ul>
+        <ul v-else>
+          <li>
+            {{ $t('initiatives.noData') }}
           </li>
         </ul>
       </div>
@@ -61,9 +79,14 @@
         {{ $t('initiatives.methodologyTab.decisionMethods') }}
       </div>
       <div class="content">
-        <ul>
+        <ul v-if="initiative.decision_methods.length > 0">
           <li v-for="(methods, i) in (initiative.decision_methods)" :key="i">
-            {{ methods.decision_methods_id.name ? methods.decision_methods_id.name : $t('initiatives.noData') }}
+            {{ methods.decision_methods_id.name }}
+          </li>
+        </ul>
+        <ul v-else>
+          <li>
+            {{ $t('initiatives.noData') }}
           </li>
         </ul>
       </div>
@@ -85,9 +108,16 @@
         {{ $t('initiatives.methodologyTab.recruitmentMethod') }}
       </div>
       <div class="content">
-        <span v-for="(recruitment ,i) in initiative?.recruitment_methods" :key="i" class="tag is-gray is-rounded is-medium">
-          {{ recruitment.recruitment_methods_id.name ? recruitment.recruitment_methods_id.name : $t('initiatives.noData') }}
-        </span>
+        <div v-if="initiative.recruitment_methods.length > 0" class="block">
+          <span v-for="(recruitment ,i) in initiative.recruitment_methods" :key="i" class="tag is-gray is-rounded is-medium">
+            {{ recruitment.recruitment_methods_id.name }}
+          </span>
+        </div>
+        <div v-else class="block">
+          <span class="tag is-gray is-rounded is-medium">
+            {{ $t('initiatives.noData') }}
+          </span>
+        </div>
       </div>
     </div>
   </div>

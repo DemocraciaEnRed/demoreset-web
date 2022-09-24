@@ -20,7 +20,6 @@ const initiatives = {
     keyActivities: 'Key activities',
     individualsCount: 'Number of individual participants',
     groupsCount: 'Number of participating organizations, families, groups or communities'
-
   },
   methodologyTab: {
     usedMethods: 'Methodologies used in the initiative',
