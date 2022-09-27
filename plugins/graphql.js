@@ -311,6 +311,16 @@ export default ({ app, i18n, params }, inject) => {
               translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
                 title
               }
+              country {
+                hub {
+                  translations (filter: {languages_id: {code: {_eq: "${langCode}"}}}){
+                    name
+                  }
+                }
+                translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+                  name
+                }
+              }
               initiative_status
               organization{
                 logo{
