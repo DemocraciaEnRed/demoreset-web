@@ -28,6 +28,28 @@ export default ({ app, i18n, params }, inject) => {
         return
       }
     },
+    getQueryForAllInitiatives (langCode) {
+      return `
+      {
+        initiatives{
+          id
+          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+            title
+          }
+          initiative_status
+          organization{
+            logo{
+              id
+            }
+            name
+            email
+          }
+          start_date
+          end_date
+        }
+      }
+      `
+    },
     getQueryForInitiativeById (id, langCode) {
       return `
       {
@@ -47,8 +69,19 @@ export default ({ app, i18n, params }, inject) => {
           organization {
             id
             name
+            email
             logo {
               id
+            }
+          }
+          country {
+            hub {
+              translations (filter: {languages_id: {code: {_eq: "${langCode}"}}}){
+                name
+              }
+            }
+            translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+              name
             }
           }
           initiative_status
@@ -104,6 +137,13 @@ export default ({ app, i18n, params }, inject) => {
               translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
                 name
                 description
+              }
+            }
+          }
+          purpose {
+            purposes_id {
+              translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+                name
               }
             }
           }

@@ -9,6 +9,7 @@ const home = {
   bannerTitle: 'Democracia deliberativa en el Sur Global',
   bannerDescription: 'Descripción de acerca de',
   bannerButton: 'Conoce más',
+  bannerPhrase: 'Consolidar la actual ola de <b>democracia deliberativa</b>',
   hubsTitle: 'Elige un Hub y conoce las barreras a las que se enfrenta',
   hubsButton: 'Quiero unirme a la red',
   aboutDemoReset: 'Sobre Demoreset',

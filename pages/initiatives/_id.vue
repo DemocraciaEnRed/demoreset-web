@@ -1,14 +1,73 @@
 <template>
-  <section class="section">
+  <section v-if="initiative" class="section">
     <div class="container">
-      This is the initiative page for <b>{{ initiative.title }}</b>
+      <div class="box py-6">
+        <h2 class="title is-poppins is-size-2-tablet is-size-3-touch">
+          {{ initiative.title }}
+        </h2>
+        <div class="columns py-5">
+          <div class="column pl-5">
+            <div class="block">
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                HUB: {{ initiative.country.hub.name }}
+              </p>
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                {{ $t('initiatives.region') }}: {{ initiative.location ? initiative.location : $t('initiatives.noData') }}
+              </p>
+            </div>
+            <div class="block">
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                {{ $t('initiatives.barriers') }}:
+              </p>
+              <b-field v-if="initiative.call_for_barriers.length > 0">
+                <b-tag v-for="(barrier,i) in initiative.call_for_barriers?.barriers_id" :key="i" class="is-mono" rounded>
+                  {{ barrier.name }}
+                  <!-- verificar si acá va call_for_barriers -->
+                </b-tag>
+              </b-field>
+              <p v-else>
+                {{ $t('initiatives.noData') }}
+              </p>
+            </div>
+            <div class="block">
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                {{ $t('initiatives.topics') }}:
+              </p>
+              <b-field v-if="initiative.topics.length > 0">
+                <b-tag v-for="(topic,i) in initiative.topics" :key="i" class="is-mono" rounded>
+                  {{ topic.initiative_topics_id.name }}
+                </b-tag>
+              </b-field>
+              <p v-else>
+                {{ $t('initiatives.noData') }}
+              </p>
+            </div>
+          </div>
+          <div class="column is-narrow">
+            <div class="block maxContent p-2 has-background-white-ter">
+              <p class="is-size-5 is-mono is-uppercase has-text-weight-semibold">
+                {{ $t('initiatives.status') }}: {{ initiative.initiative_status }}
+              </p>
+              <p><b>{{ $t('initiatives.startDate') }}: </b> {{ initiative.start_date }} </p>
+              <p>
+                <b>{{ $t('initiatives.endDate') }}: </b> {{ initiative.end_date ? initiative.end_date : $t('initiatives.ongoing') }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <InitiativeTabs :initiative="initiative" />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
+import InitiativeTabs from '../../components/initiatives/InitiativeTabs.vue'
 export default {
   name: 'InitiativePage',
+  components: {
+    InitiativeTabs
+  },
   async asyncData ({ params, $axios, i18n, $router, $graphql }) {
     const theQuery = {
       query: $graphql.getQueryForInitiativeById(params.id, i18n.localeProperties.iso)
@@ -249,8 +308,15 @@ export default {
   },
   data () {
     return {
-
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+.maxContent{
+  width: max-content;
+  p{
+  width: max-content;
+  }
+}
+</style>
