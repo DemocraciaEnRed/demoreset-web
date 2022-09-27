@@ -288,6 +288,43 @@ export default ({ app, i18n, params }, inject) => {
         }
       }
       `
+    },
+    getQueryForOrganizationById (id, langCode) {
+      return `
+        {
+          organizations_by_id (id: ${id}) {
+            name
+            email,
+            works_with_ethnic_communities
+            ethnic_community_name
+            lgtbiqplus
+            locations
+            logo {
+              id
+            }
+            translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+              description
+            }
+            whatsapp
+            initiatives {
+              id
+              translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+                title
+              }
+              initiative_status
+              organization{
+                logo{
+                  id
+                }
+                name
+                email
+              }
+              start_date
+              end_date
+            }
+          }
+        }
+      `
     }
   })
 }

@@ -69,14 +69,14 @@ export default {
   },
   async asyncData ({ params, $axios, i18n, $router, $graphql }) {
     const theQuery = {
-      query: $graphql.getQueryForInitiativeById(params.id, i18n.localeProperties.iso)
+      query: $graphql.getQueryForOrganizationById(params.id, i18n.localeProperties.iso)
     }
     try {
       const response = await $axios.post('/graphql', theQuery)
-      const theInitiative = response.data.data.initiatives_by_id
-      $graphql.mergeFieldTranslations(theInitiative)
+      const theOrganization = response.data.data.initiatives_by_id
+      $graphql.mergeFieldTranslations(theOrganization)
       return {
-        initiativeorg: theInitiative
+        initiativeorg: theOrganization
       }
     } catch (err) {
       // eslint-disable-next-line no-console
