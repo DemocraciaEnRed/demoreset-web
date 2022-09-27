@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import OrganizationCard from './organizationCard.vue'
+import OrganizationCard from './OrganizationCard.vue'
 export default {
-  name: 'InitiativeTabs',
+  name: 'TabOrganization',
   components: {
     OrganizationCard
   },

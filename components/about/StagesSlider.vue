@@ -61,7 +61,7 @@
 export default {
   name: 'StagesSlider',
   data () {
-    const currentStage = 3
+    const currentStage = 1
     return {
       currentStage,
       carousel: currentStage - 1, // valor dinámico que cambia cuando cambiamos de slide
