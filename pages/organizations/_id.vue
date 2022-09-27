@@ -73,7 +73,7 @@ export default {
     }
     try {
       const response = await $axios.post('/graphql', theQuery)
-      const theOrganization = response.data.data.initiatives_by_id
+      const theOrganization = response.data.data.organizations_by_id
       $graphql.mergeFieldTranslations(theOrganization)
       return {
         initiativeorg: theOrganization
