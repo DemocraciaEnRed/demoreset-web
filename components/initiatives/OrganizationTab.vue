@@ -28,9 +28,11 @@
         </div>
       </div>
       <div class="column">
-        <button class="button is-rounded is-uppercase is-mono">
-          {{ $t('initiatives.organizationTab.profileButton') }}
-        </button>
+        <nuxt-link :to="{path: localePath('/organizations/' + initiative.organization.id)}">
+          <button class="button is-rounded is-uppercase is-mono">
+            {{ $t('initiatives.organizationTab.profileButton') }}
+          </button>
+        </nuxt-link>
       </div>
     </div>
   </section>
