@@ -16,7 +16,8 @@
       </b-tab-item>
       <!-- interests table  -->
       <b-tab-item :label="$t('organizations.tableLabels.interests')">
-        hola
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, nihil beatae. Suscipit iusto sunt voluptatum corrupti iste accusantium debitis quisquam cupiditate, in reprehenderit, illum quod. Nam ad dolorum et consequatur!
+        Atque veritatis sequi soluta earum ipsum corrupti praesentium, tempora aut molestias dolore similique rerum enim sunt facere, magni eveniet delectus repudiandae animi ut id reprehenderit quam doloremque. Minus, nisi eaque.
       </b-tab-item>
     </b-tabs>
   </section>
