@@ -4,54 +4,52 @@
     <div class="box py-6">
       <div class="columns is-7">
         <div class="column is-offset-1 is-one-fifth is-flex is-align-items-center">
-          <img :src="`${apiUrl}/assets/${initiativeorg.organization?.logo?.id}?width=238&height=238&fit=cover`" alt="Logo" class="mx-auto organization-logo">
+          <img :src="`${apiUrl}/assets/${initiativeorg.logo.id}?width=238&height=238&fit=cover`" alt="Logo" class="mx-auto organization-logo">
         </div>
         <div class="column is-offset-1">
           <div class="title">
-            DEMOCRACIA EN RED
-            <p class="has-text-grey-lighter has-text-weight-normal is-size-7 is-inline-block">
+            {{ initiativeorg.name }}
+            <p class="has-text-grey has-text-weight-normal is-size-7 is-inline-block">
               <i class="fa-solid fa-location-dot" />
-              <span class="is-roboto"> Ciudad, País</span>
+              <span class="is-roboto">{{ initiativeorg.locations }}</span>
             </p>
           </div>
-          <div class="block mt-1">
-            HUB: América Latina
+          <div v-for="(initiatives, i) in initiativeorg.initiatives" :key="i" class="block mt-1">
+            HUB: {{ initiatives.country.hub.name }}
           </div>
           <div class="block">
             <div class="block">
-              Temas de trabajo
+              {{ $t('organizations.workTopics') }}
             </div>
             <b-field>
-              <b-tag class="is-mono" rounded>
+              <b-tag class="is-mono is-medium" rounded>
                 topic 1
               </b-tag>
             </b-field>
           </div>
           <div class="block">
             <div class="block">
-              Barreras que enfrenta
+              {{ $t('organizations.barriersFaced') }}
             </div>
             <b-field>
-              <b-tag class="is-mono" rounded>
+              <b-tag class="is-mono is-medium" rounded>
                 barrera 1
               </b-tag>
             </b-field>
           </div>
         </div>
         <div class="column is-3">
-          <button class="button is-rounded is-medium is-uppercase is-mono">
+          <!-- <button class="button is-rounded is-medium is-uppercase is-mono">
             COPIAR CORREO
-          </button>
-          <div class="block has-text-grey-lighter mt-6">
-            Web: <NuxtLink to="/">
-              Organization webPage
-            </NuxtLink>
+          </button> -->
+          <div class="block has-text-grey mt-5">
+            {{ $t('organizations.telephone') }}: <span has-text-black>{{ initiativeorg.whatsapp ? initiativeorg.whatsapp : $t('organizations.noData') }}</span>
           </div>
-          <div class="block has-text-grey-lighter">
-            Teléfono: <span has-text-black> +54 9 1100000000</span>
+          <div v-if="initiativeorg.email" class="block has-text-grey">
+            Email: <a v-if="initiativeorg.email" :href="`mailto:${initiativeorg.email}`">{{ initiativeorg.email }}</a>
           </div>
-          <div class="block has-text-grey-lighter">
-            Correo: <a v-if="initiativeorg.organization?.email" :href="`mailto:${initiativeorg.organization?.email}`">{{ initiativeorg.organization?.email }}</a>
+          <div v-else class="block has-text-grey">
+            Email: {{ $t('organizations.noData') }}
           </div>
         </div>
       </div>
