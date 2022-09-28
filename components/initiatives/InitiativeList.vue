@@ -1,177 +1,63 @@
 <template>
-  <section>
-    <div class="columns">
-      <div class="column">
-        <b-dropdown aria-role="list">
-          <template #trigger="{ active }">
-            <p>Hub</p>
-            <b-button
-              label="Hubs"
-              :icon-right="active ? 'menu-up' : 'menu-down'"
-              class="button-hub my-5"
-            />
-          </template>
+  <section class="my-6">
+    <div v-if="$fetchState.pending">
+      <b-skeleton height="150px" class="mb-5" />
 
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              {{ $t('initiatives.filtersList.SSA') }}
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              {{ $t('initiatives.filtersList.EE') }}
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              {{ $t('initiatives.filtersList.IN') }}
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">
-            <label class="checkbox">
-              <input type="checkbox">
-              {{ $t('initiatives.filtersList.SEA') }}
-            </label>
-          </b-dropdown-item>
-        </b-dropdown>
+      <b-skeleton height="150px" class="mb-5" />
+
+      <b-skeleton height="150px" />
+    </div>
+    <div v-else-if="$fetchState.error">
+      <b-notification
+        type="is-danger is-light"
+        :closable="false"
+        role="alert"
+      >
+        {{ $fetchState.error.message }}
+      </b-notification>
+    </div>
+    <div v-else>
+      <div class="columns">
+        <div class="column">
+          <p class="has-text-left-desktop has-text-centered-touch">Total de <b>{{ totalItems }} iniciativas</b></p>
+        </div>
+        <div class="column">
+          <p class="has-text-right-desktop has-text-centered-touch">
+            Página {{ page }} de {{ totalPages }}
+          </p>
+        </div>
       </div>
-
-      <div class="column">
-        <b-dropdown aria-role="list" disabled>
-          <template #trigger="{ active }">
-            <p>{{ $t('initiatives.filtersList.barrierTypes') }}</p>
-            <b-button
-              :label="$t('initiatives.filtersList.barrierTypes')"
-              :icon-right="active ? 'menu-up' : 'menu-down'"
-              class="button-hub my-5"
-            />
-          </template>
-
-          <!-- <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              America Latina
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              Africa Sub-sahariana
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              Europa del Este
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              India
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">
-            <label class="checkbox">
-              <input type="checkbox">
-              Sudeste asiático
-            </label>
-          </b-dropdown-item> -->
-        </b-dropdown>
+      <InitiativeCard v-for="initiative in initiatives" :key="`initiative-${initiative.id}`" :initiative="initiative" />
+      <section v-if="initiatives.length == 0" class="section py-6">
+        <p class="has-text-centered is-mono is-size-5">
+          No se encontrarón iniciativas con los filtros seleccionados
+        </p>
+      </section>
+    </div>
+    <div v-if="!$fetchState.pending" class="box is-flex is-flex-direction-row is-justify-content-space-between is-align-items-center ">
+      <div>
+        <button class="button is-black is-uppercase is-mono" @click="previousPage">
+          <i class="fas fa-arrow-left" />&nbsp;&nbsp;Previous Page
+        </button>
       </div>
-
-      <div class="column">
-        <b-dropdown aria-role="list" disabled>
-          <template #trigger="{ active }">
-            <p>{{ $t('initiatives.filtersList.category') }}</p>
-            <b-button
-              :label="$t('initiatives.filtersList.category')"
-              :icon-right="active ? 'menu-up' : 'menu-down'"
-              class="button-hub my-5"
-            />
-          </template>
-
-          <!-- <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              America Latina
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              Africa Sub-sahariana
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              Europa del Este
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              India
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">
-            <label class="checkbox">
-              <input type="checkbox">
-              Sudeste asiático
-            </label>
-          </b-dropdown-item> -->
-        </b-dropdown>
+      <div class="is-hidden-touch">
+        <button v-for="p in totalPages" :key="`page-${p}`" class="button is-uppercase is-small is-mono" :class="p === page ? 'is-link' : 'is-white'" @click="changePage(p)">
+          {{ p }}
+        </button>
       </div>
-
-      <div class="column">
-        <b-dropdown aria-role="list" disabled>
-          <template #trigger="{ active }">
-            <p>{{ $t('initiatives.filtersList.topic') }}</p>
-            <b-button
-              :label="$t('initiatives.filtersList.topicLabel')"
-              :icon-right="active ? 'menu-up' : 'menu-down'"
-              class="button-hub my-5"
-            />
-          </template>
-
-          <!-- <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              America Latina
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              Africa Sub-sahariana
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              Europa del Este
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" class="dropdown">
-            <label class="checkbox">
-              <input type="checkbox">
-              India
-            </label>
-          </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">
-            <label class="checkbox">
-              <input type="checkbox">
-              Sudeste asiático
-            </label>
-          </b-dropdown-item> -->
-        </b-dropdown>
+      <div>
+        <button class="button is-black is-uppercase is-mono" @click="nextPage">
+          Next Page&nbsp;&nbsp;<i class="fas fa-arrow-right" />
+        </button>
       </div>
     </div>
-    <InitiativeCard v-for="initiative in initiatives" :key="`initiative-${initiative.id}`" :initiative="initiative" />
+    <div v-if="!$fetchState.pending" class=" is-hidden-desktop box is-flex is-flex-direction-row is-justify-content-center is-align-items-center ">
+      <div>
+        <button v-for="p in totalPages" :key="`page-${p}`" class="button is-uppercase is-small is-mono" :class="p === page ? 'is-link' : 'is-white'" @click="changePage(p)">
+          {{ p }}
+        </button>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -184,23 +70,72 @@ export default {
     InitiativeCard
   },
   props: {
-    initiatives: {
-      type: Array,
-      default: () => []
+    query: {
+      type: Object,
+      default: () => ({
+        hub: null,
+        barrierCategory: null,
+        barrierType: null,
+        barrier: null
+      })
+    }
+  },
+  data () {
+    return {
+      page: 1,
+      totalItems: 0,
+      totalPages: 1,
+      perPage: 10,
+      initiatives: []
+    }
+  },
+  async fetch () {
+    const theQuery = {
+      query: this.$graphql.getQueryForAllInitiativesList(this.page, this.query, this.$i18n.localeProperties.iso)
+    }
+    const response = await this.$axios.post('/graphql', theQuery)
+    const theInitiatives = response.data.data.initiatives
+    this.$graphql.mergeFieldTranslations(theInitiatives)
+    this.initiatives = theInitiatives
+    this.totalItems = response.data.data.initiatives_aggregated[0].count.id
+    this.totalPages = Math.ceil(this.totalItems / this.perPage)
+  },
+  fetchOnServer: false,
+  fetchKey: 'initiative-list',
+  watch: {
+    query: {
+      handler () {
+        this.$fetch()
+      },
+      deep: true
+    }
+  },
+  // props: {
+  //   initiatives: {
+  //     type: Array,
+  //     default: () => []
+  //   }
+  // }
+  methods: {
+    nextPage () {
+      if (this.page < this.totalPages) {
+        this.page++
+        this.$fetch()
+      }
+    },
+    changePage (page) {
+      this.page = page
+      this.$fetch()
+    },
+    previousPage () {
+      if (this.page > 1) {
+        this.page--
+        this.$fetch()
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.dropdown {
-  text-align: left;
-  margin: auto;
-}
-
-.button-hub {
-  width: 300px;
-  display: flex;
-  justify-content: space-between;
-}
 </style>

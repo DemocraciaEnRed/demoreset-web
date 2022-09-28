@@ -44,18 +44,21 @@ const initiatives = {
     endDate: 'End date',
     status: 'Status'
   },
-  filtersList: {
-    LATAM: 'Latin America',
-    EE: 'Eastern Europe',
-    SSA: 'Sub-saharan Africa',
-    SEA: 'Southeast Asia',
-    IN: 'India',
-    barrierTypes: 'Barrier typology',
-    category: 'Category',
-    topic: 'Topic',
-    topicLabel: 'Lack of guarantee of...'
+  filters: {
+    barrierTypes: 'Barriers typology',
+    barrierCategories: 'Barriers category',
+    hubs: 'Hubs',
+    barriers: 'Barriers',
+    anyHub: 'Any hub',
+    anyBarrierCategory: 'Any category',
+    anyBarrierType: 'Any type',
+    anyBarrier: 'Any barrier',
+    selectHub: 'Select a hub',
+    selectBarrierCategory: 'Select a category',
+    selectBarrierType: 'Select a type',
+    selectBarrier: 'Select a barrier'
   },
-  TabLabels: {
+  tabLabels: {
     description: 'DESCRIPTION',
     methodology: 'METHODOLOGY',
     results: 'RESULTS',

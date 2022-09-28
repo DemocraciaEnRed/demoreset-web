@@ -28,10 +28,40 @@ export default ({ app, i18n, params }, inject) => {
         return
       }
     },
-    getQueryForAllInitiativesList (langCode) {
+    getQueryForAllInitiativesList (page, query, langCode) {
+      // query has:
+      // query {
+      //   hub
+      //   barrier
+      //   barrierType
+      //   barrierCategory
+      //   }
+      const filters = []
+      if (query.hub) {
+        const hubQuery = `{country: {hub: {id: {_eq: ${query.hub.id}}}}}`
+        filters.push(hubQuery)
+      }
+      if (query.barrier && query.barrierType) {
+        const barrierFilter = `{ ${query.barrierType.field_name}: { barriers_id: { id: {_in: ${query.barrier.id}} } } }`
+        filters.push(barrierFilter)
+      } else if (query.barrierType) {
+        const typeFilter = `{ ${query.barrierType.field_name}: { id: { _nnull: true } } }`
+        filters.push(typeFilter)
+      } else if (query.barrierCategory) {
+        const theFields = query.barrierCategory.barrier_types.map((item) => {
+          return `{ ${item.field_name}: { id: { _nnull: true } } }`
+        })
+        const categoriesFilter = `{_or: [${theFields.join(',')}]}`
+        filters.push(categoriesFilter)
+      }
       return `
       {
-        initiatives{
+        initiatives_aggregated(filter: {_and: [${filters.join(',')}]}) {
+          count {
+            id
+          }
+        }
+        initiatives (page: ${page}, limit: 10, filter: {_and: [${filters.join(',')}]}) {
           id
           translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
             title
@@ -44,6 +74,15 @@ export default ({ app, i18n, params }, inject) => {
             name
             email
           }
+          topics {
+            initiative_topics_id {
+              id
+              value
+              translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+                name
+              }
+            }
+          }
           start_date
           end_date
         }
@@ -55,7 +94,7 @@ export default ({ app, i18n, params }, inject) => {
       {
         hubs{
           id,
-          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+          translations (filter: {languages_id: {code: {_eq: "${langCode}"}}}) {
             name
           }
         }
@@ -64,17 +103,25 @@ export default ({ app, i18n, params }, inject) => {
           translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
             name
           }
+          barrier_types {
+            id
+            field_name
+          }
         }
         barrier_types {
           id
           category {
             id
           }
+          field_name
           translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
             name
           }
           barriers {
             id
+            type {
+              field_name
+            }
             translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
               name
             }

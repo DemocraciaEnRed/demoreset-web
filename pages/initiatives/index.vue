@@ -1,46 +1,52 @@
 <template>
   <section>
     <section class="section">
-      <div class="container has-text-centered">
-        <h2 class="mb-4 is-poppins is-uppercase initiatives-title">
+      <div class="container">
+        <h2 class="mb-6 has-text-centered is-poppins is-uppercase initiatives-title">
           {{ $t('initiatives.title') }}
         </h2>
-        <InitiativeList :initiatives="initiatives" />
+        <InitiativeFilters :hubs="hubs" :barrier-categories="barrierCategories" :barrier-types="barrierTypes" @update="updateQuery" />
+        <InitiativeList :query="query" />
       </div>
     </section>
-    <section class="container my-6">
+    <!-- <section class="container my-6">
       <div class="has-text-left">
         <h3>Las iniciativas en graficos</h3>
       </div>
-    </section>
+    </section> -->
   </section>
 </template>
 
 <script>
 import InitiativeList from '../../components/initiatives/InitiativeList.vue'
+import InitiativeFilters from '../../components/initiatives/InitiativeFilters.vue'
 export default {
   name: 'InitiativePage',
   components: {
-    InitiativeList
+    InitiativeList,
+    InitiativeFilters
   },
   async asyncData ({ params, $axios, i18n, $router, $graphql }) {
     const theQuery = {
-      query: {
-        ...$graphql.getQueryForAllInitiativesList(i18n.localeProperties.iso),
-        ...$graphql.getQueryForInitiativeFilters(i18n.localeProperties.iso)
-      }
+      query: $graphql.getQueryForInitiativeFilters(i18n.localeProperties.iso)
+      // query: {
+      // ...$graphql.getQueryForAllInitiativesList(i18n.localeProperties.iso),
+      // $graphql.getQueryForInitiativeFilters(i18n.localeProperties.iso)
+      // }
     }
     try {
       const response = await $axios.post('/graphql', theQuery)
-      // if status is not published, redirect to home
-      // if (response.data.data.campaigns_by_id.status !== 'published') {
-      //   $router.push('/')
-      // }
-      // console.log(response.data.data)
-      const theInitiatives = response.data.data.initiatives
-      $graphql.mergeFieldTranslations(theInitiatives)
+
+      const theHubs = response.data.data.hubs
+      const theBarrierCategories = response.data.data.barrier_categories
+      const theBarrierTypes = response.data.data.barrier_types
+      $graphql.mergeFieldTranslations(theHubs)
+      $graphql.mergeFieldTranslations(theBarrierCategories)
+      $graphql.mergeFieldTranslations(theBarrierTypes)
       return {
-        initiatives: theInitiatives
+        hubs: theHubs,
+        barrierCategories: theBarrierCategories,
+        barrierTypes: theBarrierTypes
       }
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -49,6 +55,20 @@ export default {
   },
   data () {
     return {
+      hubs: [],
+      barrierCategories: [],
+      barrierTypes: [],
+      query: {
+        hub: null,
+        barrierCategory: null,
+        barrierType: null,
+        barrier: null
+      }
+    }
+  },
+  methods: {
+    updateQuery (theQuery) {
+      this.$set(this, 'query', theQuery)
     }
   }
 }

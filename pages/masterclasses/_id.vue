@@ -80,7 +80,6 @@ export default {
   },
   methods: {
     extractYoutubeId (url) {
-      console.log(url)
       // eslint-disable-next-line no-useless-escape
       const youtubeId = url.match(/^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=))([\w-]{11})(?:\S+)?$/)
       return youtubeId ? 'https://www.youtube.com/embed/' + youtubeId[1] : false

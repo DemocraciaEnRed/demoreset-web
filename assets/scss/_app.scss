@@ -27,3 +27,22 @@
 .is-roboto-condensed, .is-condensed{
   font-family: 'Roboto Condensed', sans-serif;
 }
+
+.button.filter-button{
+  border: 1px solid #CACACA;
+  justify-content: space-between;
+  span:first-child{
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+  &:active, &:focus, &:hover{
+    border: 1px solid #CACACA;
+  }
+}
+
+.dropdown.dropdown-filter{
+  .dropdown-item {
+    white-space: normal !important;
+  }
+}

@@ -44,18 +44,21 @@ const initiatives = {
     endDate: 'Fecha de finalización',
     status: 'Estado'
   },
-  filtersList: {
-    LATAM: 'América Latina',
-    EE: 'Europa del Este',
-    SSA: 'Africa Sub-sahariana',
-    SEA: 'Sudeste asiático',
-    IN: 'India',
+  filters: {
     barrierTypes: 'Tipología de barrera',
-    category: 'Categoría',
-    topic: 'Tema',
-    topicLabel: 'Falta de garantía de...'
+    barrierCategories: 'Categoría',
+    hubs: 'Hubs',
+    barriers: 'Barreras',
+    anyHub: 'Cualquier hub',
+    anyBarrierCategory: 'Cualquier categoría',
+    anyBarrierType: 'Cualquier tipo',
+    anyBarrier: 'Cualquier barrera',
+    selectHub: 'Selecciona un hub',
+    selectBarrierCategory: 'Selecciona una categoría',
+    selectBarrierType: 'Selecciona un tipo',
+    selectBarrier: 'Selecciona una barrera'
   },
-  TabLabels: {
+  tabLabels: {
     description: 'DESCRIPCIÓN',
     methodology: 'METODOLOGÍA',
     results: 'RESULTADOS',

@@ -8,14 +8,14 @@ export default {
   // },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'DemoReset',
+    title: 'Demo.Reset - Deliberation in the global south',
     htmlAttrs: {
       lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'We connect experiences of political innovation around the globe, transforming the landscape of democracy in the Global South. . We are looking for you to be part of the new wave of deliberative democracy in the Global South!' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
@@ -95,14 +95,9 @@ export default {
   loading: {
     color: '#000000',
     height: '5px'
-  },
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-    postcss: {
-      plugins: {
-      },
-      preset: {
-      }
-    }
   }
+  // Build Configuration: https://go.nuxtjs.dev/config-build
+  // build: {
+  //   postcss: false
+  // }
 }
