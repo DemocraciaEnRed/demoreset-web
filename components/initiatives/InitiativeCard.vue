@@ -4,7 +4,7 @@
       <div class="columns is-vcentered">
         <div v-if="initiative.organization?.logo" class="column is-narrow">
           <nuxt-link :to="{ path: localePath('/initiatives/' + initiative.id) }">
-            <img :src="`${apiUrl}/assets/${initiative.organization.logo?.id}?width=120&height=120&fit=cover`" alt="Logo" class="organization-logo">
+            <img :src="`${apiUrl}/assets/${initiative.organization.logo?.id}?width=120&height=120`" alt="Logo" class="organization-logo">
           </nuxt-link>
         </div>
         <div class="column">

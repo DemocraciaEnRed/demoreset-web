@@ -25,7 +25,10 @@ export default {
   },
   async asyncData ({ params, $axios, i18n, $router, $graphql }) {
     const theQuery = {
-      query: $graphql.getQueryForAllInitiatives(i18n.localeProperties.iso)
+      query: {
+        ...$graphql.getQueryForAllInitiativesList(i18n.localeProperties.iso),
+        ...$graphql.getQueryForInitiativeFilters(i18n.localeProperties.iso)
+      }
     }
     try {
       const response = await $axios.post('/graphql', theQuery)

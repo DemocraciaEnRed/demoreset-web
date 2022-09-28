@@ -1,19 +1,59 @@
 <template>
   <section class="section">
     <div class="container">
+      <p class="is-condensed is-size-4 is-500">
+        MASTERCLASSES DISPONIBLES
+      </p>
+      <hr class="mt-2 mb-6" style="width: 600px; background-color: #000">
       <div class="columns">
-        <div v-for="masterclass in masterclasses" :key="masterclass.id" class="column is-6">
-          <div class="box is-clickable" :click="goToMasterclass(masterclass.id)">
+        <div v-for="masterclass in publishedMasterclasses" :key="masterclass.id" class="column is-6">
+          <div class="box is-clickable" @click="goToMasterclass(masterclass.id)">
             <div class="columns is-vcentered">
               <div class="column is-narrow">
                 <img :src="`https://demoreset.democraciaenred.org/assets/${masterclass.author_avatar.id}`" class="image author_avatar" :alt="masterclass.author">
               </div>
               <div class="column">
-                <p class="">
+                <p class="has-text-primary is-300 is-condensed">
+                  MASTERCLASS
+                </p>
+                <p class="is-mono is-uppercase mb-3 is-size-5">
                   <b>{{ masterclass.title }}</b>
                 </p>
-                <p class="is-size-7 is-mono">
-                  {{ trimText(masterclass.description,150 ) }}
+                <p class="is-size-7">
+                  <b>Objetivo:</b>
+                </p>
+                <p class="is-size-7">
+                  {{ trimText(masterclass.objective,150 ) }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <p class="is-condensed is-size-4 is-500">
+        PROXIMAMENTE
+      </p>
+      <hr class="mt-2 mb-6" style="width: 600px; background-color: #000">
+      <div class="columns">
+        <div v-for="masterclass in upcomingMasterclasses" :key="masterclass.id" class="column is-6">
+          <div class="box is-clickable" @click="goToMasterclass(masterclass.id)">
+            <div class="columns is-vcentered">
+              <div class="column is-narrow">
+                <img :src="`https://demoreset.democraciaenred.org/assets/${masterclass.author_avatar.id}`" class="image author_avatar" :alt="masterclass.author">
+              </div>
+              <div class="column">
+                <p class="has-text-primary is-300 is-condensed">
+                  MASTERCLASS
+                </p>
+                <p class="is-mono is-uppercase mb-3 is-size-5">
+                  <b>{{ masterclass.title }}</b>
+                </p>
+                <p class="is-size-7">
+                  <b>Objetivo:</b>
+                </p>
+                <p class="is-size-7">
+                  {{ trimText(masterclass.objective,150 ) }}
                 </p>
               </div>
             </div>
@@ -45,7 +85,15 @@ export default {
   },
   data () {
     return {
-
+      masterclasses: []
+    }
+  },
+  computed: {
+    publishedMasterclasses () {
+      return this.masterclasses.filter(masterclass => masterclass.status === 'published')
+    },
+    upcomingMasterclasses () {
+      return this.masterclasses.filter(masterclass => masterclass.status === 'upcoming')
     }
   },
   methods: {

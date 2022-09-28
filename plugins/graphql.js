@@ -28,7 +28,7 @@ export default ({ app, i18n, params }, inject) => {
         return
       }
     },
-    getQueryForAllInitiatives (langCode) {
+    getQueryForAllInitiativesList (langCode) {
       return `
       {
         initiatives{
@@ -46,6 +46,39 @@ export default ({ app, i18n, params }, inject) => {
           }
           start_date
           end_date
+        }
+      }
+      `
+    },
+    getQueryForInitiativeFilters (langCode) {
+      return `
+      {
+        hubs{
+          id,
+          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+            name
+          }
+        }
+        barrier_categories {
+          id
+          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+            name
+          }
+        }
+        barrier_types {
+          id
+          category {
+            id
+          }
+          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+            name
+          }
+          barriers {
+            id
+            translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+              name
+            }
+          }
         }
       }
       `
@@ -296,7 +329,6 @@ export default ({ app, i18n, params }, inject) => {
           id
           date_published
           author
-          author_url
           author_avatar{
             id
           }
@@ -304,7 +336,6 @@ export default ({ app, i18n, params }, inject) => {
           sort
           translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}){
             title
-            description
             objective
           }
         }
@@ -332,6 +363,7 @@ export default ({ app, i18n, params }, inject) => {
           }
         }
       }
+      `
     },
     getQueryForOrganizationById (id, langCode) {
       return `

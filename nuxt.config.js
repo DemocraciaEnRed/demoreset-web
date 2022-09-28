@@ -26,7 +26,6 @@ export default {
       { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css', rel: 'stylesheet', integrity: 'sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==', crossorigin: 'anonymous', referrerpolicy: 'no-referrer' }
     ]
   },
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     { src: '@/assets/scss/main.scss', lang: 'sass' }
@@ -94,7 +93,7 @@ export default {
     vueI18n: i18n
   },
   loading: {
-    color: '#E4EEFA',
+    color: '#000000',
     height: '5px'
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build

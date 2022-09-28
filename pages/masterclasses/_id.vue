@@ -7,27 +7,46 @@
       <hr>
       <div class="columns is-centered">
         <div class="column is-8">
-          <div class="container-responsive mb-6">
+          <div v-if="isPublished" class="container-responsive mb-6">
             <iframe :src="extractYoutubeId(masterclass.youtube_url)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+          </div>
+          <div v-else class="">
+            <div class="notification is-dark mb-6">
+              <p class="is-size-5 image is-16by9">
+                Proximamente
+              </p>
+            </div>
           </div>
           <div class="columns">
             <div class="column has-text-centered-touch">
-              <h5 class="title is-5 mb-1">Autor</h5>
-              <p>{{masterclass.author}}</p>
+              <h5 class="title is-5 mb-1">
+                Autor
+              </h5>
+              <p>{{ masterclass.author }}</p>
             </div>
             <div class="column has-text-right-desktop has-text-centered-touch">
-              <h5 class="title is-5 mb-1">Fecha</h5>
-              <p>{{masterclass.date_published}}</p>
+              <h5 class="title is-5 mb-1">
+                Fecha
+              </h5>
+              <p>{{ masterclass.date_published }}</p>
             </div>
           </div>
           <br>
           <div class="block">
-            <h5 class="title is-5 mb-1 is-uppercase">Objetivo de la masterclass</h5>
-            <div class="text-field">{{masterclass.objective}}</div>
+            <h5 class="title is-5 mb-1 is-uppercase">
+              Objetivo de la masterclass
+            </h5>
+            <div class="text-field">
+              {{ masterclass.objective }}
+            </div>
           </div>
           <div class="block">
-            <h5 class="title is-5 mb-1 is-uppercase">Descripción de la masterclass</h5>
-            <div class="text-field">{{masterclass.description}}</div>
+            <h5 class="title is-5 mb-1 is-uppercase">
+              Descripción de la masterclass
+            </h5>
+            <div class="text-field">
+              {{ masterclass.description }}
+            </div>
           </div>
         </div>
       </div>
@@ -52,6 +71,11 @@ export default {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err.response.data.errors[0].extensions)
+    }
+  },
+  computed: {
+    isPublished () {
+      return this.masterclass.status === 'published'
     }
   },
   methods: {
