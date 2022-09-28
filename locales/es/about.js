@@ -7,6 +7,7 @@ const about = {
   activities: 'Actividades',
   title2: 'Etapas del proyecto',
   phase: 'Fase',
+  here: 'Estamos aquí',
   slide1: {
     title: 'SÉ PARTE DE ESTA RED GLOBAL; DEMO.RESET',
     content: [

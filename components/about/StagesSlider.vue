@@ -1,10 +1,31 @@
 <template>
   <div class="has-background-grey-lighter">
     <h2
-      class="has-text-centered is-poppins is-uppercase has-text-weight-bold pt-4 is-size-3"
+      class="has-text-centered is-poppins is-uppercase has-text-weight-bold py-6 is-size-3 "
     >
       {{ $t('about.title2') }}
     </h2>
+    <b-steps
+      v-model="carousel"
+      :animated="isAnimated"
+      :rounded="isRounded"
+      :label-position="labelPosition"
+      :mobile-mode="mobileMode"
+      :has-navigation="hasNavigation"
+      :class="headerClass"
+    >
+      <b-step-item step="1" type="is-black">
+        <div v-if="1 == currentStage" class="is-flex is-flex-direction-column is-align-items-center">
+          <span class="tag is-dark is-poppins">{{ $t('about.here') }}</span>
+          <span class="icon">
+            <i class="fa-solid fa-arrow-down" />
+          </span>
+        </div>
+      </b-step-item>
+      <b-step-item step="2" type="is-black" :label="2 == currentStage ? 'We are here':''" />
+      <b-step-item step="3" type="is-black" :label="3 == currentStage ? 'We are here':''" />
+      <b-step-item step="4" type="is-black" :label="4 == currentStage ? 'We are here':''" />
+    </b-steps>
     <b-carousel
       v-model="carousel"
       :arrow="arrow"
@@ -17,8 +38,8 @@
       :autoplay="autoPlay"
     >
       <b-carousel-item v-for="(slide, i) in carousels" :key="i">
-        <section class="section is-medium has-text-centered pt-6">
-          <div class="pt-6">
+        <section class="section is-medium has-text-centered pt-0 stagesTimeLine">
+          <div class="pt-0 mx-auto carrouselContentWidth">
             <p
               v-if="slide.id == currentStage"
               class="outline-shadow-red is-uppercase is-poppins has-text-grey-lighter has-text-weight-bold is-size-2 pb-6"
@@ -98,7 +119,14 @@ export default {
           content: this.$t('about.slide4.content'),
           activities: this.$t('about.slide4.activities')
         }
-      ]
+      ],
+      activeStep: 0,
+      isAnimated: true,
+      isRounded: true,
+      labelPosition: 'bottom',
+      mobileMode: 'minimalist',
+      hasNavigation: false,
+      headerClass: 'stepTitle'
     }
   }
 }
@@ -114,6 +142,12 @@ export default {
 }
 .outline-shadow-red {
   @include stroke(red, 1px);
+}
+.carrouselContentWidth{
+  width: 75%;
+}
+.b-steps.stepTitle .steps .step-items .step-item .step-details .step-title {
+    margin-top: 10px;
 }
 ol li {
   list-style-position: inside;
