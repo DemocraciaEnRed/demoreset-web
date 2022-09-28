@@ -28,6 +28,52 @@
       <div class="title is-uppercase is-poppins">
         {{ $t('about.title3') }}
       </div>
+      <div class="columns pdf-container is-align-items-center is-justify-content-center mx-auto">
+        <div class="column is-3 is-flex is-flex-direction-column is-align-items-center">
+          <figure class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/256x256.png">
+          </figure>
+          <div class="block">
+            {{ $t('about.stage1') }}
+          </div>
+          <button class="button is-rounded mt-4">
+            ver PDF
+          </button>
+        </div>
+        <div class="column is-3 is-flex is-flex-direction-column is-align-items-center">
+          <figure class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/256x256.png">
+          </figure>
+          <div class="block">
+            {{ $t('about.stage2') }}
+          </div>
+          <button class="button is-rounded mt-4">
+            ver PDF
+          </button>
+        </div>
+        <div class="column is-3 is-flex is-flex-direction-column is-align-items-center">
+          <figure class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/256x256.png">
+          </figure>
+          <div class="block">
+            {{ $t('about.stage3') }}
+          </div>
+          <button class="button is-rounded mt-4">
+            ver PDF
+          </button>
+        </div>
+        <div class="column is-3 is-flex is-flex-direction-column is-align-items-center">
+          <figure class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/256x256.png">
+          </figure>
+          <div class="block">
+            {{ $t('about.stage4') }}
+          </div>
+          <button class="button is-rounded mt-4 disabled">
+            ver PDF
+          </button>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -48,5 +94,11 @@ export default {
 }
 h1.has-border-top{
   border-top: 1px solid black;
+}
+
+.button{
+  width: 100%;
+  background-color: transparent;
+  border: 2px solid black;
 }
 </style>
