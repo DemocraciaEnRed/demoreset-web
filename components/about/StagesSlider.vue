@@ -1,7 +1,7 @@
 <template>
   <div class="has-background-grey-lighter">
     <h2
-      class="title has-text-centered is-poppins is-uppercase has-text-weight-bold py-6 is-size-3"
+      class="title has-text-centered is-poppins is-uppercase has-text-weight-bold py-5 is-size-3"
     >
       {{ $t('about.title2') }}
     </h2>
@@ -36,7 +36,7 @@
       :indicator="indicator"
     >
       <b-carousel-item v-for="(slide, i) in stages" :key="i">
-        <section class="section is-medium has-text-centered pt-0 stagesTimeLine">
+        <section class="section has-text-centered pt-0">
           <div class="pt-0 mx-auto carrouselContentWidth">
             <p
               v-if="slide.id == currentStage"
@@ -74,7 +74,7 @@
       </b-carousel-item>
     </b-carousel>
     <section class="section has-background-light pt-0">
-      <div class="title is-uppercase is-poppins has-border-top half-width pt-4">
+      <div class="title is-uppercase is-poppins has-border-top half-width pt-6">
         {{ $t('about.title3') }}
       </div>
       <div class="columns is-align-items-center is-justify-content-center mx-auto">
@@ -144,7 +144,8 @@ export default {
       isRounded: true,
       labelPosition: 'bottom',
       mobileMode: 'minimalist',
-      hasNavigation: false
+      hasNavigation: false,
+      headerClass: 'is-small is-flex is-flex-direction-column'
     }
   }
 }
@@ -166,6 +167,11 @@ export default {
 }
 ol li {
   list-style-position: inside;
+}
+.button{
+  width: 100%;
+  background-color: transparent;
+  border: 2px solid black;
 }
 .has-border-top{
   border-top: 1px solid black;

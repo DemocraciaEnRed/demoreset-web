@@ -10,7 +10,7 @@
         <img
           class="column is-5 about-img"
           src="~/assets/img/About.png"
-          :alt="$t('about')"
+          :alt="$t('about.alt')"
         >
         <div class="column content">
           <p>
@@ -44,13 +44,6 @@ export default {
 h1.has-border-top{
   border-top: 1px solid black;
 }
-
-.button{
-  width: 100%;
-  background-color: transparent;
-  border: 2px solid black;
-}
-
 .width-40{
   width: 40%;
   text-align: left;
