@@ -3,7 +3,7 @@
     <BannerHome />
     <section class="section">
       <div class="container has-text-centered">
-        <p class="is-mono is-uppercase principal-title">
+        <p class="is-mono is-uppercase principal-title is-size-4">
           {{ $t("home.hello") }}
         </p>
         <div class="columns my-5">
@@ -17,22 +17,22 @@
         </div>
         <hr class="has-background-black">
         <HubsMap />
-        <div class="has-text-left about-section columns">
+        <div class="has-text-left about-section columns is-6">
           <div class="about-section_container column is-half">
-            <h2 class="is-poppins about-title is-uppercase mb-5">
+            <h2 class="is-poppins about-title is-uppercase is-size-2 is-size-3-touch mb-5">
               {{ $t("home.aboutDemoReset") }}
             </h2>
             <p v-html="$t('home.aboutDemoResetText')" />
           </div>
           <div class="about-section_container column is-half">
-            <h2 class="is-poppins about-title is-uppercase mb-5">
+            <h2 class="is-poppins about-title is-uppercase is-size-2 is-size-3-touch mb-5">
               {{ $t("home.whyBePart") }}
             </h2>
             <p v-html="$t('home.whyBePartText')" />
           </div>
         </div>
         <div>
-          <button class="button is-rounded is-large my-6 is-uppercase is-mono">
+          <button class="button is-rounded is-large is-responsive my-6 is-uppercase is-mono">
             {{ $t("home.aboutButton") }}
           </button>
         </div>
@@ -142,8 +142,6 @@ export default {
 <style lang="scss" scoped>
 .principal-title {
   font-weight: 300;
-  font-size: 26px;
-  line-height: 50px;
 }
 
 hr {
@@ -162,7 +160,6 @@ hr {
 
 .about-section {
   margin-top: 15%;
-  gap: 30px;
 
   .about-title {
     font-style: normal;
@@ -173,11 +170,10 @@ hr {
   }
 
   &_container::before {
-    width: 90%;
+    width: 98%;
     content: "";
     display: block;
     top: 0;
-    left: 25%;
     border-top: 1px solid black;
     margin-bottom: 20px;
   }
@@ -202,8 +198,8 @@ hr {
   border: 2px solid #000;
   font-style: normal;
   font-weight: 500;
-  font-size: 26px;
-  line-height: 50px;
+  // font-size: 26px;
+  // line-height: 50px;
   color: #000;
 }
 

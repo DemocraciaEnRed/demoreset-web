@@ -9,14 +9,13 @@
       v-model="carousel"
       :animated="isAnimated"
       :rounded="isRounded"
-      :label-position="labelPosition"
       :mobile-mode="mobileMode"
       :has-navigation="hasNavigation"
       :class="headerClass"
     >
-      <b-step-item v-for="(step, i) in stages" :key="i" :step="step.id" type="is-black">
-        <div v-if="step.id == currentStage" class="is-flex is-flex-direction-column is-align-items-center">
-          <span class="tag is-dark is-poppins">{{ $t('about.here') }}</span>
+      <b-step-item v-for="n in 4" :key="n" type="is-black">
+        <div v-if="n === currentStage" class="is-flex is-flex-direction-column is-align-items-center">
+          <span class="tag is-dark is-poppins">{{ $t('about.here') }} </span>
           <span class="icon">
             <i class="fa-solid fa-arrow-down" />
           </span>
@@ -40,7 +39,7 @@
           <div class="pt-0 mx-auto carrouselContentWidth">
             <p
               v-if="slide.id == currentStage"
-              class="outline-shadow-red is-uppercase is-poppins has-text-grey-lighter has-text-weight-bold is-size-2 pb-6"
+              class="outline-shadow-red is-uppercase is-poppins has-text-grey-lighter has-text-weight-bold is-size-2 pb-6 custom-height"
             >
               {{ `${$t('about.phase')} ${slide.id}` }}
             </p>
@@ -74,21 +73,21 @@
       </b-carousel-item>
     </b-carousel>
     <section class="section has-background-light pt-0">
-      <div class="title is-uppercase is-poppins has-border-top half-width pt-6">
+      <div class="title column is-half-desktop is-uppercase has-text-left is-poppins has-border-top pt-6">
         {{ $t('about.title3') }}
       </div>
       <div class="columns is-align-items-center is-justify-content-center mx-auto">
-        <div v-for="n in 4" :key="n" class="column is-3 is-flex is-flex-direction-column is-align-items-center">
+        <div v-for="n in 4" :key="n" class="column is-one-fifth is-flex is-flex-direction-column is-align-items-center">
           <figure class="image is-128x128">
             <img :src="require(`~/assets/img/stage${n}_about_pdf.svg`)">
           </figure>
           <div class="block">
             {{ $t('about.stage')+" "+ n }}
           </div>
-          <button v-if="n <= currentStage" class="button is-rounded mt-4 is-uppercase">
+          <button v-if="n <= currentStage" class="button is-size-7-touch is-rounded mt-4 is-uppercase">
             {{ $t('about.stagePDF') }}
           </button>
-          <button v-else class="button is-rounded mt-4 is-uppercase" disabled>
+          <button v-else class="button is-size-7-touch is-rounded mt-4 is-uppercase" disabled>
             {{ $t('about.upNext') }}
           </button>
         </div>
@@ -169,7 +168,6 @@ ol li {
   list-style-position: inside;
 }
 .button{
-  width: 100%;
   background-color: transparent;
   border: 2px solid black;
 }
@@ -180,4 +178,8 @@ ol li {
   width: 50%;
   text-align: left;
 }
+.custom-height{
+  line-height: 1;
+}
+
 </style>
