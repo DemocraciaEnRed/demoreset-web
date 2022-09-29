@@ -40,7 +40,7 @@
           <div class="box is-clickable" @click="goToMasterclass(masterclass.id)">
             <div class="columns is-vcentered">
               <div class="column is-narrow">
-                <img :src="`https://demoreset.democraciaenred.org/assets/${masterclass.author_avatar.id}`" class="image author_avatar" :alt="masterclass.author">
+                <img :src="`${{apiUrl}}/assets/${masterclass.author_avatar.id}`" class="image author_avatar" :alt="masterclass.author">
               </div>
               <div class="column">
                 <p class="has-text-primary is-300 is-condensed">
@@ -111,6 +111,9 @@ export default {
     }
   },
   computed: {
+    apiUrl () {
+      return process.env.API_URL
+    },
     publishedMasterclasses () {
       return this.masterclasses.filter(masterclass => masterclass.status === 'published')
     },
