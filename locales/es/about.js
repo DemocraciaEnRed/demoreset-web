@@ -10,6 +10,7 @@ const about = {
   activities: 'Actividades',
   title2: 'Etapas del proyecto',
   phase: 'Fase',
+  here: 'Estamos aquí',
   slide1: {
     title: 'SÉ PARTE DE ESTA RED GLOBAL; DEMO.RESET',
     content: [
@@ -45,7 +46,10 @@ const about = {
     ],
     activities: ['RESIDENCE FOR THE ACTION', 'RESIDENCIA PARA EXPERTOS']
   },
-  title3: 'Conoce las conclusiones de las etapas'
+  title3: 'Conoce las conclusiones de las etapas',
+  stage: 'Etapa',
+  stagePDF: 'Descargar PDF',
+  upNext: 'Próximamente'
 }
 
 export default about

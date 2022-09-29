@@ -1,17 +1,17 @@
 <template>
-  <div class="columns is-vcentered banner">
-    <div class="column is-offset-1 is-4">
-      <h1 class="is-poppins">
+  <div class="columns is-mobile banner">
+    <div class="column is-offset-1 is-4-tablet is-three-quarters-mobile">
+      <h1 class="is-poppins is-size-3-touch">
         {{ $t('home.bannerTitle') }}
       </h1>
       <p class="is-mono my-4">
         {{ $t('home.bannerDescription') }}
       </p>
-      <button class="button is-rounded is-uppercase is-mono is-centered">
+      <button class="button is-rounded is-uppercase is-mono is-medium is-responsive">
         {{ $t('home.bannerButton') }}
       </button>
     </div>
-    <div class="column is-5">
+    <div class="column is-5 is-hidden-mobile">
       <img src="~/assets/img/InnerBanner.png" alt="personas votando">
     </div>
     <div class="column is-1 sideText" v-html="phrase" />
@@ -29,7 +29,7 @@ export default {
           fill="black"
         />`
     return {
-      phrase: ` ${this.$t('home.bannerPhrase')} ${svgArrow} `
+      phrase: `${this.$t('home.bannerPhrase')} ${svgArrow}`
     }
   }
 

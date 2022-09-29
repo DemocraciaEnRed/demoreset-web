@@ -1,7 +1,7 @@
 <template>
   <section>
     <h2
-      class="column is-four-fifths is-poppins is-uppercase is-size-2 has-text-weight-bold has-text-left"
+      class="column is-four-fifths is-poppins is-uppercase is-size-2 is-size-3-touch has-text-weight-bold has-text-left"
     >
       {{ $t('home.hubsTitle') }}
     </h2>
@@ -11,7 +11,7 @@
     <div v-else class="my-6">
       <enMap />
     </div>
-    <button class="button is-rounded is-uppercase is-mono is-centered">
+    <button class="button is-rounded is-uppercase is-mono is-centered is-large is-responsive">
       {{ $t('home.hubsButton') }}
     </button>
   </section>
@@ -32,8 +32,6 @@ export default {
 
 <style lang="scss" scoped>
 .button {
-  font-size: 15px;
-  line-height: 28px;
   background: transparent;
   border: 2px solid #000;
   font-style: normal;
