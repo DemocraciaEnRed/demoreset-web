@@ -7,7 +7,7 @@
       <div class="title is-mono is-size-5 is-uppercase">
         {{ $t('initiatives.descriptionTab.projNetworks') }}
       </div>
-      <NuxtLink to="#">
+      <!-- <NuxtLink to="#">
         <b-icon
           pack="fa"
           icon="brands fa-facebook"
@@ -18,7 +18,7 @@
           pack="fa"
           icon="brands fa-twitter"
         />
-      </NuxtLink>
+      </NuxtLink> -->
     </div>
     <div class="content">
       <div class="title is-mono is-size-5 is-uppercase">
@@ -34,11 +34,13 @@
       <div class="title is-mono is-size-5 is-uppercase">
         {{ $t('initiatives.descriptionTab.approach') }}
       </div>
-      <ul>
+      <ul v-if="initiative.approaches.length">
         <li v-for="(approach,i) in initiative.approaches" :key="i">
-          {{ approach.approaches_id.description ? approach.approaches_id.description : $t('initiatives.noData') }}
+          <span class="">{{approach.approaches_id.name}}</span>
+          <span v-if="approach.approaches_id.description" class="has-text-grey is-size-7"><br><i>{{ approach.approaches_id.description }}</i></span>
         </li>
       </ul>
+      <p v-else>{{$t('initiatives.noData')}}</p>
     </div>
     <div class="block">
       <div class="title is-mono is-size-5 is-uppercase">

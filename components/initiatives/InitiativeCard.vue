@@ -1,10 +1,11 @@
+<!-- eslint-disable vue/no-parsing-error -->
 <template>
   <div class="card organization-card my-2">
     <div class="card-content">
       <div class="columns mb-0 is-vcentered is-mobile">
         <div v-if="initiative.organization?.logo" class="column is-narrow">
           <nuxt-link :to="{ path: localePath('/initiatives/' + initiative.id) }">
-            <img :src="`${apiUrl}/assets/${initiative.organization.logo?.id}?width=120&height=120&fit=cover`" alt="Logo" class="organization-logo">
+            <img :src="`${apiUrl}/assets/${initiative.organization.logo?.id}?${transformationImage}`" class="organization-logo">
           </nuxt-link>
         </div>
         <div v-else class="column is-narrow">
@@ -28,7 +29,7 @@
                 <b>Tags:</b>
               </div>
               <div class="is-flex-grow-1">
-                <p v-for="topic in initiative.topics" :key="`topic-${topic.initiative_topics_id.id}-initiative-${initiative.id}`" class="tag topic-tag is-rounded is-size-6">
+                <p v-for="topic in initiative.topics" :key="`topic-${topic.initiative_topics_id.id}-initiative-${initiative.id}`" class="tag topic-tag is-rounded">
                   {{ topic.initiative_topics_id.name }}
                 </p>
               </div>
@@ -80,6 +81,7 @@ export default {
   },
   data () {
     return {
+      transformationImage: 'transforms=[["resize", {"background":"rgb(255,255,255)","width": 150,"height": 150,"fit":"contain"}]]'
     }
   },
   computed: {

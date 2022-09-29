@@ -58,6 +58,13 @@ const initiatives = {
     selectBarrierType: 'Selecciona un tipo',
     selectBarrier: 'Selecciona una barrera'
   },
+  list: {
+    total: 'Total de <b>{total}</b> iniciativas',
+    page: 'Página {page} de {totalPages}',
+    nextPage: 'Siguiente',
+    previousPage: 'Anterior',
+    noResults: 'No se encontrarón iniciativas con los filtros seleccionados'
+  },
   tabLabels: {
     description: 'DESCRIPCIÓN',
     methodology: 'METODOLOGÍA',

@@ -5,31 +5,12 @@
         <b-navbar-item tag="router-link" :to="{ path: localePath('/') }">
           <img
             src="@/assets/img/logo-navbar.svg"
-            alt="Lightweight UI components for Vue.js based on Bulma"
+            alt="Demoreset"
           >
         </b-navbar-item>
       </template>
-      <!-- <template #start>
-      <b-navbar-item href="#">
-        Home
-      </b-navbar-item>
-      <b-navbar-item href="#">
-        Documentation
-      </b-navbar-item>
-      <b-navbar-dropdown label="Info">
-        <b-navbar-item href="#">
-          About
-        </b-navbar-item>
-        <b-navbar-item href="#">
-          Contact
-        </b-navbar-item>
-      </b-navbar-dropdown>
-    </template> -->
 
       <template #end>
-        <!-- <b-navbar-item href="#" class="is-poppins is-500">
-          {{ $t('navbar.hubs') }}
-        </b-navbar-item> -->
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/initiatives')}">
           {{ $t('navbar.initiatives') }}
         </b-navbar-item>

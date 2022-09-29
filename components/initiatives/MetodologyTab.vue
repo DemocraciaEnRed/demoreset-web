@@ -15,7 +15,8 @@
       <div class="content">
         <ul v-if="initiative.general_methodologies.length != 0">
           <li v-for="(methodType,i) in initiative.general_methodologies" :key="i">
-            {{ methodType.general_methodologies_id.name }}
+            <span class="">{{methodType.general_methodologies_id.name}}</span>
+            <span v-if="methodType.general_methodologies_id.description" class="has-text-grey is-size-7"><br><i>{{ methodType.general_methodologies_id.description }}</i></span>
           </li>
         </ul>
         <ul v-else>
@@ -32,7 +33,8 @@
       <div class="content">
         <ul v-if="initiative.specific_techniques.length != 0">
           <li v-for="(techniques, i) in (initiative.specific_techniques)" :key="i">
-            {{ techniques.specific_techniques_id.description }}
+            <span class="">{{techniques.specific_techniques_id.name}}</span>
+            <span v-if="techniques.specific_techniques_id.description" class="has-text-grey is-size-7"><br><i>{{ techniques.specific_techniques_id.description }}</i></span>
           </li>
         </ul>
         <ul v-else>
@@ -49,7 +51,8 @@
       <div class="content">
         <ul v-if="initiative.citizen_participation_ladder.length > 0">
           <li v-for="(ladder, i) in (initiative.citizen_participation_ladder)" :key="i">
-            {{ ladder.citizen_participation_ladder_id.description }}
+            <span class="">{{ ladder.citizen_participation_ladder_id.name }}</span>
+            <span v-if="ladder.citizen_participation_ladder_id.description" class="has-text-grey is-size-7"><br><i>{{ ladder.citizen_participation_ladder_id.description }}</i></span>
           </li>
         </ul>
         <ul v-else>
@@ -81,7 +84,8 @@
       <div class="content">
         <ul v-if="initiative.decision_methods.length > 0">
           <li v-for="(methods, i) in (initiative.decision_methods)" :key="i">
-            {{ methods.decision_methods_id.name }}
+            <span class="">{{ methods.decision_methods_id.name }}</span>
+            <span v-if="methods.decision_methods_id.description" class="has-text-grey is-size-7"><br><i>{{ methods.decision_methods_id.description }}</i></span>
           </li>
         </ul>
         <ul v-else>
@@ -108,16 +112,15 @@
         {{ $t('initiatives.methodologyTab.recruitmentMethod') }}
       </div>
       <div class="content">
-        <div v-if="initiative.recruitment_methods.length > 0" class="block">
-          <span v-for="(recruitment ,i) in initiative.recruitment_methods" :key="i" class="tag is-gray is-rounded is-medium">
-            {{ recruitment.recruitment_methods_id.name }}
-          </span>
-        </div>
-        <div v-else class="block">
-          <span class="tag is-gray is-rounded is-medium">
-            {{ $t('initiatives.noData') }}
-          </span>
-        </div>
+        <ul v-if="initiative.recruitment_methods.length > 0">
+          <li v-for="(method, i) in (initiative.recruitment_methods)" :key="i">
+            <span class="">{{ method.recruitment_methods_id.name }}</span>
+            <span v-if="method.recruitment_methods_id.description" class="has-text-grey is-size-7"><br><i>{{ method.recruitment_methods_id.description }}</i></span>
+          </li>
+        </ul>
+        <ul v-else>
+          <li>{{ $t('initiatives.noData') }}</li>
+        </ul>
       </div>
     </div>
   </div>

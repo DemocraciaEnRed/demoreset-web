@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-tabs v-model="activeTab" expanded>
+    <b-tabs v-model="activeTab" type="is-boxed" expanded>
       <b-tab-item :label="$t('initiatives.tabLabels.description')">
         <DescriptionTab :initiative="initiative" />
       </b-tab-item>

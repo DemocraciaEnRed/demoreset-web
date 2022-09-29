@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <section class="my-6">
     <div v-if="$fetchState.pending">
@@ -17,41 +18,43 @@
       </b-notification>
     </div>
     <div v-else>
-      <div class="columns">
-        <div class="column">
-          <p class="has-text-left-desktop has-text-centered-touch">Total de <b>{{ totalItems }} iniciativas</b></p>
-        </div>
-        <div class="column">
-          <p class="has-text-right-desktop has-text-centered-touch">
-            Página {{ page }} de {{ totalPages }}
-          </p>
+      <div class="box my-2">
+        <div class="columns">
+          <div class="column">
+            <p class="has-text-left-desktop has-text-centered-touch" v-html="$t('initiatives.list.total', {total: totalItems})" />
+          </div>
+          <div class="column">
+            <p class="has-text-right-desktop has-text-centered-touch">
+              {{ $t('initiatives.list.page', {page: page, totalPages: totalPages}) }}
+            </p>
+          </div>
         </div>
       </div>
       <InitiativeCard v-for="initiative in initiatives" :key="`initiative-${initiative.id}`" :initiative="initiative" />
       <section v-if="initiatives.length == 0" class="section py-6">
         <p class="has-text-centered is-mono is-size-5">
-          No se encontrarón iniciativas con los filtros seleccionados
+          {{ $t('initiatives.list.noResults') }}
         </p>
       </section>
     </div>
-    <div v-if="!$fetchState.pending" class="box is-flex is-flex-direction-row is-justify-content-space-between is-align-items-center ">
+    <div v-if="!$fetchState.pending" class="box my-2 is-flex is-flex-direction-row is-justify-content-space-between is-align-items-center ">
       <div>
-        <button class="button is-black is-uppercase is-mono" @click="previousPage">
-          <i class="fas fa-arrow-left" />&nbsp;&nbsp;Previous Page
+        <button class="button is-black is-uppercase is-mono" :disabled="page == 1" @click="previousPage">
+          <i class="fas fa-arrow-left" />&nbsp;&nbsp;{{ $t('initiatives.list.previousPage') }}
         </button>
       </div>
-      <div class="is-hidden-touch">
+      <div v-if="totalPages > 1" class="is-hidden-touch">
         <button v-for="p in totalPages" :key="`page-${p}`" class="button is-uppercase is-small is-mono" :class="p === page ? 'is-link' : 'is-white'" @click="changePage(p)">
           {{ p }}
         </button>
       </div>
       <div>
-        <button class="button is-black is-uppercase is-mono" @click="nextPage">
-          Next Page&nbsp;&nbsp;<i class="fas fa-arrow-right" />
+        <button class="button is-black is-uppercase is-mono" :disabled="page === totalPages || initiatives.length === 0" @click="nextPage">
+          {{ $t('initiatives.list.nextPage') }}&nbsp;&nbsp;<i class="fas fa-arrow-right" />
         </button>
       </div>
     </div>
-    <div v-if="!$fetchState.pending" class=" is-hidden-desktop box is-flex is-flex-direction-row is-justify-content-center is-align-items-center ">
+    <div v-if="!$fetchState.pending && totalPages > 1" class=" is-hidden-desktop box my-2 is-flex is-flex-direction-row is-justify-content-center is-align-items-center ">
       <div>
         <button v-for="p in totalPages" :key="`page-${p}`" class="button is-uppercase is-small is-mono" :class="p === page ? 'is-link' : 'is-white'" @click="changePage(p)">
           {{ p }}
