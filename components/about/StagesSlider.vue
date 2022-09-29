@@ -1,7 +1,7 @@
 <template>
   <div class="has-background-grey-lighter">
     <h2
-      class="has-text-centered is-poppins is-uppercase has-text-weight-bold py-6 is-size-3 "
+      class="title has-text-centered is-poppins is-uppercase has-text-weight-bold py-6 is-size-3"
     >
       {{ $t('about.title2') }}
     </h2>
@@ -14,17 +14,14 @@
       :has-navigation="hasNavigation"
       :class="headerClass"
     >
-      <b-step-item step="1" type="is-black">
-        <div v-if="1 == currentStage" class="is-flex is-flex-direction-column is-align-items-center">
+      <b-step-item v-for="(step, i) in stages" :key="i" :step="step.id" type="is-black">
+        <div v-if="step.id == currentStage" class="is-flex is-flex-direction-column is-align-items-center">
           <span class="tag is-dark is-poppins">{{ $t('about.here') }}</span>
           <span class="icon">
             <i class="fa-solid fa-arrow-down" />
           </span>
         </div>
       </b-step-item>
-      <b-step-item step="2" type="is-black" :label="2 == currentStage ? 'We are here':''" />
-      <b-step-item step="3" type="is-black" :label="3 == currentStage ? 'We are here':''" />
-      <b-step-item step="4" type="is-black" :label="4 == currentStage ? 'We are here':''" />
     </b-steps>
     <b-carousel
       v-model="carousel"
@@ -36,8 +33,9 @@
       :icon-next="iconNext"
       :icon-size="iconSize"
       :autoplay="autoPlay"
+      :indicator="indicator"
     >
-      <b-carousel-item v-for="(slide, i) in carousels" :key="i">
+      <b-carousel-item v-for="(slide, i) in stages" :key="i">
         <section class="section is-medium has-text-centered pt-0 stagesTimeLine">
           <div class="pt-0 mx-auto carrouselContentWidth">
             <p
@@ -75,6 +73,27 @@
         </section>
       </b-carousel-item>
     </b-carousel>
+    <section class="section has-background-light pt-0">
+      <div class="title is-uppercase is-poppins has-border-top half-width pt-4">
+        {{ $t('about.title3') }}
+      </div>
+      <div class="columns is-align-items-center is-justify-content-center mx-auto">
+        <div v-for="n in 4" :key="n" class="column is-3 is-flex is-flex-direction-column is-align-items-center">
+          <figure class="image is-128x128">
+            <img :src="require(`~/assets/img/stage${n}_about_pdf.svg`)">
+          </figure>
+          <div class="block">
+            {{ $t('about.stage')+" "+ n }}
+          </div>
+          <button v-if="n <= currentStage" class="button is-rounded mt-4 is-uppercase">
+            {{ $t('about.stagePDF') }}
+          </button>
+          <button v-else class="button is-rounded mt-4 is-uppercase" disabled>
+            {{ $t('about.upNext') }}
+          </button>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -82,10 +101,10 @@
 export default {
   name: 'StagesSlider',
   data () {
-    const currentStage = 1
+    const currentStage = 1 // change this value manually when project stage changes
     return {
       currentStage,
-      carousel: currentStage - 1, // valor dinámico que cambia cuando cambiamos de slide
+      carousel: currentStage - 1, // slide shown by default, changes when slide does
       arrow: true,
       arrowBoth: false,
       arrowHover: false,
@@ -94,7 +113,8 @@ export default {
       iconPrev: 'solid fa-chevron-left',
       iconNext: 'solid fa-chevron-right',
       iconSize: 'is-large',
-      carousels: [
+      indicator: false,
+      stages: [
         {
           id: 1,
           title: this.$t('about.slide1.title'),
@@ -120,13 +140,11 @@ export default {
           activities: this.$t('about.slide4.activities')
         }
       ],
-      activeStep: 0,
       isAnimated: true,
       isRounded: true,
       labelPosition: 'bottom',
       mobileMode: 'minimalist',
-      hasNavigation: false,
-      headerClass: 'stepTitle'
+      hasNavigation: false
     }
   }
 }
@@ -146,10 +164,14 @@ export default {
 .carrouselContentWidth{
   width: 75%;
 }
-.b-steps.stepTitle .steps .step-items .step-item .step-details .step-title {
-    margin-top: 10px;
-}
 ol li {
   list-style-position: inside;
+}
+.has-border-top{
+  border-top: 1px solid black;
+}
+.half-width{
+  width: 50%;
+  text-align: left;
 }
 </style>

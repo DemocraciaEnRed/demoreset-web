@@ -2,7 +2,7 @@
   <div>
     <section class="section">
       <h1
-        class="column is-poppins is-uppercase has-text-weight-bold is-5 mb-5 has-border-top is-size-2"
+        class="title is-poppins is-uppercase is-size-2 has-text-weight-bold has-border-top width-40 mb-5 pt-3"
       >
         {{ $t('about.title') }}
       </h1>
@@ -24,57 +24,6 @@
       </div>
     </section>
     <StagesSlider />
-    <section class="section">
-      <div class="title is-uppercase is-poppins">
-        {{ $t('about.title3') }}
-      </div>
-      <div class="columns pdf-container is-align-items-center is-justify-content-center mx-auto">
-        <div class="column is-3 is-flex is-flex-direction-column is-align-items-center">
-          <figure class="image is-128x128">
-            <img src="https://bulma.io/images/placeholders/256x256.png">
-          </figure>
-          <div class="block">
-            {{ $t('about.stage1') }}
-          </div>
-          <button class="button is-rounded mt-4">
-            ver PDF
-          </button>
-        </div>
-        <div class="column is-3 is-flex is-flex-direction-column is-align-items-center">
-          <figure class="image is-128x128">
-            <img src="https://bulma.io/images/placeholders/256x256.png">
-          </figure>
-          <div class="block">
-            {{ $t('about.stage2') }}
-          </div>
-          <button class="button is-rounded mt-4">
-            ver PDF
-          </button>
-        </div>
-        <div class="column is-3 is-flex is-flex-direction-column is-align-items-center">
-          <figure class="image is-128x128">
-            <img src="https://bulma.io/images/placeholders/256x256.png">
-          </figure>
-          <div class="block">
-            {{ $t('about.stage3') }}
-          </div>
-          <button class="button is-rounded mt-4">
-            ver PDF
-          </button>
-        </div>
-        <div class="column is-3 is-flex is-flex-direction-column is-align-items-center">
-          <figure class="image is-128x128">
-            <img src="https://bulma.io/images/placeholders/256x256.png">
-          </figure>
-          <div class="block">
-            {{ $t('about.stage4') }}
-          </div>
-          <button class="button is-rounded mt-4 disabled">
-            ver PDF
-          </button>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -100,5 +49,10 @@ h1.has-border-top{
   width: 100%;
   background-color: transparent;
   border: 2px solid black;
+}
+
+.width-40{
+  width: 40%;
+  text-align: left;
 }
 </style>

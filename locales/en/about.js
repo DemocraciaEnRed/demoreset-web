@@ -43,7 +43,10 @@ const about = {
     ],
     activities: ['RESIDENCE FOR THE ACTION', 'RESIDENCE FOR EXPERTS']
   },
-  title3: 'Find out the conclusions of the stages'
+  title3: 'Find out the conclusions of the stages',
+  stage: 'Stage',
+  stagePDF: 'Download PDF',
+  upNext: 'Up next'
 }
 
 export default about

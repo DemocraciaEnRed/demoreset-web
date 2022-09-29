@@ -43,7 +43,10 @@ const about = {
     ],
     activities: ['RESIDENCE FOR THE ACTION', 'RESIDENCIA PARA EXPERTOS']
   },
-  title3: 'Conoce las conclusiones de las etapas'
+  title3: 'Conoce las conclusiones de las etapas',
+  stage: 'Etapa',
+  stagePDF: 'Descargar PDF',
+  upNext: 'Próximamente'
 }
 
 export default about
