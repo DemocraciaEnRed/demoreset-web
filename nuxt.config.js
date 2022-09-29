@@ -8,7 +8,7 @@ export default {
   // },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Demo.Reset - Deliberation in the global south',
+    title: 'Demo.Reset - Deliberation in the Global South',
     htmlAttrs: {
       lang: 'en'
     },

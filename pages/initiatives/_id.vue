@@ -94,17 +94,17 @@ export default {
   head () {
     const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true })
     return {
-      title: `${this.initiative.name}`,
+      title: `${this.initiative.title}`,
       htmlAttrs: {
         lang: this.$i18n.locale
       },
       meta: [
         { hid: 'description', name: 'description', content: this.initiative.description },
-        { name: 'title', content: `${this.initiative.name}` },
+        { name: 'title', content: `${this.initiative.title}` },
         { name: 'description', content: this.initiative.description },
-        { property: 'og:title', content: `${this.initiative.name}` },
+        { property: 'og:title', content: `${this.initiative.title}` },
         { property: 'og:description', content: this.initiative.description },
-        { property: 'twitter:title', content: `${this.initiative.name}` },
+        { property: 'twitter:title', content: `${this.initiative.title}` },
         { property: 'twitter:description', content: this.initiative.description },
         ...i18nHead.meta
       ],
