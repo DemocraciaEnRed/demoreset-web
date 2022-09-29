@@ -1,4 +1,7 @@
 const about = {
+  head: {
+    title: 'About'
+  },
   title: 'About project Demoreset',
   alt: 'Deliberative democracy',
   content1: 'In collaboration with the global office of the National Endowment for Democracy NED and the Extituto de Politica Abierta (Colombia), we brought together 100 organizations from the Global South, especially in Sub-Saharan Africa, Eastern Europe, Southeast Asia and Latin America to restore our democracies.',

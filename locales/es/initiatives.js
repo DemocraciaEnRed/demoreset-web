@@ -1,4 +1,7 @@
 const initiatives = {
+  head: {
+    title: 'Catálogo de iniciativas'
+  },
   title: 'Listado de iniciativas',
   graphicsTitle: 'Las iniciativas en graficos',
   ongoing: 'En curso',

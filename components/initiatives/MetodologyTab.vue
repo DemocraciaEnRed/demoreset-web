@@ -15,7 +15,7 @@
       <div class="content">
         <ul v-if="initiative.general_methodologies.length != 0">
           <li v-for="(methodType,i) in initiative.general_methodologies" :key="i">
-            <span class="">{{methodType.general_methodologies_id.name}}</span>
+            <span class="">{{ methodType.general_methodologies_id.name }}</span>
             <span v-if="methodType.general_methodologies_id.description" class="has-text-grey is-size-7"><br><i>{{ methodType.general_methodologies_id.description }}</i></span>
           </li>
         </ul>
@@ -33,7 +33,7 @@
       <div class="content">
         <ul v-if="initiative.specific_techniques.length != 0">
           <li v-for="(techniques, i) in (initiative.specific_techniques)" :key="i">
-            <span class="">{{techniques.specific_techniques_id.name}}</span>
+            <span class="">{{ techniques.specific_techniques_id.name }}</span>
             <span v-if="techniques.specific_techniques_id.description" class="has-text-grey is-size-7"><br><i>{{ techniques.specific_techniques_id.description }}</i></span>
           </li>
         </ul>

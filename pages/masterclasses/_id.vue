@@ -73,6 +73,28 @@ export default {
       console.error(err.response.data.errors[0].extensions)
     }
   },
+  head () {
+    const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true })
+    return {
+      title: `${this.masterclass.title} - Demo.Reset`,
+      htmlAttrs: {
+        lang: this.$i18n.locale
+      },
+      meta: [
+        { hid: 'description', name: 'description', content: this.masterclass.description },
+        { name: 'title', content: `${this.masterclass.title} - Demo.Reset` },
+        { name: 'description', content: this.masterclass.description },
+        { property: 'og:title', content: `${this.masterclass.title} - Demo.Reset` },
+        { property: 'og:description', content: this.masterclass.description },
+        { property: 'twitter:title', content: `${this.masterclass.title} - Demo.Reset` },
+        { property: 'twitter:description', content: this.masterclass.description },
+        ...i18nHead.meta
+      ],
+      link: [
+        ...i18nHead.link
+      ]
+    }
+  },
   computed: {
     isPublished () {
       return this.masterclass.status === 'published'

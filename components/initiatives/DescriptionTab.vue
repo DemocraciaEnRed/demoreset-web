@@ -36,11 +36,13 @@
       </div>
       <ul v-if="initiative.approaches.length">
         <li v-for="(approach,i) in initiative.approaches" :key="i">
-          <span class="">{{approach.approaches_id.name}}</span>
+          <span class="">{{ approach.approaches_id.name }}</span>
           <span v-if="approach.approaches_id.description" class="has-text-grey is-size-7"><br><i>{{ approach.approaches_id.description }}</i></span>
         </li>
       </ul>
-      <p v-else>{{$t('initiatives.noData')}}</p>
+      <p v-else>
+        {{ $t('initiatives.noData') }}
+      </p>
     </div>
     <div class="block">
       <div class="title is-mono is-size-5 is-uppercase">

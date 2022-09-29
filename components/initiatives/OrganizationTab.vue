@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="columns mt-5">
-      <div class="column is-2" v-if="initiative.organization && initiative.organization.logo">
+      <div v-if="initiative.organization && initiative.organization.logo" class="column is-2">
         <img :src="`${apiUrl}/assets/${initiative.organization.logo.id}?width=120&height=120&fit=cover`" alt="">
       </div>
       <div class="column is-half">

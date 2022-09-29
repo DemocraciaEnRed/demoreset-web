@@ -15,8 +15,13 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'We connect experiences of political innovation around the globe, transforming the landscape of democracy in the Global South. . We are looking for you to be part of the new wave of deliberative democracy in the Global South!' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: 'https://demoreset.democraciaenred.org/' },
+      { property: 'og:image', content: 'https://demoreset.democraciaenred.org/sharer01.jpg' },
+      { property: 'twitter:card', content: 'We connect experiences of political innovation around the globe, transforming the landscape of democracy in the Global South. . We are looking for you to be part of the new wave of deliberative democracy in the Global South!' },
+      { property: 'twitter:url', content: 'https://demoreset.democraciaenred.org/' },
+      { property: 'twitter:image', content: 'https://demoreset.democraciaenred.org/sharer01.jpg' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

@@ -1,8 +1,4 @@
 module.exports = {
-  head: {
-    title: 'DemoReset',
-    description: 'This is the DemoReset webpage'
-  },
   navbar: {
     hubs: 'Hubs',
     masterclass: 'MasterClass',

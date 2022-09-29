@@ -91,6 +91,28 @@ export default {
       initiative: null
     }
   },
+  head () {
+    const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true })
+    return {
+      title: `${this.initiative.name}`,
+      htmlAttrs: {
+        lang: this.$i18n.locale
+      },
+      meta: [
+        { hid: 'description', name: 'description', content: this.initiative.description },
+        { name: 'title', content: `${this.initiative.name}` },
+        { name: 'description', content: this.initiative.description },
+        { property: 'og:title', content: `${this.initiative.name}` },
+        { property: 'og:description', content: this.initiative.description },
+        { property: 'twitter:title', content: `${this.initiative.name}` },
+        { property: 'twitter:description', content: this.initiative.description },
+        ...i18nHead.meta
+      ],
+      link: [
+        ...i18nHead.link
+      ]
+    }
+  },
   computed: {
     initiativeBarriers () {
       if (!this.initiative) { return [] }
@@ -110,8 +132,8 @@ export default {
       ]
       const barriers = []
       fieldsWithBarriers.forEach((field) => {
-        console.log(field)
-        console.log(this.initiative[field])
+        // console.log(field)
+        // console.log(this.initiative[field])
         // if it is an array, add each element to the barriers array
         if (Array.isArray(this.initiative[field])) {
           this.initiative[field].forEach((element) => {

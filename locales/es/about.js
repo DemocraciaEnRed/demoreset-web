@@ -1,4 +1,7 @@
 const about = {
+  head: {
+    title: 'Acerca de'
+  },
   title: 'Sobre el proyecto de Demoreset',
   alt: 'Democracia deliberativa',
   content1: 'En colaboración con la oficina global de la National Endowment for Democracy NED y el Extituto de Política Abierta (Colombia), reunimos 100 organizaciones del Sur Global, situadas especialmente en el África Subsahariana, Europa del Este, el Sudeste Asiático y América Latina para restablecer nuestras democracias.',
