@@ -36,7 +36,7 @@ const initiatives = {
   },
   organizationTab: {
     contactInfo: 'Contact information',
-    profileButton: 'Complete profile'
+    profileButton: 'Full profile'
   },
   resultsTab: {
     goalsAccomplishment: 'Degree of compliance with objectives',

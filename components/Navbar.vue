@@ -11,6 +11,9 @@
       </template>
 
       <template #end>
+        <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/hubs')}">
+          {{ $t('navbar.hubs') }}
+        </b-navbar-item>
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/initiatives')}">
           {{ $t('navbar.initiatives') }}
         </b-navbar-item>

@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-mobile banner">
-    <div class="column is-offset-1 is-4-tablet is-three-quarters-mobile">
+    <div class="column is-offset-1 is-4-tablet is-three-quarters-mobile is-flex-direction-column is-flex is-justify-content-center">
       <h1 class="is-poppins is-size-3-touch">
         {{ $t('home.bannerTitle') }}
       </h1>

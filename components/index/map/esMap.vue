@@ -824,10 +824,10 @@ export default {
   name: 'EsMap',
   data () {
     return {
-      hub1: '/hubs/1',
-      hub2: '/hubs/2',
-      hub3: '/hubs/3',
-      hub4: '/hubs/4'
+      hub1: '/es/hubs?id=latinamerica',
+      hub2: '/es/hubs?id=east-europe',
+      hub3: '/es/hubs?id=africa',
+      hub4: '/es/hubs?id=asia-india'
     }
   }
 }

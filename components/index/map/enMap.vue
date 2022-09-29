@@ -820,10 +820,10 @@ export default {
   name: 'EnMap',
   data () {
     return {
-      hub1: '/hubs/1',
-      hub2: '/hubs/2',
-      hub3: '/hubs/3',
-      hub4: '/hubs/4'
+      hub1: '/hubs?id=latinamerica',
+      hub2: '/hubs?id=east-europe',
+      hub3: '/hubs?id=africa',
+      hub4: '/hubs?id=asia-india'
     }
   }
 }
