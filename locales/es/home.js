@@ -1,13 +1,29 @@
 const home = {
   hello: 'Conoce las acciones de DemoReset',
   mainButtons: {
-    wannaBePart: 'Quiero formar parte de DemoReset',
-    wannaResolve: 'Busco <b>superar problemas en mi región</b>',
-    wannaSearch: '<b>Busco iniciativas</b> para replicar',
-    wannaKnow: 'Quiero <b>saber sobre las barreras</b>'
+    wannaBePart: {
+      baseText: 'Quiero <b>formar parte<b/> de DemoReset',
+      overlayText: 'Inscribite en nuestro formulario',
+      buttonText: 'Formulario'
+    },
+    wannaResolve: {
+      baseText: 'Busco <b>superar problemas en mi región</b>',
+      overlayText: 'Recorre las regiones',
+      buttonText: 'Mapa interactivo'
+    },
+    wannaSearch: {
+      baseText: '<b>Busco iniciativas</b> para replicar',
+      overlayText: 'Conoce todas las iniciativas',
+      buttonText: 'Iniciativas'
+    },
+    wannaKnow: {
+      baseText: 'Quiero <b>saber sobre las barreras</b>',
+      overlayText: 'Conoce nuestro material audiovisual',
+      buttonText: 'Masterclasses'
+    }
   },
-  bannerTitle: 'Democracia deliberativa en el Sur Global',
-  bannerDescription: 'Descripción de acerca de',
+  bannerTitle: 'Democracia Deliberativa en el Sur Global',
+  bannerDescription: '¡Te estamos buscando para tejer la Red de transformación democrática en el Sur Global!',
   bannerButton: 'Conoce más',
   bannerPhrase: 'Consolidar la actual ola de <b>democracia deliberativa</b>',
   hubsTitle: 'Elige un Hub y conoce las barreras a las que se enfrenta',
@@ -24,6 +40,7 @@ const home = {
     item3: '3. Recomendaciones del mes (Tres artículos que aportarán al conocimiento)'
   },
   proyectBy: 'Un proyecto de',
+  allianceWith: 'En alianza con',
   committee: 'Comité asesor'
 }
 export default home

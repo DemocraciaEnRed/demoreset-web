@@ -133,6 +133,19 @@ export default ({ app, i18n, params }, inject) => {
     getQueryForInitiativeById (id, langCode) {
       return `
       {
+        barrier_categories{
+          id
+          translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+            name
+          }
+          barrier_types {
+            id
+            translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+              name
+            }
+            field_name
+          }
+        }
         initiatives_by_id (id: ${id}) {
           id
           status

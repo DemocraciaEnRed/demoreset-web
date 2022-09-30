@@ -26,7 +26,7 @@ export default {
     InitiativeList,
     InitiativeFilters
   },
-  async asyncData ({ params, $axios, i18n, $router, $graphql }) {
+  async asyncData ({ params, query, $axios, i18n, $router, $graphql }) {
     const theQuery = {
       query: $graphql.getQueryForInitiativeFilters(i18n.localeProperties.iso)
       // query: {
@@ -43,10 +43,23 @@ export default {
       $graphql.mergeFieldTranslations(theHubs)
       $graphql.mergeFieldTranslations(theBarrierCategories)
       $graphql.mergeFieldTranslations(theBarrierTypes)
+
+      const listQuery = {
+        hub: null,
+        barrierCategory: null,
+        barrierType: null,
+        barrier: null
+      }
+      // get hub from the query
+      if (query.hub) {
+        listQuery.hub = theHubs.find(hub => hub.id === query.hub)
+      }
+
       return {
         hubs: theHubs,
         barrierCategories: theBarrierCategories,
-        barrierTypes: theBarrierTypes
+        barrierTypes: theBarrierTypes,
+        query: listQuery
       }
     } catch (err) {
       // eslint-disable-next-line no-console

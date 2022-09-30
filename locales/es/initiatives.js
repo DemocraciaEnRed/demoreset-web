@@ -12,7 +12,7 @@ const initiatives = {
   status: 'Estado de la iniciativa',
   startDate: 'Fecha de inicio',
   endDate: 'Fecha de cierre',
-  noData: 'No hay información disponible.',
+  noData: 'No hay información disponible',
   descriptionTab: {
     projNetworks: 'Redes del proyecto',
     purpose: 'Propósito',
@@ -73,6 +73,7 @@ const initiatives = {
     methodology: 'METODOLOGÍA',
     results: 'RESULTADOS',
     resources: 'RECURSOS',
+    barriers: 'BARRERAS',
     organization: 'ORGANIZACIÓN'
   }
 }

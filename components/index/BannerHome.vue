@@ -7,11 +7,11 @@
       <p class="is-mono my-4">
         {{ $t('home.bannerDescription') }}
       </p>
-      <button class="button is-rounded is-uppercase is-mono is-medium is-responsive">
+      <NuxtLink to="/about" class="button is-rounded is-uppercase is-mono is-medium is-responsive">
         {{ $t('home.bannerButton') }}
-      </button>
+      </NuxtLink>
     </div>
-    <div class="column is-5 is-hidden-mobile">
+    <div class="column is-5 is-hidden-mobile is-flex is-justify-content-center">
       <img src="~/assets/img/InnerBanner.png" alt="personas votando">
     </div>
     <div class="column is-1 sideText" v-html="phrase" />

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="map">
     <h2
       class="column is-four-fifths is-poppins is-uppercase is-size-2 is-size-3-touch has-text-weight-bold has-text-left"
     >
@@ -11,9 +11,9 @@
     <div v-else class="my-6">
       <enMap />
     </div>
-    <button class="button is-rounded is-uppercase is-mono is-centered is-large is-responsive">
+    <NuxtLink to="/hubs" class="button is-rounded is-uppercase is-mono is-centered is-large is-responsive">
       {{ $t('home.hubsButton') }}
-    </button>
+    </NuxtLink>
   </section>
 </template>
 

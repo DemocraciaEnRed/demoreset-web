@@ -7,13 +7,16 @@
         <p class="is-mono is-uppercase principal-title is-size-4">
           {{ $t("home.hello") }}
         </p>
-        <div class="columns my-5">
-          <div v-for="item in buttons" :key="item.id" class="column is-one-quarter">
-            <div class="card is-flex is-flex-direction-column is-justify-content-center">
-              <div class="card-content">
-                <div class="content is-uppercase" v-html="$t(`home.mainButtons.${item.translationId}`)" />
-              </div>
-            </div>
+        <div class="columns is-multiline is-mobile my-5">
+          <div v-for="item in buttons" :key="item.id" class="column is-3-desktop is-6-tablet is-12-mobile">
+            <ButtonIndex
+              :base-text="$t(`home.mainButtons.${item.translationId}.baseText`)"
+              :overlay-text="$t(`home.mainButtons.${item.translationId}.overlayText`)"
+              :button-text="$t(`home.mainButtons.${item.translationId}.buttonText`)"
+              :link="item.link"
+              :external-link="item.externalLink"
+              :scroll-to="item.scrollTo"
+            />
           </div>
         </div>
         <hr class="has-background-black">
@@ -33,9 +36,9 @@
           </div>
         </div>
         <div>
-          <button class="button is-rounded is-large is-responsive my-6 is-uppercase is-mono">
+          <NuxtLink to="/about" class="button is-rounded is-large is-responsive my-6 is-uppercase is-mono">
             {{ $t("home.aboutButton") }}
-          </button>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -52,16 +55,20 @@
         </ul>
       </div>
     </div>
-    <section class="container">
-      <div class="has-border-top mb-5" />
-      <h3 class="is-mono is-uppercase project-by-title">
-        {{ $t("home.proyectBy") }}
-      </h3>
+    <section class="container my-6">
       <div class="columns">
-        <div class="column is-one-third is-offset-1">
+        <div class="column">
+          <div class="has-border-top mb-5" />
+          <h3 class="is-mono is-uppercase project-by-title">
+            {{ $t("home.proyectBy") }}
+          </h3>
           <img src="~/assets/img/advisers/extituto.png" alt="">
         </div>
-        <div class="column is-one-third">
+        <div class="column">
+          <div class="has-border-top mb-5" />
+          <h3 class="is-mono is-uppercase project-by-title">
+            {{ $t("home.allianceWith") }}
+          </h3>
           <img src="~/assets/img/advisers/ned.png" alt="">
         </div>
       </div>
@@ -94,11 +101,13 @@
 
 <script>
 import BannerHome from '~/components/index/BannerHome.vue'
+import ButtonIndex from '~/components/index/ButtonIndex.vue'
 import HubsMap from '~/components/index/HubsMap.vue'
 export default {
   name: 'IndexPage',
   components: {
     BannerHome,
+    ButtonIndex,
     HubsMap
   },
   data () {
@@ -106,19 +115,31 @@ export default {
       buttons: [
         {
           id: 1,
-          translationId: 'wannaBePart'
+          translationId: 'wannaBePart',
+          externalLink: 'https://www.google.com',
+          link: null,
+          scrollTo: null
         },
         {
           id: 2,
-          translationId: 'wannaResolve'
+          translationId: 'wannaResolve',
+          externalLink: null,
+          link: null,
+          scrollTo: 'map'
         },
         {
           id: 3,
-          translationId: 'wannaSearch'
+          translationId: 'wannaSearch',
+          externalLink: null,
+          link: '/initiatives',
+          scrollTo: null
         },
         {
           id: 4,
-          translationId: 'wannaKnow'
+          translationId: 'wannaKnow',
+          externalLink: null,
+          link: '/masterclasses',
+          scrollTo: null
         }
       ],
       newsletter: [
@@ -170,15 +191,6 @@ export default {
 hr {
   width: 50%;
   height: 0.5px;
-}
-
-.card {
-  margin: auto;
-  border: 3px solid #000;
-  height: 100%;
-  border-radius: 10px;
-  width: 296px;
-  height: 237px;
 }
 
 .about-section {

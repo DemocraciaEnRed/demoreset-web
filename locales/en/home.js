@@ -1,13 +1,29 @@
 const home = {
   hello: "Learn about DemoReset's actions",
   mainButtons: {
-    wannaBePart: 'I want to be part of DemoReset',
-    wannaResolve: 'I want to <b>solve problems in my region</b>',
-    wannaSearch: 'I am <b>looking for initiatives</b> to replicate',
-    wannaKnow: 'I want to <b>learn about barriers</b>'
+    wannaBePart: {
+      baseText: 'I want <b>to be part</b> of DemoReset',
+      overlayText: 'Sign up to our form',
+      buttonText: 'Form'
+    },
+    wannaResolve: {
+      baseText: 'I want to <b>solve problems in my region</b>',
+      overlayText: 'Check the hubs',
+      buttonText: 'Interactive Map'
+    },
+    wannaSearch: {
+      baseText: 'I am <b>looking for initiatives</b> to replicate',
+      overlayText: 'Check the initiatives',
+      buttonText: 'Initiatives'
+    },
+    wannaKnow: {
+      baseText: 'I want to <b>learn about barriers</b>',
+      overlayText: 'Check our audiovisual content',
+      buttonText: 'Masterclasses'
+    }
   },
   bannerTitle: 'Deliberative Democracy in the Global South',
-  bannerDescription: 'About description',
+  bannerDescription: 'We are looking for you to be part of the new wave of deliberative democracy in the Global South!',
   bannerButton: 'Learn more',
   bannerPhrase: 'Consolidating the current wave of <b>deliberative democracy</b>',
   hubsTitle: 'Choose a Hub and know the barriers it faces',
@@ -24,6 +40,7 @@ const home = {
     item3: '3. Recommendations of the month (Three articles that will contribute to knowledge)'
   },
   proyectBy: 'A project of',
+  allianceWith: 'In alliance with',
   committee: 'Advisory Committee'
 }
 

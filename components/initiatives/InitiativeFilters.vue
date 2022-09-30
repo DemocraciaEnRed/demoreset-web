@@ -153,6 +153,14 @@ export default {
       return this.barrierTypeSelected.barriers
     }
   },
+  mounted () {
+    // get query params from $route
+    // const { hub, barrierCategory, barrierType, barrier } = this.$route.query
+    const { hub } = this.$route.query
+    if (hub) {
+      this.hubSelected = this.hubs.find(h => h.id === hub)
+    }
+  },
   methods: {
     changeHub (hub) {
       this.$nextTick(() => {

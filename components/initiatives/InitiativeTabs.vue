@@ -4,14 +4,14 @@
       <b-tab-item :label="$t('initiatives.tabLabels.description')">
         <DescriptionTab :initiative="initiative" />
       </b-tab-item>
+      <b-tab-item :label="$t('initiatives.tabLabels.barriers')">
+        <BarriersTab :initiative="initiative" :barrier-categories="barrierCategories" />
+      </b-tab-item>
       <b-tab-item :label="$t('initiatives.tabLabels.methodology')">
         <MetodologyTab :initiative="initiative" />
       </b-tab-item>
       <b-tab-item :label="$t('initiatives.tabLabels.results')">
         <ResultsTab :initiative="initiative" />
-      </b-tab-item>
-      <b-tab-item :label="$t('initiatives.tabLabels.resources')">
-        <ResourcesTab :initiative="initiative" />
       </b-tab-item>
       <b-tab-item :label="$t('initiatives.tabLabels.organization')">
         <OrganizationTab :initiative="initiative" />
@@ -24,7 +24,7 @@
 import DescriptionTab from './DescriptionTab.vue'
 import MetodologyTab from './MetodologyTab.vue'
 import OrganizationTab from './OrganizationTab.vue'
-import ResourcesTab from './ResourcesTab.vue'
+import BarriersTab from './BarriersTab.vue'
 import ResultsTab from './ResultsTab.vue'
 export default {
   name: 'InitiativeTabs',
@@ -32,13 +32,17 @@ export default {
     DescriptionTab,
     MetodologyTab,
     OrganizationTab,
-    ResourcesTab,
+    BarriersTab,
     ResultsTab
   },
   props: {
     initiative: {
       type: Object,
       default: null
+    },
+    barrierCategories: {
+      type: Array,
+      default: () => []
     }
   },
   data () {

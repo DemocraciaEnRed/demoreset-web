@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <InitiativeTabs :initiative="initiative" />
+        <InitiativeTabs :initiative="initiative" :barrier-categories="barrierCategories" />
       </div>
     </div>
   </section>
@@ -77,9 +77,12 @@ export default {
     try {
       const response = await $axios.post('/graphql', theQuery)
       const theInitiative = response.data.data.initiatives_by_id
+      const theBarrierCategories = response.data.data.barrier_categories
       $graphql.mergeFieldTranslations(theInitiative)
+      $graphql.mergeFieldTranslations(theBarrierCategories)
       return {
-        initiative: theInitiative
+        initiative: theInitiative,
+        barrierCategories: theBarrierCategories
       }
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -88,7 +91,8 @@ export default {
   },
   data () {
     return {
-      initiative: null
+      initiative: null,
+      barrierCategories: []
     }
   },
   head () {

@@ -55,6 +55,9 @@
           <a class="flourish-credit" href="https://public.flourish.studio/visualisation/11227764/?utm_source=embed&utm_campaign=visualisation/11227764" target="_top" style="text-decoration:none!important"><img alt="Made with Flourish" src="https://public.flourish.studio/resources/made_with_flourish.svg" style="width:105px!important;height:16px!important;border:none!important;margin:0!important;"> </a>
         </div>
       </section>
+      <NuxtLink to="/initiatives?hub=1" class="button is-rounded is-uppercase is-mono is-centered is-large is-responsive">
+        {{ $t('hubs.listInitiatives') }}
+      </NuxtLink>
       <br>
       <br>
       <br>
@@ -81,6 +84,9 @@
           <a class="flourish-credit" href="https://public.flourish.studio/visualisation/11227836/?utm_source=embed&utm_campaign=visualisation/11227836" target="_top" style="text-decoration:none!important"><img alt="Made with Flourish" src="https://public.flourish.studio/resources/made_with_flourish.svg" style="width:105px!important;height:16px!important;border:none!important;margin:0!important;"> </a>
         </div>
       </section>
+      <NuxtLink to="/initiatives?hub=3" class="button is-rounded is-uppercase is-mono is-centered is-large is-responsive">
+        {{ $t('hubs.listInitiatives') }}
+      </NuxtLink>
       <br>
       <br>
       <br>
@@ -107,6 +113,9 @@
           <a class="flourish-credit" href="https://public.flourish.studio/visualisation/11227853/?utm_source=embed&utm_campaign=visualisation/11227853" target="_top" style="text-decoration:none!important"><img alt="Made with Flourish" src="https://public.flourish.studio/resources/made_with_flourish.svg" style="width:105px!important;height:16px!important;border:none!important;margin:0!important;"> </a>
         </div>
       </section>
+      <NuxtLink to="/initiatives?hub=2" class="button is-rounded is-uppercase is-mono is-centered is-large is-responsive">
+        {{ $t('hubs.listInitiatives') }}
+      </NuxtLink>
       <br>
       <br>
       <br>
@@ -136,6 +145,9 @@
           <a class="flourish-credit" href="https://public.flourish.studio/visualisation/11227779/?utm_source=embed&utm_campaign=visualisation/11227779" target="_top" style="text-decoration:none!important"><img alt="Made with Flourish" src="https://public.flourish.studio/resources/made_with_flourish.svg" style="width:105px!important;height:16px!important;border:none!important;margin:0!important;"> </a>
         </div>
       </section>
+      <NuxtLink to="/initiatives?hub=4" class="button is-rounded is-uppercase is-mono is-centered is-large is-responsive">
+        {{ $t('hubs.listInitiatives') }}
+      </NuxtLink>
       <br>
       <br>
       <br>
@@ -179,7 +191,6 @@ export default {
   methods: {
     scrollTo (id) {
       const element = document.getElementById(id)
-      console.log(element)
       element.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
@@ -188,3 +199,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.button {
+  background: transparent;
+  border: 2px solid #000;
+  font-style: normal;
+  font-weight: 500;
+  color: #000;
+}
+</style>

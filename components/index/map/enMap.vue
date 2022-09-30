@@ -249,18 +249,18 @@
       <g id="Capa_2" data-name="Capa 2">
         <g id="Capa_1-2" data-name="Capa 1">
           <g>
-            <NuxtLink :to="hub2"><circle class="cls-15" cx="472.39" cy="238.68" r="57.54" /></NuxtLink>
-            <NuxtLink :to="hub2"><circle class="cls-19" cx="540.76" cy="14.97" r="14.09" /></NuxtLink>
-            <NuxtLink :to="hub3"><circle class="cls-5" cx="467.68" cy="359.44" r="102.44" /></NuxtLink>
-            <NuxtLink :to="hub3"><circle class="cls-1" cx="397.99" cy="503.92" r="15.13" /></NuxtLink>
-            <NuxtLink :to="hub4"><circle class="cls-7" cx="758.54" cy="388.82" r="70.77" /></NuxtLink>
-            <NuxtLink :to="hub4"><circle class="cls-10" cx="891.45" cy="465.11" r="15.91" /></NuxtLink>
-            <NuxtLink :to="hub4"><circle class="cls-6" cx="690.52" cy="349.55" r="70.77" /></NuxtLink>
-            <NuxtLink :to="hub1"><circle class="cls-9" cx="253.61" cy="425.68" r="109.72" /></NuxtLink>
-            <NuxtLink :to="hub1"><circle class="cls-8" cx="183.81" cy="349.15" r="86.05" /></NuxtLink>
-            <NuxtLink :to="hub1"><circle class="cls-11" cx="39.62" cy="405.12" r="16.7" /></NuxtLink>
-            <NuxtLink :to="hub4"><circle class="cls-3" cx="629.35" cy="324.73" r="50.42" /></NuxtLink>
-            <NuxtLink :to="hub4"><circle class="cls-17" cx="629.35" cy="432.03" r="12.23" /></NuxtLink>
+            <NuxtLink :to="hub2"><circle class="animate__animated animate__slower animate__delay-3s animate__infinite animate__flash cls-15" cx="472.39" cy="238.68" r="57.54" /></NuxtLink>
+            <NuxtLink :to="hub2"><circle class="animate__animated animate__slower animate__delay-2s animate__infinite animate__flash cls-19" cx="540.76" cy="14.97" r="14.09" /></NuxtLink>
+            <NuxtLink :to="hub3"><circle class="animate__animated animate__slower animate__delay-1s animate__infinite animate__flash cls-5" cx="467.68" cy="359.44" r="102.44" /></NuxtLink>
+            <NuxtLink :to="hub3"><circle class="animate__animated animate__slower animate__delay-3s animate__infinite animate__flash cls-1" cx="397.99" cy="503.92" r="15.13" /></NuxtLink>
+            <NuxtLink :to="hub4"><circle class="animate__animated animate__slower animate__delay-4s animate__infinite animate__flash cls-7" cx="758.54" cy="388.82" r="70.77" /></NuxtLink>
+            <NuxtLink :to="hub4"><circle class="animate__animated animate__slower animate__delay-1s animate__infinite animate__flash cls-10" cx="891.45" cy="465.11" r="15.91" /></NuxtLink>
+            <NuxtLink :to="hub4"><circle class="animate__animated animate__slower animate__delay-2s animate__infinite animate__flash cls-6" cx="690.52" cy="349.55" r="70.77" /></NuxtLink>
+            <NuxtLink :to="hub1"><circle class="animate__animated animate__slower animate__delay-1s animate__infinite animate__flash cls-9" cx="253.61" cy="425.68" r="109.72" /></NuxtLink>
+            <NuxtLink :to="hub1"><circle class="animate__animated animate__slower animate__delay-5s animate__infinite animate__flash cls-8" cx="183.81" cy="349.15" r="86.05" /></NuxtLink>
+            <NuxtLink :to="hub1"><circle class="animate__animated animate__slower animate__delay-3s animate__infinite animate__flash cls-11" cx="39.62" cy="405.12" r="16.7" /></NuxtLink>
+            <NuxtLink :to="hub4"><circle class="animate__animated animate__slower animate__delay-2s animate__infinite animate__flash cls-3" cx="629.35" cy="324.73" r="50.42" /></NuxtLink>
+            <NuxtLink :to="hub4"><circle class="animate__animated animate__slower animate__delay-1s animate__infinite animate__flash cls-17" cx="629.35" cy="432.03" r="12.23" /></NuxtLink>
             <g>
               <path d="M575.34,21.12v3.33h4.57v1.01h-5.76v-9.39h5.71v1.02h-4.51v3.02h3.92v1.01h-3.92Z" />
               <path d="M583.37,23.03l-.75,2.43h-1.19l3.03-9.39h1l2.98,9.39h-1.19l-.74-2.43h-3.13Zm2.82-1.04l-1.24-4.07-1.26,4.07h2.5Z" />
