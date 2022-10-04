@@ -1,20 +1,25 @@
 <template>
-  <div class="columns is-mobile banner">
-    <div class="column is-offset-1 is-4-tablet is-three-quarters-mobile is-flex-direction-column is-flex is-justify-content-center is-align-items-flex-start">
-      <h1 class="is-poppins is-size-3-touch">
-        {{ $t('home.bannerTitle') }}
-      </h1>
-      <p class="is-mono my-4">
-        {{ $t('home.bannerDescription') }}
-      </p>
-      <NuxtLink to="/about" class="button is-rounded is-uppercase is-mono is-medium is-responsive">
-        {{ $t('home.bannerButton') }}
-      </NuxtLink>
+  <div class=" my-6 banner">
+    <div class="container is-fluid">
+      <div class="columns is-mobile">
+
+      <div class="column is-offset-1 is-4-tablet is-three-quarters-mobile is-flex-direction-column is-flex is-justify-content-center is-align-items-flex-start py-6">
+        <h1 class="is-poppins is-size-3-touch">
+          {{ $t('home.bannerTitle') }}
+        </h1>
+        <p class="is-mono my-4">
+          {{ $t('home.bannerDescription') }}
+        </p>
+        <NuxtLink to="/about" class="button is-rounded is-uppercase is-mono is-medium is-responsive">
+          {{ $t('home.bannerButton') }}
+        </NuxtLink>
+      </div>
+      <div class="column is-5 is-hidden-mobile is-flex is-justify-content-center">
+        <img src="~/assets/img/InnerBanner.png" alt="personas votando">
+      </div>
+      <div class="column is-1 sideText" v-html="phrase" />
+      </div>
     </div>
-    <div class="column is-5 is-hidden-mobile is-flex is-justify-content-center">
-      <img src="~/assets/img/InnerBanner.png" alt="personas votando">
-    </div>
-    <div class="column is-1 sideText" v-html="phrase" />
   </div>
 </template>
 

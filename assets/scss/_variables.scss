@@ -9,6 +9,7 @@ $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
 $text: $black;
+$title-color: $black;
 // Lists and maps
 $custom-colors: null !default;
 $custom-shades: null !default;

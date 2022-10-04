@@ -38,7 +38,7 @@
         </b-navbar-item>
       </template>
     </b-navbar>
-    <hr class="has-background-black mt-0">
+    <hr class="has-background-black my-0">
   </div>
 </template>
 
