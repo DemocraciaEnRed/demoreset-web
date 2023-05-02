@@ -26,6 +26,9 @@
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/contact')}">
           {{ $t('navbar.contact') }}
         </b-navbar-item>
+        <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/login')}">
+          {{ $t('navbar.login') }}
+        </b-navbar-item>
         <b-navbar-item tag="div">
           <div class="buttons">
             <nuxt-link v-if="$i18n.locale == 'en'" :to="switchLocalePath('es')" class="button is-black is-rounded is-poppins">
