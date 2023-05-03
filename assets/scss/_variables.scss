@@ -11,7 +11,11 @@ $primary-invert: findColorInvert($primary);
 $text: $black;
 $title-color: $black;
 // Lists and maps
-$custom-colors: null !default;
+// $custom-colors: null !default;
+$pink: #FF17FD;
+$pink-dark: findDarkColor($pink);
+$pink-invert: findColorInvert($pink);
+$custom-colors: ("pink": ($pink, $pink-invert));
 $custom-shades: null !default;
 
 $colors: mergeColorMaps(

@@ -1,19 +1,35 @@
 <template>
-  <section class="section container">
+  <section class="py-5 mw-300">
     <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
-      Ingresar
+      {{ $t('login.title') }}
     </h1>
-    <b-field label="Correo electrónico">
-      <b-input v-model="email" type="email" placeholder="Ingresa tu email" />
-    </b-field>
-    <b-field label="Contraseña">
-      <b-input v-model="password" type="password" password-reveal placeholder="Ingresa tu contraseña" />
-    </b-field>
-    <div class="has-text-centered">
-      <b-button class="login-button" @click="login">
-        Ingresar
-      </b-button>
-    </div>
+    <form>
+      <b-field :label="$t('login.email')">
+        <b-input v-model="email" type="email" :placeholder="$t('login.placeholderEmail')" />
+      </b-field>
+      <b-field :label="$t('login.password')">
+        <b-input v-model="password" type="password" password-reveal :placeholder="$t('login.placeholderPassword')" />
+      </b-field>
+      <div class="pb-2 has-text-right">
+        <a href="#" class="has-text-pink">{{ $t('login.forgotPassword') }}</a>
+      </div>
+      <div class="has-text-centered mt-1">
+        <b-button class="login-button" @click="login">
+          {{ $t('login.title') }}
+        </b-button>
+      </div>
+      <div class="divider" />
+      <div>
+        <p class="is-uppercase has-text-weight-medium is-size-5 has-text-centered">
+          {{ $t('login.registerTitle') }}
+        </p>
+        <nuxt-link :to="{path: localePath('/register')}">
+          <b-button class="login-button mt-2">
+            {{ $t('login.registerButton') }}
+          </b-button>
+        </nuxt-link>
+      </div>
+    </form>
   </section>
 </template>
 
@@ -37,11 +53,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .login-button {
   width: 100%;
-  max-width: 50%;
+  max-width: 100%;
   border-radius: 10px;
   border: 2px solid #000;
+}
+
+.mw-300 {
+    max-width: 300px;
+    margin: auto;
+}
+
+/* centered divider 80px */
+.divider {
+  position: relative;
+  margin: 20px auto;
+  width: 80px;
+  height: 2px;
+  background-color: #CACACA;
 }
 </style>

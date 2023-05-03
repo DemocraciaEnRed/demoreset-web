@@ -5,6 +5,8 @@ import hubs from './hubs'
 import initiatives from './initiatives'
 import about from './about'
 import organizations from './organizations'
+import login from './login'
+import register from './register'
 
 const en = {
   ...general,
@@ -14,7 +16,9 @@ const en = {
   hubs,
   initiatives,
   about,
-  organizations
+  organizations,
+  login,
+  register
 }
 
 export default en
