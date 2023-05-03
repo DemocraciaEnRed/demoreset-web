@@ -5,7 +5,7 @@
       type="is-success"
       message="This nombre is available"
     >
-      <b-input v-model="name" placeholder="Ingresa tu nombre de usuario" />
+      <b-input v-model="username" placeholder="Ingresa tu nombre de usuario" autofocus required />
     </b-field>
     <b-field
       label="Correo electrónico"
@@ -16,37 +16,45 @@
         v-model="email"
         placeholder="Ingresa tu correo electrónico"
         maxlength="30"
+        required
       />
     </b-field>
 
     <b-field
       label="Nombre"
     >
-      <b-input v-model="name" placeholder="Ingresa tu nombre" />
+      <b-input v-model="first_name" placeholder="Ingresa tu nombre" required />
     </b-field>
     <b-field
       label="Apellido"
     >
-      <b-input v-model="surname" placeholder="Ingresa tu apellido" />
+      <b-input v-model="last_name" placeholder="Ingresa tu apellido" required />
     </b-field>
     <b-field label="País">
-      <b-select v-if="$i18n.locale == 'es'" placeholder="Selecciona tu país">
+      <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Selecciona tu país" required>
         <option v-for="c in countriesEs" :key="c.code" :value="c.code">
           {{ c.name }}
         </option>
       </b-select>
-      <b-select v-else placeholder="Selecciona tu país">
+      <b-select v-else v-model="country" placeholder="Selecciona tu país" required>
         <option v-for="c in countriesEn" :key="c.code" :value="c.code">
           {{ c.name }}
         </option>
       </b-select>
     </b-field>
+
+    <b-field
+      label="Organización"
+    >
+      <b-input v-model="organization" placeholder="Ingresa tu organización (si tienes)" />
+    </b-field>
+
     <b-field
       label="Contraseña"
       type="is-warning"
       :message="['Password is too short', 'Password must have at least 8 characters']"
     >
-      <b-input v-model="password" type="password" placeholder="Ingresa tu contraseña" />
+      <b-input v-model="password" type="password" placeholder="Ingresa tu contraseña" required />
     </b-field>
 
     <b-field>
@@ -88,11 +96,13 @@ export default {
   methods: {
     async register () {
       const response = await this.$axios.$post('http://localhost:4000/api/auth/signup', {
+        username: this.username,
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
         country: this.country,
-        password: this.password
+        password: this.password,
+        organization: this.organization
       })
       console.log(response)
     }
