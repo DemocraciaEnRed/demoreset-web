@@ -1,42 +1,45 @@
 <template>
   <section class="py-5 mw-300">
+    <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
+      {{ $t('register.title') }}
+    </h1>
     <b-field
-      label="Nombre de usuario"
+      :label="$t('register.username')"
       type="is-success"
       message="This nombre is available"
     >
-      <b-input v-model="username" placeholder="Ingresa tu nombre de usuario" autofocus required />
+      <b-input v-model="username" :placeholder="$t('register.placeholderUsername')" autofocus required />
     </b-field>
     <b-field
-      label="Correo electrónico"
+      :label="$t('register.email')"
       type="is-danger"
       message="This email is invalid"
     >
       <b-input
         v-model="email"
-        placeholder="Ingresa tu correo electrónico"
+        :placeholder="$t('register.placeholderEmail')"
         maxlength="30"
         required
       />
     </b-field>
 
     <b-field
-      label="Nombre"
+      :label="$t('register.firstName')"
     >
-      <b-input v-model="first_name" placeholder="Ingresa tu nombre" required />
+      <b-input v-model="first_name" :placeholder="$t('register.placeholderFirstName')" required />
     </b-field>
     <b-field
-      label="Apellido"
+      :label="$t('register.lastName')"
     >
-      <b-input v-model="last_name" placeholder="Ingresa tu apellido" required />
+      <b-input v-model="last_name" :placeholder="$t('register.placeholderLastName')" required />
     </b-field>
-    <b-field label="País">
-      <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Selecciona tu país" required>
+    <b-field :label="$t('register.country')">
+      <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Ingresa tu país" required>
         <option v-for="c in countriesEs" :key="c.code" :value="c.code">
           {{ c.name }}
         </option>
       </b-select>
-      <b-select v-else v-model="country" placeholder="Selecciona tu país" required>
+      <b-select v-else v-model="country" placeholder="Enter your country" required>
         <option v-for="c in countriesEn" :key="c.code" :value="c.code">
           {{ c.name }}
         </option>
@@ -44,27 +47,27 @@
     </b-field>
 
     <b-field
-      label="Organización"
+      :label="$t('register.organization')"
     >
-      <b-input v-model="organization" placeholder="Ingresa tu organización (si tienes)" />
+      <b-input v-model="organization" :placeholder="$t('register.placeholderOrganization')" />
     </b-field>
 
     <b-field
-      label="Contraseña"
+      :label="$t('register.password')"
       type="is-warning"
       :message="['Password is too short', 'Password must have at least 8 characters']"
     >
-      <b-input v-model="password" type="password" placeholder="Ingresa tu contraseña" required />
+      <b-input v-model="password" type="password" :placeholder="$t('register.placeholderPassword')" required />
     </b-field>
 
     <b-field>
       <b-checkbox type="is-pink">
-        Acepto los <a href="#" class="has-text-pink">términos y condiciones</a>
+        {{ $t('register.terms') }} <a href="#" class="has-text-pink">{{ $t('register.termsAnchor') }}</a>
       </b-checkbox>
     </b-field>
     <div class="has-text-centered">
       <b-button class="login-button" @click="register">
-        Registrarme
+        {{ $t('register.registerButton') }}
       </b-button>
     </div>
   </section>
