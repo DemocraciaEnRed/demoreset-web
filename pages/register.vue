@@ -5,7 +5,7 @@
       type="is-success"
       message="This nombre is available"
     >
-      <b-input v-model="name" value="deradmin" maxlength="30" />
+      <b-input v-model="name" placeholder="Ingresa tu nombre de usuario" />
     </b-field>
     <b-field
       label="Correo electrónico"
@@ -14,39 +14,39 @@
     >
       <b-input
         v-model="email"
-        type="email"
-        value="john@"
+        placeholder="Ingresa tu correo electrónico"
         maxlength="30"
       />
     </b-field>
 
     <b-field
       label="Nombre"
-      type="is-success"
-      message="This nombre is available"
     >
-      <b-input v-model="name" value="Juan Carlos" maxlength="30" />
+      <b-input v-model="name" placeholder="Ingresa tu nombre" />
     </b-field>
     <b-field
       label="Apellido"
-      type="is-success"
-      message="This apellido está ok"
     >
-      <b-input v-model="surname" value="Juan Carlos" maxlength="30" />
+      <b-input v-model="surname" placeholder="Ingresa tu apellido" />
     </b-field>
     <b-field label="País">
-      <b-select placeholder="Seleccione su país">
-        <!-- <option v-for="c in options" :key="c.code" :value="c.code">
+      <b-select v-if="$i18n.locale == 'es'" placeholder="Selecciona tu país">
+        <option v-for="c in countriesEs" :key="c.code" :value="c.code">
           {{ c.name }}
-        </option> -->
+        </option>
+      </b-select>
+      <b-select v-else placeholder="Selecciona tu país">
+        <option v-for="c in countriesEn" :key="c.code" :value="c.code">
+          {{ c.name }}
+        </option>
       </b-select>
     </b-field>
     <b-field
-      label="Password"
+      label="Contraseña"
       type="is-warning"
       :message="['Password is too short', 'Password must have at least 8 characters']"
     >
-      <b-input v-model="password" value="123" type="password" maxlength="30" />
+      <b-input v-model="password" type="password" placeholder="Ingresa tu contraseña" />
     </b-field>
 
     <b-field>
@@ -56,13 +56,14 @@
     </b-field>
     <div class="has-text-centered">
       <b-button class="login-button" @click="register">
-        Registrar
+        Registrarme
       </b-button>
     </div>
   </section>
 </template>
 
 <script>
+import { countriesEn, countriesEs } from '../static/index.js'
 export default {
   data: () => {
     return {
@@ -73,7 +74,8 @@ export default {
       password: '',
       organization: '',
       country: '',
-      countries: []
+      countriesEn,
+      countriesEs
     }
   },
   //   computed: {
