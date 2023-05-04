@@ -425,6 +425,16 @@ export default ({ app, i18n, params }, inject) => {
       }
       `
     },
+    getQueryForAllOrganizations () {
+      return `
+        {
+          organizations {
+            id
+            name
+          }
+        }
+      `
+    },
     getQueryForOrganizationById (id, langCode) {
       return `
         {

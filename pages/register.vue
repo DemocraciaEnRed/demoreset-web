@@ -4,13 +4,6 @@
       {{ $t('register.title') }}
     </h1>
     <b-field
-      :label="$t('register.username')"
-      type="is-success"
-      message="This nombre is available"
-    >
-      <b-input v-model="username" :placeholder="$t('register.placeholderUsername')" autofocus required />
-    </b-field>
-    <b-field
       :label="$t('register.email')"
       type="is-danger"
       message="This email is invalid"
@@ -46,11 +39,19 @@
       </b-select>
     </b-field>
 
+    <b-field label="Selecciona tu organización">
+      <b-select v-model="organization" placeholder="Selecciona tu organización" required>
+        <option v-for="org in organizationList" :key="org.id" :value="org.name">
+          {{ org.name }}
+        </option>
+      </b-select>
+    </b-field>
+    <!--
     <b-field
       :label="$t('register.organization')"
     >
       <b-input v-model="organization" :placeholder="$t('register.placeholderOrganization')" />
-    </b-field>
+    </b-field> -->
 
     <b-field
       :label="$t('register.password')"
@@ -78,7 +79,6 @@ import { countriesEn, countriesEs } from '../static/index.js'
 export default {
   data: () => {
     return {
-      username: '',
       email: '',
       first_name: '',
       last_name: '',
@@ -86,20 +86,20 @@ export default {
       organization: '',
       country: '',
       countriesEn,
-      countriesEs
+      countriesEs,
+      organizationList: []
     }
   },
-  //   computed: {
-  //     getCountries () {
-  //       const countries = this.$t('register.countries')
-  //       console.log(countries)
-  //       return countries
-  //     }
-  //   },
+  async fetch () {
+    const theQuery = {
+      query: this.$graphql.getQueryForAllOrganizations()
+    }
+    const response = await this.$axios.post('/graphql', theQuery)
+    this.organizationList = response.data.data.organizations
+  },
   methods: {
     async register () {
       const response = await this.$axios.$post('http://localhost:4000/api/auth/signup', {
-        username: this.username,
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
