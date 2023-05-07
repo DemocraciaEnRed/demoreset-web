@@ -20,6 +20,9 @@
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/masterclasses')}">
           {{ $t('navbar.masterclass') }}
         </b-navbar-item>
+        <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match')}">
+          Match
+        </b-navbar-item>
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/about')}">
           {{ $t('navbar.about') }}
         </b-navbar-item>

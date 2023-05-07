@@ -12,10 +12,13 @@ $text: $black;
 $title-color: $black;
 // Lists and maps
 // $custom-colors: null !default;
+$yellow:#FAFF2E;
+$yellow-dark: findDarkColor($yellow);
+$yellow-invert: findColorInvert($yellow);
 $pink: #FF17FD;
 $pink-dark: findDarkColor($pink);
 $pink-invert: findColorInvert($pink);
-$custom-colors: ("pink": ($pink, $pink-invert));
+$custom-colors: ("pink": ($pink, $pink-dark, $pink-invert), "yellow": ($yellow, $yellow-dark, $yellow-invert));
 $custom-shades: null !default;
 
 $colors: mergeColorMaps(
