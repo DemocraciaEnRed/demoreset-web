@@ -14,7 +14,7 @@
         <a href="#" class="has-text-primary">{{ $t('login.forgotPassword') }}</a>
       </div>
       <div class="has-text-centered mt-1">
-        <b-button class="login-button" @click="login">
+        <b-button type="submit" class="login-button" @click.prevent="login">
           {{ $t('login.title') }}
         </b-button>
       </div>
@@ -43,12 +43,28 @@ export default {
   },
   methods: {
     async login () {
+      if (!this.email || !this.password) {
+        this.alertCustomError()
+        return
+      }
       const response = await this.$axios.$post('http://localhost:4000/api/auth/signin', {
         email: this.email,
         password: this.password
       })
       console.log(response)
       this.$store.dispatch('setToken', response.token)
+    },
+    alertCustomError () {
+      this.$buefy.dialog.alert({
+        title: 'Error',
+        message: 'Todos los campos son requeridos',
+        type: 'is-danger',
+        hasIcon: true,
+        icon: 'times-circle',
+        iconPack: 'fa',
+        ariaRole: 'alertdialog',
+        ariaModal: true
+      })
     }
   }
 }

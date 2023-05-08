@@ -10,7 +10,7 @@ const register = {
   placeholderLastName: 'Enter your last name',
   country: 'Country',
   organization: 'Organization',
-  placeholderOrganization: 'Enter your organization (if you have)',
+  placeholderOrganization: 'Enter your organization (if any)',
   password: 'Password',
   placeholderPassword: 'Enter your password',
   terms: 'I accept the',

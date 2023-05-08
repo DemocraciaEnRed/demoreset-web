@@ -1,22 +1,22 @@
 <template>
   <div>
     <div class="column is-full">
-      <b-message
-        v-model="isActive"
-        title="No estás conectado"
-        aria-close-label="close"
-      >
-        Para poder enviar un llamado debes tener una cuenta. Si aún no la tiene puede generarla haciendo <nuxt-link :to="{path: localePath('/register')}" class="has-text-primary">
-          click aquí.
-        </nuxt-link>
-        <br>
-        Si ya tienes una cuenta, <nuxt-link :to="{path: localePath('/login')}" class="has-text-primary">
-          inicia sesión.
-        </nuxt-link>
-      </b-message>
       <div class="card">
         <div class="card-content">
           <div class="content" @click="isActive = !isActive">
+            <b-message
+              v-model="isActive"
+              title="No estás conectado"
+              aria-close-label="close"
+            >
+              Para poder enviar un llamado debes tener una cuenta. Si aún no la tiene puede generarla haciendo <nuxt-link :to="{path: localePath('/register')}" class="has-text-primary">
+                click aquí.
+              </nuxt-link>
+              <br>
+              Si ya tienes una cuenta, <nuxt-link :to="{path: localePath('/login')}" class="has-text-primary">
+                inicia sesión.
+              </nuxt-link>
+            </b-message>
             Deje su comentario, respuesta...
           </div>
         </div>
@@ -73,7 +73,7 @@ article {
   border: 1px solid #000;
   position: absolute;
   z-index: 40;
-  width: 90%;
+  width: 95%;
   margin-bottom: 15px;
 }
 </style>
