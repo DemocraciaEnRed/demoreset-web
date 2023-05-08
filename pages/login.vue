@@ -11,7 +11,7 @@
         <b-input v-model="password" type="password" password-reveal :placeholder="$t('login.placeholderPassword')" />
       </b-field>
       <div class="pb-2 has-text-right">
-        <a href="#" class="has-text-pink">{{ $t('login.forgotPassword') }}</a>
+        <a href="#" class="has-text-primary">{{ $t('login.forgotPassword') }}</a>
       </div>
       <div class="has-text-centered mt-1">
         <b-button class="login-button" @click="login">

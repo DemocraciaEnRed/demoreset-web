@@ -16,7 +16,7 @@
         <div class="column">
           <div class="has-text-left ml-4">
             <p class="is-mono">
-              {{ initiative.organization?.name }} <a v-if="initiative.organization?.email" :href="`mailto:${initiative.organization?.email}`"><i class="fas fa-envelope has-text-primary fa-lg" /></a>
+              {{ initiative.organization?.name }} <a v-if="initiative.organization?.email" :href="`mailto:${initiative.organization?.email}`"><i class="fas fa-envelope has-text-red fa-lg" /></a>
             </p>
             <!-- ANALIZAR CONSISTENCIA DE DATOS ORGANIZACION - CONDICIONAL NECESARIO? -->
             <nuxt-link :to="{ path: localePath('/initiatives/' + initiative.id) }" class="has-text-black">

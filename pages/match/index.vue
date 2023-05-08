@@ -17,14 +17,14 @@
           <CallToBox />
         </div>
         <div class="column">
-          <CallToBox />
+          <CallToBox :disabled-box="true" />
         </div>
       </div>
     </section>
   </div>
 </template>
 <script>
-import MatchmakingFilter from '../../components/matchmaking/MatchmakingFilter.vue'
+import MatchmakingFilter from '../../components/matchmaking/filters/MatchmakingFilter.vue'
 import CallToBox from '~/components/matchmaking/CallToBox.vue'
 
 export default {
