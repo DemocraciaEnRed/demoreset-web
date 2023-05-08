@@ -59,10 +59,16 @@
           <p class="is-condensed is-uppercase is-size-5 has-text-weight-semibold">
             Respuestas
           </p>
-          <button class="ml-2 button is-small is-rounded is-outlined is-roboto is-black is-mono">
+          <!-- <button class="ml-2 button is-small is-rounded is-outlined is-roboto is-black is-mono">
             Responder
-          </button>
+          </button> -->
         </div>
+        <div class="py-4">
+          <CommentCard />
+        </div>
+        <p class="has-text-right">
+          Ordenar respuestas por
+        </p>
         <div class="columns is-multiline py-5">
           <ResponseCard />
         </div>
@@ -73,10 +79,13 @@
 
 <script>
 import ResponseCard from '../../components/matchmaking/ResponseCard.vue'
+import CommentCard from '../../components/matchmaking/CommentCard.vue'
+
 export default {
   name: 'MatchMakingId',
   components: {
-    ResponseCard
+    ResponseCard,
+    CommentCard
   }
 }
 </script>

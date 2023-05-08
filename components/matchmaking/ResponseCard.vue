@@ -43,6 +43,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'ResponseCard'
@@ -50,6 +51,9 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  border: 1px solid black;
+}
 .comment-body {
   font-style: normal;
   font-weight: 400;
