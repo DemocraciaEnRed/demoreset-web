@@ -105,14 +105,30 @@ export default {
     },
     password (newPassword, oldPassword) {
       this.validatePassword()
+    },
+    checkbox (newCheckbox, oldCheckbox) {
+      this.validateCheckbox()
     }
   },
   methods: {
     async register () {
       if (!this.email && !this.first_name && !this.last_name && !this.country && !this.organization && !this.password && !this.checkbox) {
-        this.alertCustomError()
+        this.alertCustomError('')
         return
       }
+      if (!this.emailState) {
+        this.alertCustomError('El email no es válido')
+        return
+      }
+      if (!this.passwordState) {
+        this.alertCustomError('La contraseña no es válida')
+        return
+      }
+      if (!this.checkbox) {
+        this.alertCustomError('Debes aceptar los términos y condiciones')
+        return
+      }
+
       const response = await this.$axios.$post('http://localhost:4000/api/auth/signup', {
         email: this.email,
         first_name: this.first_name,
@@ -123,10 +139,10 @@ export default {
       })
       console.log(response)
     },
-    alertCustomError () {
+    alertCustomError (prop) {
       this.$buefy.dialog.alert({
         title: 'Error',
-        message: 'Todos los campos son requeridos',
+        message: prop !== '' ? prop : 'Todos los campos son requeridos',
         type: 'is-danger',
         hasIcon: true,
         icon: 'times-circle',
