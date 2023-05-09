@@ -1,5 +1,5 @@
 <template>
-  <div :class="`box ${isDisabled}`">
+  <div :class="`box ${isActive}`">
     <div class="media is-align-items-center">
       <div class="media-left">
         <figure class="image is-48x48">
@@ -50,20 +50,20 @@ function compareDates (d1, d2) {
 export default {
   name: 'CallToBox',
   props: {
-    disabledBox: {
+    activeBox: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   data () {
     return {
-      disabledCallTo: this.disabledBox
+      activeCallTo: this.activeBox
     }
   },
   computed: {
     creationDate () { return new Date(2023, 0, 1, 0, 0, 0) },
     endDate () { return new Date(2023, 6, 9, 0, 0, 0) },
-    isDisabled () { return this.disabledCallTo ? 'inactive' : '' },
+    isActive () { return this.activeCallTo ? '' : 'inactive' },
     dateDiff () {
       const date1 = new Date()
       const date2 = this.endDate
@@ -83,7 +83,7 @@ export default {
         const timeUnits = callToPeriod / 100
         return this.dateDiff / timeUnits
       }
-      this.toggleDisabled()
+      this.toggleActive()
       return 0
     }
   },
@@ -94,8 +94,8 @@ export default {
     formatDate (date) {
       return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     },
-    toggleDisabled (v) {
-      this.disabledCallTo = true
+    toggleActive (v) {
+      this.activeCallTo = false
     }
   }
 }

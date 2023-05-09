@@ -17,7 +17,7 @@
           <CallToBox />
         </div>
         <div class="column">
-          <CallToBox :disabled-box="true" />
+          <CallToBox :active-box="false" />
         </div>
       </div>
     </section>
