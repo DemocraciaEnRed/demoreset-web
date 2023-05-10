@@ -37,22 +37,39 @@
 export default {
   data: () => {
     return {
-      email: '',
-      password: ''
+      email: 'admin@admin.com',
+      password: 'administrador',
+      loading: false
     }
   },
   methods: {
-    async login () {
+    login () {
       if (!this.email || !this.password) {
         this.alertCustomError()
         return
       }
-      const response = await this.$axios.$post('http://localhost:4000/api/auth/signin', {
+      this.loading = true
+      this.$axios.$post('http://localhost:4000/api/auth/signin', {
         email: this.email,
         password: this.password
+      }).then(async (response) => {
+        console.log(response.data)
+        await this.$store.dispatch('setToken', response.token)
+        return this.$axios.$get('http://localhost:4000/api/me')
+      }).then(async (response) => {
+        await this.$store.dispatch('setUser', response.user)
+        // push the user to home
+        this.$router.push({ path: this.localePath('/') })
       })
-      console.log(response)
-      this.$store.dispatch('setToken', response.token)
+        .catch((err) => {
+          console.error(err)
+          // this.$store.dispatch('clearToken')
+          // this.$store.dispatch('clearUser')
+          // show an error message or something
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     alertCustomError () {
       this.$buefy.dialog.alert({
