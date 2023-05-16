@@ -17,7 +17,7 @@
     </div>
     <div class="container my-5">
       <p class="is-mono is-size-5">
-        Necesito una asociación para un proyecto en curso sobre cuestiones ambientales.
+        {{ ct.title }}
       </p>
     </div>
     <div class="container mb-3">
@@ -27,7 +27,7 @@
       <span class="mr-3 is-size-6">Tipo:</span> <span class="tag is-rounded is-size-7 has-background-yellow">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
     </div>
     <div class="container my-3">
-      <span class="is-font-size-14"><b>Fecha de finalización:</b>{{ formatDate(endDate) }}</span>
+      <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ formatDate(ct.endDate) }}</span>
       <b-progress
         type="is-primary"
         size="is-large"
@@ -53,6 +53,10 @@ export default {
     activeBox: {
       type: Boolean,
       default: true
+    },
+    ct: {
+      type: Object,
+      default: () => {}
     }
   },
   data () {
@@ -92,6 +96,7 @@ export default {
       console.log(v)
     },
     formatDate (date) {
+      date = new Date(date)
       return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     },
     toggleActive (v) {

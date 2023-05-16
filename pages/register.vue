@@ -61,7 +61,7 @@
         </b-checkbox>
       </b-field>
       <div class="has-text-centered">
-        <b-button type="submit" class="login-button" @click.prevent="register">
+        <b-button type="submit" class="login-button" @click="register">
           {{ $t('register.registerButton') }}
         </b-button>
       </div>
@@ -111,7 +111,7 @@ export default {
     }
   },
   methods: {
-    async register () {
+    register () {
       if (!this.email && !this.first_name && !this.last_name && !this.country && !this.organization && !this.password && !this.checkbox) {
         this.alertCustomError('')
         return
@@ -129,15 +129,38 @@ export default {
         return
       }
 
-      const response = await this.$axios.$post('http://localhost:4000/api/auth/signup', {
+      this.$axios.$post('http://localhost:4000/api/auth/signup', {
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
         country: this.country,
         password: this.password,
         organization: this.organization
+      }).then((response) => {
+        this.$buefy.dialog.alert({
+          title: 'Success',
+          message: 'Usuario creado correctamente',
+          type: 'is-success',
+          hasIcon: true,
+          icon: 'check-circle',
+          iconPack: 'fa',
+          ariaRole: 'alertdialog',
+          ariaModal: true
+        })
+        // redirect to the email validation view when ready
+        this.$router.push({ path: this.localePath('/login') })
+      }).catch((error) => {
+        this.$buefy.dialog.alert({
+          title: 'Error',
+          message: error.response.data.message,
+          type: 'is-danger',
+          hasIcon: true,
+          icon: 'times-circle',
+          iconPack: 'fa',
+          ariaRole: 'alertdialog',
+          ariaModal: true
+        })
       })
-      console.log(response)
     },
     alertCustomError (prop) {
       this.$buefy.dialog.alert({

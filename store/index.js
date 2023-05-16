@@ -1,6 +1,7 @@
 export const state = () => ({
   token: null,
-  user: null
+  user: null,
+  loginError: null
 })
 
 export const mutations = {
@@ -10,13 +11,19 @@ export const mutations = {
   },
   setUser (state, user) {
     state.user = user
-    localStorage.setItem('authUser', user)
+    localStorage.setItem('authUser', JSON.stringify(user))
+  },
+  setLoginError (state, loginError) {
+    state.loginError = loginError
   },
   clearToken (state) {
     state.token = null
   },
   clearUser (state) {
     state.token = null
+  },
+  clearLoginError (state) {
+    state.loginError = null
   }
 }
 
@@ -27,6 +34,9 @@ export const actions = {
   setUser ({ commit }, user) {
     commit('setUser', user)
   },
+  setLoginError ({ commit }, loginError) {
+    commit('setLoginError', loginError)
+  },
   clearToken ({ commit }) {
     commit('clearToken')
     localStorage.removeItem('authToken')
@@ -35,12 +45,15 @@ export const actions = {
     commit('clearUser')
     localStorage.removeItem('authUser')
   },
+  clearLoginError ({ commit }, loginError) {
+    commit('clearLoginError', loginError)
+  },
   init ({ commit }) {
     const token = localStorage.getItem('authToken')
     if (token) {
       commit('setToken', token)
     }
-    const user = localStorage.getItem('authUser')
+    const user = JSON.parse(localStorage.getItem('authUser'))
     if (user) {
       commit('setUser', user)
     }
@@ -53,5 +66,8 @@ export const getters = {
   },
   getUser (state) {
     return state.user
+  },
+  getLoginError (state) {
+    return state.loginError
   }
 }

@@ -13,12 +13,14 @@
       </button>
       <MatchmakingFilter />
       <div class="columns is-6">
-        <div class="column">
-          <CallToBox />
+        <div v-for="(ct, index) in callTo" :key="index" class="column">
+          <nuxt-link :to="`/match/${ct._id}`">
+            <CallToBox :ct="ct" />
+          </nuxt-link>
         </div>
-        <div class="column">
-          <CallToBox :active-box="false" />
-        </div>
+        <!-- <div class="column">
+          <CallToBox :active-box="false" :call-to="callTo" />
+        </div> -->
       </div>
     </section>
   </div>
@@ -32,6 +34,19 @@ export default {
   components: {
     CallToBox,
     MatchmakingFilter
+  },
+  data: () => {
+    return {
+      callTo: []
+    }
+  },
+  async fetch () {
+    try {
+      const { data } = await this.$axios.get('http://localhost:4000/api/callto')
+      this.callTo = data
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 </script>

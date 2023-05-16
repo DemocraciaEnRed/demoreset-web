@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <section class="hero has-background-grey-lighter">
-      <div class="hero-body container">
+      <div class="hero-body mx-6">
         <div class="pb-6">
           <p class="is-mono has-text-weight-semibold">
             DEMOCRACIA EN RED
@@ -11,32 +11,36 @@
           </p>
         </div>
         <p class="title is-uppercase">
-          Necesito una metodología de trabajo para un presupuesto participativo escolar
+          {{ callTo.title }}
         </p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi tenetur aliquid, itaque nisi nostrum debitis! Maiores, beatae tempore? Aliquid soluta laborum, officia error quo saepe rerum. Doloribus quasi pariatur cum!</p>
-        <div class="py-6">
+        <p>{{ callTo.about }}</p>
+        <div class="py-3">
           <div class="columns">
             <div class="column is-one-third">
               <span class="is-mono has-text-weight-semibold">TEMA</span>
-              <hr class="divider">
-              <div class="py-4">
-                <span class="tag is-rounded has-background-grey-light">Ambiente</span>
-                <span class="tag is-rounded has-background-grey-light">Asambles deliberativas</span>
+              <hr class="divider mb-2">
+              <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
+                <div v-for="(tag, index) in callTo.tags" :key="index">
+                  <span class="tag is-rounded has-background-grey-light mx-1">{{ tag }}</span>
+                </div>
               </div>
             </div>
             <div class="column is-one-third">
               <span class="is-mono has-text-weight-semibold">TIPO DE LLAMADO</span>
-              <hr class="divider">
-              <div class="py-4">
-                <span class="tag is-rounded has-background-grey-light">Express</span>
-                <span class="tag is-rounded has-background-grey-light">Material audiovisual</span>
+              <hr class="divider mb-2 ">
+              <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
+                <div v-for="(type, index) in callTo.types" :key="index">
+                  <span class="tag is-rounded has-background-grey-light mx-1">{{ type }}</span>
+                </div>
               </div>
             </div>
             <div class="column is-one-third">
               <span class="is-mono has-text-weight-semibold">LOCACION</span>
-              <hr class="divider">
-              <div class="py-4">
-                <span class="tag is-rounded has-background-grey-light">A distancia</span>
+              <hr class="divider mb-2">
+              <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
+                <div v-for="(location, index) in callTo.location" :key="index">
+                  <span class="tag is-rounded has-background-grey-light mx-1">{{ location }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -46,14 +50,7 @@
     <section>
       <div class="section container py-6">
         <div>
-          El proyecto
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa consectetur, dicta modi nemo eos sit voluptatem. Omnis, architecto consequatur veniam temporibus dolore nemo cupiditate dolores, vero praesentium odit tempore sint.
-
-          El desafio
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, alias voluptatibus? Fugiat perspiciatis fugit maxime sunt. Saepe cupiditate fugiat pariatur voluptatem excepturi accusantium dolorem omnis dignissimos laborum voluptatum, impedit in.
-
-          Detalles
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque iste velit praesentium eos ex soluta, necessitatibus ducimus cupiditate dolorum. Necessitatibus nam expedita tempora vitae iure enim eius corporis esse cupiditate.
+          {{ callTo.content }}
         </div>
         <div class="is-flex is-flex-direction-row is-align-items-center pt-6">
           <p class="is-condensed is-uppercase is-size-5 has-text-weight-semibold">
@@ -70,7 +67,9 @@
           Ordenar respuestas por
         </p>
         <div class="columns is-multiline py-5">
-          <ResponseCard />
+          <div v-for="(comment, index) in callTo.comments" :key="index" class="column is-full">
+            <ResponseCard :comment="comment" />
+          </div>
         </div>
       </div>
     </section>
@@ -86,6 +85,20 @@ export default {
   components: {
     ResponseCard,
     CommentCard
+  },
+  data: () => {
+    return {
+      callTo: {}
+    }
+  },
+  async fetch () {
+    try {
+      const { data } = await this.$axios.get(`http://localhost:4000/api/callto/${this.$route.params.id}`)
+      console.log(data)
+      this.callTo = data
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 </script>

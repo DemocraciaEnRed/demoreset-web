@@ -1,39 +1,21 @@
 <template>
   <div>
-    <div class="column is-full">
-      <div class="card">
+    <div v-if="!userFromStore" class="column is-full">
+      <div class="card notConnected" @click="notConnectedAlert">
         <div class="card-content">
-          <div class="content" @click="isActive = !isActive">
-            <b-message
-              v-model="isActive"
-              title="No estás conectado"
-              aria-close-label="close"
-            >
-              Para poder enviar un llamado debes tener una cuenta. Si aún no la tiene puede generarla haciendo <nuxt-link :to="{path: localePath('/register')}" class="has-text-primary">
-                click aquí.
-              </nuxt-link>
-              <br>
-              Si ya tienes una cuenta, <nuxt-link :to="{path: localePath('/login')}" class="has-text-primary">
-                inicia sesión.
-              </nuxt-link>
-            </b-message>
+          <div class="content">
             Deje su comentario, respuesta...
           </div>
         </div>
       </div>
     </div>
-    <!-- <b-button
-      label="toggle"
-      @click="isActive = !isActive"
-    /> -->
-    <!-- if user logged in click -->
-    <div class="column is-full">
+    <div v-else class="column is-full">
       <div class="card">
         <div class="card-content">
           <div class="content">
             <div class="columns is-multiline">
               <div class="column is-full">
-                <span class="has-text-weight-semibold is-mono">Catalina Fernandez - FIMA</span>
+                <span class="has-text-weight-semibold is-mono">{{ userFromStore.first_name }} {{ userFromStore.last_name }} - {{ userFromStore.organization }}</span>
               </div>
               <div class="column is-full">
                 <b-field>
@@ -60,6 +42,22 @@ export default {
     return {
       isActive: false
     }
+  },
+  computed: {
+    userFromStore () {
+      const user = this.$store.state.user
+      console.log(user)
+      return user
+    }
+  },
+  methods: {
+    notConnectedAlert () {
+      this.$buefy.dialog.alert({
+        title: 'No estás conectado',
+        message: 'Para poder enviar un comentario debes tener una cuenta. Si aún no la tiene, puede generarla haciendo <a href="/register" class="has-text-primary">click aquí</a>. <br> Si ya tienes una cuenta, <a href="/login" class="has-text-primary">inicia sesión</a>. ',
+        confirmText: 'Aceptar'
+      })
+    }
   }
 }
 </script>
@@ -73,7 +71,11 @@ article {
   border: 1px solid #000;
   position: absolute;
   z-index: 40;
-  width: 95%;
+  width: 120%;
   margin-bottom: 15px;
+}
+
+.notConnected {
+  cursor: pointer;
 }
 </style>

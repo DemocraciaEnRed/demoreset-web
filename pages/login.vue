@@ -53,18 +53,18 @@ export default {
         email: this.email,
         password: this.password
       }).then(async (response) => {
-        console.log(response.data)
         await this.$store.dispatch('setToken', response.token)
-        return this.$axios.$get('http://localhost:4000/api/me')
+        return this.$axios.$get('http://localhost:4000/api/users/me')
       }).then(async (response) => {
-        await this.$store.dispatch('setUser', response.user)
+        await this.$store.dispatch('setUser', response)
+        this.$store.dispatch('clearLoginError')
         // push the user to home
         this.$router.push({ path: this.localePath('/') })
       })
-        .catch((err) => {
-          console.error(err)
-          // this.$store.dispatch('clearToken')
-          // this.$store.dispatch('clearUser')
+        .catch(async (err) => {
+          this.$store.dispatch('clearToken')
+          this.$store.dispatch('clearUser')
+          await this.$store.dispatch('setLoginError', err.response.data.message)
           // show an error message or something
         })
         .finally(() => {
