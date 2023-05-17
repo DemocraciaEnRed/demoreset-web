@@ -19,11 +19,11 @@
               </div>
               <div class="column is-full">
                 <b-field>
-                  <b-input type="textarea" placeholder="Deje su comentario, respuesta..." maxlength="200" />
+                  <b-input v-model="comment" type="textarea" placeholder="Deje su comentario, respuesta..." maxlength="200" />
                 </b-field>
               </div>
               <div class="column is-full has-text-right">
-                <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono">
+                <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="sendComment">
                   Publicar
                 </button>
               </div>
@@ -38,9 +38,10 @@
 <script>
 export default {
   name: 'CommentCard',
-  data () {
+  data: () => {
     return {
-      isActive: false
+      isActive: false,
+      comment: ''
     }
   },
   computed: {
@@ -51,6 +52,13 @@ export default {
     }
   },
   methods: {
+    sendComment () {
+      this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment`, {
+        content: this.comment
+      }).then(
+        this.comment = ''
+      )
+    },
     notConnectedAlert () {
       this.$buefy.dialog.alert({
         title: 'No estás conectado',

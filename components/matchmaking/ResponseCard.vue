@@ -3,11 +3,14 @@
     <div class="card-content">
       <div class="content">
         <div class="columns is-multiline">
-          <div class="column is-full">
-            <span class="has-text-weight-semibold is-mono">{{ `${comment.user.first_name} ${comment.user.last_name}` }} - {{ comment.user.organization }}</span>
-            <p class="is-size-7">
-              {{ comment.createdAt }} {{ comment.updatedAt > comment.createdAt ? ' - Editado' : '' }}
-            </p>
+          <div class="column is-full is-flex is-flex-direction-row is-justify-content-space-between">
+            <div>
+              <span class="has-text-weight-semibold is-mono">{{ `${comment.user.first_name} ${comment.user.last_name}` }} - {{ comment.user.organization }}</span>
+              <p class="is-size-7">
+                {{ comment.createdAt }} {{ comment.updatedAt > comment.createdAt ? ' - Editado' : '' }}
+              </p>
+            </div>
+            <span v-if="userFromStore._id === comment.user._id" class="is-size-7">Editar respuesta</span>
           </div>
           <div class="column is-full">
             <p class="comment-body is-roboto">
@@ -16,7 +19,7 @@
           </div>
           <div class="column is-full is-flex is-flex-direction-row is-justify-content-space-between is-align-items-center is-flex-wrap-nowrap">
             <div>
-              <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono">
+              <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="addLike">
                 Util <i class="fa-solid fa-thumbs-up mx-1" /> {{ comment.likes.length }}
               </button>
               <button v-if="!userFromStore" class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="notConnectedAlert">
@@ -75,6 +78,13 @@ export default {
     }
   },
   methods: {
+    async addLike () {
+      if (!this.userFromStore) { return this.notConnectedAlert() }
+      const response = await this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
+      if (response) {
+        console.log('hola')
+      }
+    },
     notConnectedAlert () {
       this.$buefy.dialog.alert({
         title: 'No estás conectado',
