@@ -63,12 +63,9 @@
         <div class="py-4">
           <CommentCard />
         </div>
-        <p class="has-text-right">
-          Ordenar respuestas por
-        </p>
         <div class="columns is-multiline py-5">
           <div v-for="(comment, index) in callTo.comments" :key="index" class="column is-full">
-            <ResponseCard :comment="comment" />
+            <ResponseCard :commentprop="comment" />
           </div>
         </div>
       </div>
@@ -94,7 +91,7 @@ export default {
   async fetch () {
     try {
       const { data } = await this.$axios.get(`http://localhost:4000/api/callto/${this.$route.params.id}`)
-      console.log(data)
+
       this.callTo = data
     } catch (error) {
       console.log(error)

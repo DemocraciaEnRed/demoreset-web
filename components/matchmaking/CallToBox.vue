@@ -27,7 +27,7 @@
       <span class="mr-3 is-size-6">Tipo:</span> <span class="tag is-rounded is-size-7 has-background-yellow">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
     </div>
     <div class="container my-3">
-      <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ formatDate(ct.endDate) }}</span>
+      <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ ct.endDate | formatDate }}</span>
       <b-progress
         type="is-primary"
         size="is-large"
@@ -42,13 +42,15 @@
   </div>
 </template>
 <script>
-function compareDates (d1, d2) {
-  const d1ms = d1.getTime()
-  const d2ms = d2.getTime()
-  return d1ms - d2ms
-}
+import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds, isBefore, isAfter, startOfDay, format, parseISO, differenceInMilliseconds } from 'date-fns'
+
 export default {
   name: 'CallToBox',
+  filters: {
+    formatDate (date) {
+      return format(date, 'dd/MM/yyyy')
+    }
+  },
   props: {
     activeBox: {
       type: Boolean,
@@ -65,28 +67,45 @@ export default {
     }
   },
   computed: {
-    creationDate () { return new Date(2023, 0, 1, 0, 0, 0) },
-    endDate () { return new Date(2023, 6, 9, 0, 0, 0) },
     isActive () { return this.activeCallTo ? '' : 'inactive' },
-    dateDiff () {
-      const date1 = new Date()
-      const date2 = this.endDate
-      return compareDates(date2, date1)
-    },
-    dayDiff () {
-      const milsInADay = 86400000
-      const days = this.dateDiff > 0 ? (this.dateDiff / milsInADay) : 0
-      if (days >= 1) {
-        return parseInt(days)
+    comparedDateWithCurrentInDays () {
+      const currentDate = new Date()
+      const date = parseISO(this.ct.endDate)
+      // Check if the date is in the past
+      if (isBefore(date, currentDate)) {
+        return -1
       }
-      return days
+      // Check if the date is in the future
+      if (isAfter(date, currentDate)) {
+        const diffInDays = differenceInDays(date, currentDate)
+        const startOfCurrentDate = startOfDay(currentDate)
+        // Check if the difference is equal or greater than a day
+        if (diffInDays >= 1) {
+          return diffInDays
+        }
+        // Calculate the difference in fractions of a day
+        const diffInHours = differenceInHours(date, startOfCurrentDate)
+        const diffInMinutes = differenceInMinutes(date, startOfCurrentDate)
+        const diffInSeconds = differenceInSeconds(date, startOfCurrentDate)
+        const diffInMilliseconds = date.getTime() - startOfCurrentDate.getTime()
+
+        const fractionalDays = diffInHours / 24 + diffInMinutes / (24 * 60) + diffInSeconds / (24 * 60 * 60) + diffInMilliseconds / (24 * 60 * 60 * 1000)
+        return parseFloat(fractionalDays.toFixed(2))
+      }
+
+      // The date is the current date
+      return 0
     },
     datePercents () {
-      if (this.dateDiff > 0) {
-        const callToPeriod = compareDates(this.endDate, this.creationDate)
-        const timeUnits = callToPeriod / 100
-        return this.dateDiff / timeUnits
+      if (this.comparedDateWithCurrentInDays === 0) { return 100 }
+      if (this.comparedDateWithCurrentInDays > 0) {
+        const callToPeriod = differenceInMilliseconds(parseISO(this.ct.endDate), parseISO(this.ct.createdAt))
+        // console.log(callToPeriod)
+        // const timeUnits = callToPeriod / 100
+        // return this.dateDiff / timeUnits
+        return 1
       }
+
       this.toggleActive()
       return 0
     }
@@ -94,10 +113,6 @@ export default {
   methods: {
     debug (v) {
       console.log(v)
-    },
-    formatDate (date) {
-      date = new Date(date)
-      return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     },
     toggleActive (v) {
       this.activeCallTo = false

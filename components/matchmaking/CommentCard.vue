@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="!userFromStore" class="column is-full">
+    <div v-if="!userFromStore">
       <div class="card notConnected" @click="notConnectedAlert">
         <div class="card-content">
           <div class="content">
-            Deje su comentario, respuesta...
+            Escribe un comentario...
           </div>
         </div>
       </div>
@@ -18,8 +18,8 @@
                 <span class="has-text-weight-semibold is-mono">{{ userFromStore.first_name }} {{ userFromStore.last_name }} - {{ userFromStore.organization }}</span>
               </div>
               <div class="column is-full">
-                <b-field>
-                  <b-input v-model="comment" type="textarea" placeholder="Deje su comentario, respuesta..." maxlength="200" />
+                <b-field type="is-primary">
+                  <b-input v-model="comment" type="textarea" placeholder="Escribe un comentario ..." maxlength="200" />
                 </b-field>
               </div>
               <div class="column is-full has-text-right">
