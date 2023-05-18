@@ -145,10 +145,7 @@ export default {
   }),
   computed: {
     userFromStore () {
-      if (this.$store.state.user) {
-        const user = this.$store.state.user
-        return user
-      }
+      if (this.$store.state.user) { return this.$store.state.user }
       return null
     }
   },
@@ -275,7 +272,7 @@ export default {
       }).then((res) => {
         console.log(res)
         this.replyBoxText = ''
-        this.toggleReplyBox()
+        // this.toggleReplyBox()
       }).then(async (res) => {
         this.comment = await this.getComment()
         actionNotification(this.$buefy, 'Respuesta enviada', 'is-success', 'check')

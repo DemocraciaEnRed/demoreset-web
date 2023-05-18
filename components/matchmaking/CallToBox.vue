@@ -35,7 +35,8 @@
         show-value
       >
         <b v-if="dayDiff > 0 && dayDiff < 1" class="has-text-black">Quedan solo algunas horas para aplicar</b>
-        <b v-else-if="dayDiff > 0" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff === 1 ? 'día restante':'días restantes' }} para aplicar</b>
+        <!-- <b v-else-if="dayDiff > 0" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff === 1 ? 'día restante':'días restantes' }} para aplicar</b> -->
+        <b v-else-if="dayDiff >= 1" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff | pluralize('día restante','días restantes', 'días restantes') }} para aplicar</b>
         <b v-else class="has-text-black">Finalizó el periodo para aplicar</b>
       </b-progress>
     </div>
@@ -51,8 +52,10 @@ export default {
       if (typeof date === 'string') { date = parseISO(date) }
       return format(date, 'dd/MM/yyyy')
     },
-    formatHours (time) {
-      return format(time, 'hh : mm : ss,SS aaa')
+    pluralize (num, singularStr, pluralStr, none) {
+      if (num === 1) { return singularStr }
+      if (num <= 0) { return none }
+      return pluralStr
     }
   },
   props: {
