@@ -190,7 +190,9 @@ export default {
           console.error(err)
         })
         .finally(() => {
-          this.$router.go()
+          setTimeout(() => {
+            this.$router.go()
+          }, 1000)
         })
     },
     deleteReply (replyId) {
