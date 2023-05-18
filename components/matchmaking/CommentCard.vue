@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!userFromStore">
-      <div class="card notConnected" @click="notConnectedAlert">
+      <div class="card notConnected" @click="sendNotConnectedAlert">
         <div class="card-content">
           <div class="content">
             Escribe un comentario...
@@ -23,7 +23,7 @@
                 </b-field>
               </div>
               <div class="column is-full has-text-right">
-                <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="sendComment">
+                <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="sendComment" @mouseleave="$event.target.blur()">
                   Publicar
                 </button>
               </div>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { actionNotification, notConnectedAlert } from './notifications.js'
 export default {
   name: 'CommentCard',
   data: () => {
@@ -47,24 +48,26 @@ export default {
   computed: {
     userFromStore () {
       const user = this.$store.state.user
-      console.log(user)
       return user
     }
   },
   methods: {
     sendComment () {
+      if (this.comment === '') {
+        actionNotification(this.$buefy, 'Tu comentario está vacío', 'is-warning', 'circle-exclamation')
+        return null
+      }
       this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment`, {
         content: this.comment
       }).then(
-        this.comment = ''
-      )
-    },
-    notConnectedAlert () {
-      this.$buefy.dialog.alert({
-        title: 'No estás conectado',
-        message: 'Para poder enviar un comentario debes tener una cuenta. Si aún no la tiene, puede generarla haciendo <a href="/register" class="has-text-primary">click aquí</a>. <br> Si ya tienes una cuenta, <a href="/login" class="has-text-primary">inicia sesión</a>. ',
-        confirmText: 'Aceptar'
+        this.comment = '',
+        actionNotification(this.$buefy, 'Comentario enviado', 'is-success', 'check')
+      ).catch((err) => {
+        console.error(err)
       })
+    },
+    sendNotConnectedAlert () {
+      notConnectedAlert(this.$buefy)
     }
   }
 }

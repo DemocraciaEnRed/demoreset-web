@@ -42,24 +42,20 @@
                 <button class="button is-small is-rounded is-outlined is-black is-mono" @click="addLike" @mouseleave="$event.target.blur()">
                   Util <i class="fa-solid fa-thumbs-up mx-1" /> {{ comment.likes.length }}
                 </button>
-                <button v-if="!userFromStore" class="button is-small is-rounded is-outlined is-black is-mono" @click="notConnectedAlert">
+                <button v-if="!userFromStore" class="button is-small is-rounded is-outlined is-black is-mono" @click="sendNotConnectedAlert">
                   Responder
                 </button>
-                <button v-else-if="!replyBox" class="button is-small is-rounded is-outlined is-black is-mono" @click="toggleReplyBox($event)">
-                  <div>
-                    Responder
-                  </div>
+                <button v-else-if="!replyBox" ref="replyBtnToggler" class="button is-small is-rounded is-outlined is-black is-mono">
+                  Responder
                 </button>
                 <div v-else>
-                  <div class="field">
+                  <div ref="replyBoxWrapper" class="field">
                     <div class="control">
                       <textarea
-                        ref="replyBoxWrapper"
                         v-model="replyBoxText"
                         class="textarea is-small is-primary my-3"
                         placeholder="Escribe una respuesta..."
                         maxlength="140"
-                        @blur="toggleReplyBox($event)"
                       />
                     </div>
                   </div>
@@ -131,9 +127,10 @@
 </template>
 
 <script>
+import { actionNotification, notConnectedAlert } from '../../components/matchmaking/notifications.js'
+
 export default {
   name: 'ResponseCard',
-  animated: true,
   props: {
     commentprop: {
       type: Object,
@@ -141,6 +138,7 @@ export default {
     }
   },
   data: () => ({
+    animated: true,
     replyBox: false,
     replyBoxText: '',
     comment: null
@@ -156,6 +154,10 @@ export default {
   },
   mounted () {
     this.comment = { ...this.commentprop }
+    window.addEventListener('click', this.onClickOutside)
+  },
+  beforeUnmount () {
+    window.removeEventListener('click', this.onClickOutside)
   },
   methods: {
     checkIsAdmin () {
@@ -167,7 +169,7 @@ export default {
       }
     },
     addLike () {
-      if (!this.userFromStore) { return this.notConnectedAlert() }
+      if (!this.userFromStore) { return this.sendNotConnectedAlert() }
       this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
         .then((res) => {
           this.$axios.$get(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
@@ -182,7 +184,7 @@ export default {
     deleteComment () {
       this.$axios.$delete(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}`)
         .then((res) => {
-          console.log(res)
+          actionNotification(this.$buefy, 'Comentario eliminado', 'is-danger', 'trash-can')
         })
         .catch((err) => {
           console.error(err)
@@ -194,19 +196,15 @@ export default {
     deleteReply (replyId) {
       this.$axios.$delete(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`)
         .then(async (res) => {
-          console.log(res)
           this.comment = await this.getComment()
+          actionNotification(this.$buefy, 'Respuesta eliminada', 'is-danger', 'trash-can')
         })
         .catch((err) => {
           console.error(err)
         })
     },
-    notConnectedAlert () {
-      this.$buefy.dialog.alert({
-        title: 'No estás conectado',
-        message: 'Para poder responder debes tener una cuenta. Si aún no la tiene, puede generarla haciendo <a href="/register" class="has-text-primary">click aquí</a>. <br> Si ya tienes una cuenta, <a href="/login" class="has-text-primary">inicia sesión</a>. ',
-        confirmText: 'Aceptar'
-      })
+    sendNotConnectedAlert () {
+      notConnectedAlert(this.$buefy)
     },
     editCommentModal (content) {
       this.$buefy.dialog.prompt({
@@ -223,8 +221,8 @@ export default {
           this.$axios.$put(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}`, {
             content: value
           }).then(async (res) => {
-            console.log(res)
             this.comment = await this.getComment()
+            actionNotification(this.$buefy, 'Comentario editado', 'is-success', 'pen-to-square')
           }).catch((err) => {
             console.log(err)
           })
@@ -246,22 +244,30 @@ export default {
           this.$axios.$put(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`, {
             content: value
           }).then(async (res) => {
-            console.log(res)
             this.comment = await this.getComment()
+            actionNotification(this.$buefy, 'Respuesta editada', 'is-success', 'pen-to-square')
           }).catch((err) => {
             console.log(err)
           })
         }
       })
     },
-    debug (v) {
-      console.log(v)
-    },
-    toggleReplyBox (e) {
+    toggleReplyBox () {
       this.replyBox = !this.replyBox
       this.replyBox && this.$nextTick(() => { this.$refs.replyBoxWrapper.focus() })
     },
+    onClickOutside (event) {
+      const replyBoxWrapper = this.$refs.replyBoxWrapper
+      if ((replyBoxWrapper && !replyBoxWrapper.contains(event.target)) ||
+        event.target === this.$refs.replyBtnToggler) {
+        this.toggleReplyBox()
+      }
+    },
     sendReply () {
+      if (this.replyBoxText === '') {
+        actionNotification(this.$buefy, 'Tu respuesta está vacía', 'is-warning', 'circle-exclamation')
+        return null
+      }
       this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply`, {
         content: this.replyBoxText
       }).then((res) => {
@@ -270,16 +276,17 @@ export default {
         this.toggleReplyBox()
       }).then(async (res) => {
         this.comment = await this.getComment()
-        console.log(this.comment)
+        actionNotification(this.$buefy, 'Respuesta enviada', 'is-success', 'check')
       }).catch((err) => {
         console.log(err)
       })
     },
     async getComment () {
-      const response = await this.$axios.$get(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}`)
-      if (response) {
-        console.log(response)
+      try {
+        const response = await this.$axios.$get(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}`)
         return response
+      } catch (error) {
+        console.log(error)
       }
     }
   }

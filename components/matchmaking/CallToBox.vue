@@ -27,7 +27,7 @@
       <span class="mr-3 is-size-6">Tipo:</span> <span class="tag is-rounded is-size-7 has-background-yellow">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
     </div>
     <div class="container my-3">
-      <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ ct.endDate | formatDate }}</span>
+      <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ endDate | formatDate }}</span>
       <b-progress
         type="is-primary"
         size="is-large"
@@ -42,13 +42,17 @@
   </div>
 </template>
 <script>
-import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds, isBefore, isAfter, startOfDay, format, parseISO, differenceInMilliseconds } from 'date-fns'
+import { format, parseISO, differenceInMilliseconds, milliseconds } from 'date-fns'
 
 export default {
   name: 'CallToBox',
   filters: {
     formatDate (date) {
+      if (typeof date === 'string') { date = parseISO(date) }
       return format(date, 'dd/MM/yyyy')
+    },
+    formatHours (time) {
+      return format(time, 'hh : mm : ss,SS aaa')
     }
   },
   props: {
@@ -63,57 +67,40 @@ export default {
   },
   data () {
     return {
-      activeCallTo: this.activeBox
+      activeCallTo: this.activeBox,
+      currentDate: new Date()
     }
   },
   computed: {
     isActive () { return this.activeCallTo ? '' : 'inactive' },
-    comparedDateWithCurrentInDays () {
-      const currentDate = new Date()
-      const date = parseISO(this.ct.endDate)
-      // Check if the date is in the past
-      if (isBefore(date, currentDate)) {
-        return -1
+    endDate () { return parseISO(this.ct.endDate) },
+    dateDiff () {
+      const currentDate = this.currentDate
+      const date = this.endDate
+      return differenceInMilliseconds(date, currentDate)
+    },
+    dayDiff () {
+      const dateDiff = this.dateDiff
+      const millisecondsInDay = milliseconds({ days: 1 })
+      const days = dateDiff / millisecondsInDay
+      // Check if the difference is equal or greater than a day
+      if (days >= 1) {
+        return parseInt(days)
       }
-      // Check if the date is in the future
-      if (isAfter(date, currentDate)) {
-        const diffInDays = differenceInDays(date, currentDate)
-        const startOfCurrentDate = startOfDay(currentDate)
-        // Check if the difference is equal or greater than a day
-        if (diffInDays >= 1) {
-          return diffInDays
-        }
-        // Calculate the difference in fractions of a day
-        const diffInHours = differenceInHours(date, startOfCurrentDate)
-        const diffInMinutes = differenceInMinutes(date, startOfCurrentDate)
-        const diffInSeconds = differenceInSeconds(date, startOfCurrentDate)
-        const diffInMilliseconds = date.getTime() - startOfCurrentDate.getTime()
-
-        const fractionalDays = diffInHours / 24 + diffInMinutes / (24 * 60) + diffInSeconds / (24 * 60 * 60) + diffInMilliseconds / (24 * 60 * 60 * 1000)
-        return parseFloat(fractionalDays.toFixed(2))
-      }
-
-      // The date is the current date
-      return 0
+      // return fraction of a day
+      return days
     },
     datePercents () {
-      if (this.comparedDateWithCurrentInDays === 0) { return 100 }
-      if (this.comparedDateWithCurrentInDays > 0) {
-        const callToPeriod = differenceInMilliseconds(parseISO(this.ct.endDate), parseISO(this.ct.createdAt))
-        // console.log(callToPeriod)
-        // const timeUnits = callToPeriod / 100
-        // return this.dateDiff / timeUnits
-        return 1
+      if (this.dayDiff < 0) {
+        console.log(this.dayDiff)
+        return -1
       }
-
-      this.toggleActive()
-      return 0
+      const callToPeriod = differenceInMilliseconds(parseISO(this.ct.endDate), parseISO(this.ct.createdAt))
+      const timeUnits = callToPeriod / 100
+      return this.dateDiff / timeUnits
     }
   },
   methods: {
-    debug (v) {
-      console.log(v)
-    },
     toggleActive (v) {
       this.activeCallTo = false
     }

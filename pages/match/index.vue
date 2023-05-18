@@ -18,9 +18,6 @@
             <CallToBox :ct="ct" />
           </nuxt-link>
         </div>
-        <!-- <div class="column">
-          <CallToBox :active-box="false" :call-to="callTo" />
-        </div> -->
       </div>
     </section>
   </div>
