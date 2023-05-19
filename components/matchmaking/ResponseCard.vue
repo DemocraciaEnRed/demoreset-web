@@ -10,7 +10,7 @@
                 {{ comment.createdAt }} {{ comment.updatedAt > comment.createdAt ? ' - Editado' : '' }}
               </p>
             </div>
-            <div v-if="userFromStore && userFromStore._id === comment.user._id || userFromStore && checkIsAdmin">
+            <div v-if="userFromStore && userFromStore._id === comment.user._id || userFromStore && checkIsAdmin()">
               <b-dropdown
                 aria-role="list"
               >
@@ -87,7 +87,7 @@
                     {{ reply.updatedAt }}
                   </span>
                 </div>
-                <div v-if="userFromStore && userFromStore._id === reply.user._id || userFromStore && checkIsAdmin">
+                <div v-if="userFromStore && userFromStore._id === reply.user._id || userFromStore && checkIsAdmin()">
                   <b-dropdown
                     aria-role="list"
                   >
@@ -160,9 +160,7 @@ export default {
     checkIsAdmin () {
       if (this.userFromStore) {
         const admin = this.userFromStore.roles.includes(role => role === 'admin')
-        if (admin) {
-          return true
-        }
+        return admin
       }
     },
     addLike () {
@@ -287,6 +285,9 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    debug (v) {
+      console.log(v)
     }
   }
 }
