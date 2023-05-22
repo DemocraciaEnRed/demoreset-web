@@ -171,10 +171,27 @@ export default {
             .then((res) => {
               this.comment.likes = [...res.likes]
             })
+            .catch((err) => {
+              actionNotification(this.$buefy, 'Ocurrio un error al conectarse con la base de datos', 'is-danger', 'exclamation-triangle')
+              console.error(err)
+            })
         })
         .catch((err) => {
+          actionNotification(this.$buefy, 'Ocurrio un error guardando tu like', 'is-danger', 'exclamation-triangle')
           console.error(err)
         })
+
+      // this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
+      //   .then((resPost) => {
+      //     return this.$axios.$get(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
+      //   })
+      //   .then((resGet) => {
+      //     this.comment.likes = [...resGet.likes]
+      //   })
+      //   .catch((err) => {
+      //     console.error(err)
+      //     actionNotification(this.$buefy, 'Ocurrio un error guardando tu like', 'is-danger', 'exclamation-triangle')
+      //   })
     },
     deleteComment () {
       this.$axios.$delete(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}`)
