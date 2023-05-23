@@ -159,8 +159,12 @@ export default {
   methods: {
     checkIsAdmin () {
       if (this.userFromStore) {
-        const admin = this.userFromStore.roles.includes(role => role === 'admin')
-        return admin
+        const isAdmin = this.userFromStore.roles.find(role => role.name === 'admin')
+        if (isAdmin) {
+          return true
+        } else {
+          return false
+        }
       }
     },
     addLike () {
