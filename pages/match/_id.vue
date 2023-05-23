@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div v-if="callTo.owner !== undefined " class="container-fluid">
     <section class="hero has-background-grey-lighter">
       <div class="hero-body mx-6">
         <div class="is-flex us-flex-direction-row is-justify-content-space-between">
@@ -12,19 +12,13 @@
             </p>
           </div>
           <div v-if="userFromStore && checkIsAdmin()">
-            <b-dropdown
-              aria-role="list"
-              position="is-bottom-left"
-            >
+            <b-dropdown aria-role="list" position="is-bottom-left">
               <template #trigger>
-                <b-button
-                  icon-right="menu-down"
-                  position="is-top-left"
-                />
+                <b-button icon-right="menu-down" position="is-top-left" />
               </template>
 
               <b-dropdown-item aria-role="listitem">
-                <nuxt-link :to="{path: localePath(`/match/editcall/${$route.params.id}`)}">
+                <nuxt-link :to="{ path: localePath(`/match/editcall/${$route.params.id}`) }">
                   <i class="fa-sharp fa-solid fa-pencil" /> Editar llamada
                 </nuxt-link>
               </b-dropdown-item>
@@ -41,7 +35,7 @@
         <div class="py-3">
           <div class="columns">
             <div class="column is-one-third">
-              <span class="is-mono has-text-weight-semibold">TEMA</span>
+              <span class="is-mono has-text-weight-semibold">BARRERA</span>
               <hr class="divider mb-2">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
                 <div v-for="(tag, index) in callTo.tags" :key="index">
@@ -91,6 +85,37 @@
       </div>
     </section>
   </div>
+  <div v-else>
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <b-skeleton circle width="64px" height="64px" />
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <b-skeleton active />
+            <b-skeleton height="80px" />
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item">
+              <span class="icon is-small">
+                <b-skeleton />
+              </span>
+            </a>
+            <a class="level-item">
+              <span class="icon is-small">
+                <b-skeleton />
+              </span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
 </template>
 
 <script>
@@ -106,7 +131,8 @@ export default {
   },
   data: () => {
     return {
-      callTo: {}
+      callTo: {},
+      transformationImage: 'transforms=[["resize", {"background":"rgb(255,255,255)","width": 150,"height": 150,"fit":"contain"}]]'
     }
   },
   async fetch () {
@@ -121,6 +147,9 @@ export default {
     userFromStore () {
       if (this.$store.state.user) { return this.$store.state.user }
       return null
+    },
+    apiUrl () {
+      return process.env.API_URL
     }
   },
   methods: {
@@ -146,22 +175,19 @@ export default {
         .finally(() => {
           this.$router.push({ path: this.localePath('match') })
         })
-    },
-    debug (v) {
-      console.log(v)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .divider {
-    border: 1px solid #000;
-    padding: 0;
-    margin: 0;
-  }
+.divider {
+  border: 1px solid #000;
+  padding: 0;
+  margin: 0;
+}
 
-  .tag {
-    border: 1px solid rgba(0, 0, 0, 0.12);
-  }
+.tag {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
 </style>

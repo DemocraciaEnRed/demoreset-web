@@ -108,7 +108,7 @@ export default ({ app, i18n, params }, inject) => {
         hubs{
           id,
           translations (filter: {languages_id: {code: {_eq: "${langCode}"}}}) {
-            names
+            name
           }
         }
         barrier_categories {

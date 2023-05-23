@@ -142,25 +142,16 @@ export default {
         organization: {
           directusId: this.selectedOrganization.id,
           name: this.selectedOrganization.name,
-          country_en: this.selectedOrganization.country.translations[0].name,
-          country_es: this.selectedOrganization.country.translations[1].name,
-          logoUrl: this.selectedOrganization.logo.id
+          country_en: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[0].name : 'nocountry',
+          country_es: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[1].name : 'nocountry',
+          logoUrl: this.selectedOrganization.logo !== null ? this.selectedOrganization.logo.id : 'nologo'
         }
       }).then((response) => {
         alertSuccess(this.$buefy, 'Cuenta creada correctamente')
+        console.log(response)
         // redirect to the email validation view when ready
         this.$router.push({ path: this.localePath('/login') })
       }).catch((error) => {
-        // this.$buefy.dialog.alert({
-        //   title: 'Error',
-        //   message: error.response.data.message,
-        //   type: 'is-danger',
-        //   hasIcon: true,
-        //   icon: 'times-circle',
-        //   iconPack: 'fa',
-        //   ariaRole: 'alertdialog',
-        //   ariaModal: true
-        // })
         console.log(error)
       })
     },
