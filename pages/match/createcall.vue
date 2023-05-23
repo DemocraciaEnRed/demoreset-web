@@ -67,17 +67,17 @@
           @click="$refs.datepicker.toggle()"
         />
       </b-field>
+      <b-field label="content">
+        <client-only>
+          <TipTapEditor v-model="content" />
+        </client-only>
+      </b-field>
       <div class="has-text-centered mt-5">
         <b-button type="submit" class="login-button" @click.prevent="createCall">
           Send Call
         </b-button>
       </div>
     </form>
-    <div>
-      <client-only>
-        <TipTapEditor :content="content" />
-      </client-only>
-    </div>
   </section>
 </template>
 
@@ -127,7 +127,7 @@ export default {
       endDate: [],
       title: '',
       about: '',
-      content: ''
+      content: 'Escribe el contenido de tu llamado aquí'
     }
   },
   computed: {
@@ -135,16 +135,6 @@ export default {
   },
   methods: {
     createCall () {
-      // console.log({
-      //   title: this.title,
-      //   about: this.about,
-      //   selectedBarriers: this.selectedBarriers,
-      //   types: this.types,
-      //   selectedCountry: this.selectedCountry,
-      //   location: this.selectedLocation,
-      //   endDate: this.endDate,
-      //   content: 'test'
-      // })
       this.$axios.$post('http://localhost:4000/api/callto', {
         title: this.title,
         about: this.about,
@@ -153,7 +143,7 @@ export default {
         country: this.country,
         location: this.location,
         endDate: this.endDate,
-        content: 'test'
+        content: this.content
       }).then((response) => {
         console.log(response)
       }).catch((error) => {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="editor" class="is-flex is-flex-wrap-wrap is-justify-content-center my-3">
+    <div v-if="editor" class="is-flex is-flex-wrap-wrap my-3">
       <button :class="`button is-primary is-light ${editor.isActive('heading', { level: 1 })? 'is-active': ''}`" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()">
         <b-icon
           pack="fas"
@@ -101,19 +101,36 @@ export default {
     EditorContent
   },
   props: {
-    content: {
+    modelValue: {
       type: String,
-      default: () => ''
+      default: ''
     }
   },
+
+  emits: ['update:modelValue'],
+
   data () {
     return {
-      editor: null,
-      contentcopy: ''
+      editor: null
+    }
+  },
+
+  watch: {
+    modelValue (value) {
+      // HTML
+      const isSame = this.editor.getHTML() === value
+
+      // JSON
+      // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
+
+      if (isSame) {
+        return
+      }
+
+      this.editor.commands.setContent(value, false)
     }
   },
   mounted () {
-    this.contentcopy = this.content
     this.editor = new Editor({
       extensions: [
         StarterKit,
@@ -122,7 +139,8 @@ export default {
         }),
         Highlight
       ],
-      content: this.contentcopy
+      content: this.modelValue,
+      onUpdate: () => { this.$emit('input', this.editor.getHTML()) }
     })
   },
 
@@ -155,7 +173,7 @@ export default {
         font-size:18px;
         font-weight:500
     }
-    & h2{
+    & h3{
         font-size:16px;
         font-weight:500
     }

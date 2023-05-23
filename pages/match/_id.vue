@@ -22,8 +22,11 @@
                   position="is-top-left"
                 />
               </template>
+
               <b-dropdown-item aria-role="listitem">
-                <i class="fa-sharp fa-solid fa-pencil" /> Editar llamada
+                <nuxt-link :to="{path: localePath(`/match/editcall/${$route.params.id}`)}">
+                  <i class="fa-sharp fa-solid fa-pencil" /> Editar llamada
+                </nuxt-link>
               </b-dropdown-item>
               <b-dropdown-item aria-role="listitem" @click="deleteCallTo">
                 <i class="fa-solid fa-trash-can" /> Borrar llamada
@@ -141,7 +144,7 @@ export default {
           console.log(err)
         })
         .finally(() => {
-          this.$router.push({ path: this.localePath('matchmaking') })
+          this.$router.push({ path: this.localePath('match') })
         })
     },
     debug (v) {
