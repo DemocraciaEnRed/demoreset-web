@@ -444,6 +444,14 @@ export default ({ app, i18n, params }, inject) => {
           organizations {
             id
             name
+            country {
+              translations {
+                name
+              }
+            }
+            logo {
+              id
+            }
           }
         }
       `

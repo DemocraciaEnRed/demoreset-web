@@ -11,7 +11,14 @@
         <b-input v-model="about" type="text" placeholder="Call to description" />
       </b-field>
       <b-field label="Barriers - up to 3">
-        <b-select v-model="tags" placeholder="Selecciona el tipo de llamado" required>
+        {{ tags }}
+        <b-select
+          v-model="tags"
+          required
+          multiple
+          expanded
+          placeholder="Selecciona el tipo de llamado (máximo 3)"
+        >
           <option v-for="(barrier, index) in data" :key="index" :value="barrier.translations[0].name">
             {{ barrier.translations[0].name }}
           </option>
@@ -83,6 +90,7 @@
 
 <script>
 import { endOfToday, isBefore, isToday, parseISO } from 'date-fns'
+import { actionNotification } from '../../components/matchmaking/notifications.js'
 import { calltoTypesEs, calltoTypesEn, countriesEn, countriesEs, locationEn, locationEs } from '../../static/index.js'
 import TipTapEditor from '~/components/matchmaking/TipTapEditor.vue'
 
@@ -135,6 +143,7 @@ export default {
   },
   methods: {
     createCall () {
+      actionNotification(this.$buefy, 'Call to creado', 'is-success', 'check')
       this.$axios.$post('http://localhost:4000/api/callto', {
         title: this.title,
         about: this.about,
@@ -149,6 +158,9 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
+        .finally(() => {
+          this.$router.push('/match')
+        })
     },
     unselectableDates (day) {
       const endDate = parseISO(day)
@@ -156,6 +168,12 @@ export default {
         return false
       }
       return true
+    },
+    tagsLimiter () {
+      if (this.tags.length > 3) {
+        alert('Solo puedes seleccionar 3 tags')
+        this.tags.pop()
+      }
     }
   }
 }

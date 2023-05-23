@@ -20,3 +20,29 @@ export const notConnectedAlert = (buefyInstance) => {
     confirmText: 'Aceptar'
   })
 }
+
+export const alertSuccess = (buefyInstance, message) => {
+  buefyInstance.dialog.alert({
+    title: 'Cuenta creada',
+    message,
+    type: 'is-success',
+    hasIcon: true,
+    icon: 'check-circle',
+    iconPack: 'fa',
+    ariaRole: 'alertdialog',
+    ariaModal: true
+  })
+}
+
+export const alertCustomError = (buefyInstance, message) => {
+  buefyInstance.dialog.alert({
+    title: 'Error',
+    message,
+    type: 'is-danger',
+    hasIcon: true,
+    icon: 'times-circle',
+    iconPack: 'fa',
+    ariaRole: 'alertdialog',
+    ariaModal: true
+  })
+}

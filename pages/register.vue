@@ -41,8 +41,8 @@
         </b-select>
       </b-field>
       <b-field :label="$t('register.organization')">
-        <b-select v-model="organization" :placeholder="$t('register.placeholderOrganization')" required>
-          <option v-for="org in organizationList" :key="org.id" :value="org.name">
+        <b-select v-model="selectedOrganization" :placeholder="$t('register.placeholderOrganization')" required>
+          <option v-for="org in organizationList" :key="org.id" :value="org">
             {{ org.name }}
           </option>
         </b-select>
@@ -70,8 +70,19 @@
 </template>
 
 <script>
+import { alertSuccess } from '../components/matchmaking/notifications.js'
 import { countriesEn, countriesEs } from '../static/index.js'
 export default {
+  async asyncData ({ i18n, $axios, $graphql }) {
+    const theQuery = {
+      query: $graphql.getQueryForAllOrganizations(i18n.localeProperties.iso)
+    }
+    const response = await $axios.post('/graphql', theQuery)
+    console.log(JSON.stringify(response.data.data.organizations))
+    return {
+      organizationList: response.data.data.organizations
+    }
+  },
   data: () => {
     return {
       email: '',
@@ -84,20 +95,14 @@ export default {
       passwordState: null,
       passwordMessage: '',
       passwordType: '',
-      organization: null,
+      selectedOrganization: [],
+      organization: [],
       country: null,
       countriesEn,
       countriesEs,
       organizationList: [],
       checkbox: false
     }
-  },
-  async fetch () {
-    const theQuery = {
-      query: this.$graphql.getQueryForAllOrganizations()
-    }
-    const response = await this.$axios.post('/graphql', theQuery)
-    this.organizationList = response.data.data.organizations
   },
   watch: {
     email (newEmail, oldEmail) {
@@ -128,38 +133,35 @@ export default {
         this.alertCustomError('Debes aceptar los términos y condiciones')
         return
       }
-
       this.$axios.$post('http://localhost:4000/api/auth/signup', {
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
         country: this.country,
         password: this.password,
-        organization: this.organization
+        organization: {
+          directusId: this.selectedOrganization.id,
+          name: this.selectedOrganization.name,
+          country_en: this.selectedOrganization.country.translations[0].name,
+          country_es: this.selectedOrganization.country.translations[1].name,
+          logoUrl: this.selectedOrganization.logo.id
+        }
       }).then((response) => {
-        this.$buefy.dialog.alert({
-          title: 'Success',
-          message: 'Usuario creado correctamente',
-          type: 'is-success',
-          hasIcon: true,
-          icon: 'check-circle',
-          iconPack: 'fa',
-          ariaRole: 'alertdialog',
-          ariaModal: true
-        })
+        alertSuccess(this.$buefy, 'Cuenta creada correctamente')
         // redirect to the email validation view when ready
         this.$router.push({ path: this.localePath('/login') })
       }).catch((error) => {
-        this.$buefy.dialog.alert({
-          title: 'Error',
-          message: error.response.data.message,
-          type: 'is-danger',
-          hasIcon: true,
-          icon: 'times-circle',
-          iconPack: 'fa',
-          ariaRole: 'alertdialog',
-          ariaModal: true
-        })
+        // this.$buefy.dialog.alert({
+        //   title: 'Error',
+        //   message: error.response.data.message,
+        //   type: 'is-danger',
+        //   hasIcon: true,
+        //   icon: 'times-circle',
+        //   iconPack: 'fa',
+        //   ariaRole: 'alertdialog',
+        //   ariaModal: true
+        // })
+        console.log(error)
       })
     },
     alertCustomError (prop) {
@@ -216,6 +218,9 @@ export default {
       } else {
         this.checkbox = true
       }
+    },
+    debug (v) {
+      console.log(v)
     }
   }
 }

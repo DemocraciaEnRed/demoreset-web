@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { alertCustomError } from '../components/matchmaking/notifications.js'
 export default {
   data: () => {
     return {
@@ -45,7 +46,7 @@ export default {
   methods: {
     login () {
       if (!this.email || !this.password) {
-        this.alertCustomError()
+        alertCustomError(this.$buefy, 'Todos los campos son requeridos')
         return
       }
       this.loading = true
@@ -70,18 +71,6 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
-    alertCustomError () {
-      this.$buefy.dialog.alert({
-        title: 'Error',
-        message: 'Todos los campos son requeridos',
-        type: 'is-danger',
-        hasIcon: true,
-        icon: 'times-circle',
-        iconPack: 'fa',
-        ariaRole: 'alertdialog',
-        ariaModal: true
-      })
     }
   }
 }

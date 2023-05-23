@@ -65,6 +65,11 @@ export default {
       ).catch((err) => {
         console.error(err)
       })
+        .finally(() => {
+          setTimeout(() => {
+            this.$router.go()
+          }, 1000)
+        })
     },
     sendNotConnectedAlert () {
       notConnectedAlert(this.$buefy)
