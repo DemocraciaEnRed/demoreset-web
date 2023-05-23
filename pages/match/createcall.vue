@@ -7,48 +7,48 @@
       <b-field label="Title of your call">
         <b-input v-model="title" type="text" placeholder="Call to title" />
       </b-field>
-      <b-field label="Brief description of the call">
-        <b-input v-model="description" type="text" placeholder="Call to description" />
+      <b-field label="Brief about of the call">
+        <b-input v-model="about" type="text" placeholder="Call to description" />
       </b-field>
       <b-field label="Barriers - up to 3">
-        <b-select v-model="selectedBarriers" placeholder="Selecciona el tipo de llamado" required>
-          <option v-for="(barrier, index) in data" :key="index" :value="barrier.field_name">
+        <b-select v-model="tags" placeholder="Selecciona el tipo de llamado" required>
+          <option v-for="(barrier, index) in data" :key="index" :value="barrier.translations[0].name">
             {{ barrier.translations[0].name }}
           </option>
         </b-select>
       </b-field>
       <b-field label="Type of call">
-        <b-select v-if="$i18n.locale == 'es'" v-model="selectedType" placeholder="Selecciona el tipo de llamado" required>
-          <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
+        <b-select v-if="$i18n.locale == 'es'" v-model="types" placeholder="Selecciona el tipo de llamado" required>
+          <option v-for="c in calltoTypesEs" :key="c.value" :value="c.name">
             {{ c.name }}
           </option>
         </b-select>
-        <b-select v-else v-model="selectedType" placeholder="Select a type of call" required>
-          <option v-for="c in calltoTypesEn" :key="c.value" :value="c.value">
+        <b-select v-else v-model="types" placeholder="Select a type of call" required>
+          <option v-for="c in calltoTypesEn" :key="c.value" :value="c.name">
             {{ c.name }}
           </option>
         </b-select>
       </b-field>
       <b-field :label="$t('register.country')">
-        <b-select v-if="$i18n.locale == 'es'" v-model="selectedCountry" placeholder="Ingresa tu país" required>
+        <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Ingresa tu país" required>
           <option v-for="c in countriesEs" :key="c.code" :value="c.code">
             {{ c.name }}
           </option>
         </b-select>
-        <b-select v-else v-model="selectedCountry" placeholder="Enter your country" required>
-          <option v-for="c in countriesEn" :key="c.code" :value="c.code">
+        <b-select v-else v-model="country" placeholder="Enter your country" required>
+          <option v-for="c in countriesEn" :key="c.code" :value="c.name">
             {{ c.name }}
           </option>
         </b-select>
       </b-field>
       <b-field label="Location">
-        <b-select v-if="$i18n.locale == 'es'" v-model="selectedLocation" placeholder="Selecciona la locación" required>
-          <option v-for="c in locationEs" :key="c.value" :value="c.value">
+        <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" required>
+          <option v-for="c in locationEs" :key="c.value" :value="c.name">
             {{ c.name }}
           </option>
         </b-select>
-        <b-select v-else v-model="selectedLocation" placeholder="Select location" required>
-          <option v-for="c in locationEn" :key="c.value" :value="c.value">
+        <b-select v-else v-model="location" placeholder="Select location" required>
+          <option v-for="c in locationEn" :key="c.value" :value="c.name">
             {{ c.name }}
           </option>
         </b-select>
@@ -120,12 +120,13 @@ export default {
       locationEn,
       locationEs,
       barriers: [],
-      selectedBarriers: [],
-      selectedType: '',
-      selectedCountry: '',
-      endDate: new Date(),
+      tags: [],
+      types: '',
+      country: '',
+      location: '',
+      endDate: [],
       title: '',
-      description: '',
+      about: '',
       content: ''
     }
   },
@@ -134,13 +135,29 @@ export default {
   },
   methods: {
     createCall () {
-      console.log({
-        barriers: this.selectedBarriers,
-        type: this.selectedType,
-        country: this.selectedCountry,
-        endDate: this.endDate,
+      // console.log({
+      //   title: this.title,
+      //   about: this.about,
+      //   selectedBarriers: this.selectedBarriers,
+      //   types: this.types,
+      //   selectedCountry: this.selectedCountry,
+      //   location: this.selectedLocation,
+      //   endDate: this.endDate,
+      //   content: 'test'
+      // })
+      this.$axios.$post('http://localhost:4000/api/callto', {
         title: this.title,
-        description: this.description
+        about: this.about,
+        tags: this.tags,
+        types: this.types,
+        country: this.country,
+        location: this.location,
+        endDate: this.endDate,
+        content: 'test'
+      }).then((response) => {
+        console.log(response)
+      }).catch((error) => {
+        console.log(error)
       })
     },
     unselectableDates (day) {

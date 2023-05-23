@@ -2,13 +2,34 @@
   <div class="container-fluid">
     <section class="hero has-background-grey-lighter">
       <div class="hero-body mx-6">
-        <div class="pb-6">
-          <p class="is-mono has-text-weight-semibold">
-            DEMOCRACIA EN RED
-          </p>
-          <p>
-            Buenos Aires, Argentina
-          </p>
+        <div class="is-flex us-flex-direction-row is-justify-content-space-between">
+          <div class="pb-6">
+            <p class="is-mono has-text-weight-semibold">
+              DEMOCRACIA EN RED
+            </p>
+            <p>
+              Buenos Aires, Argentina
+            </p>
+          </div>
+          <div v-if="userFromStore && checkIsAdmin()">
+            <b-dropdown
+              aria-role="list"
+              position="is-bottom-left"
+            >
+              <template #trigger>
+                <b-button
+                  icon-right="menu-down"
+                  position="is-top-left"
+                />
+              </template>
+              <b-dropdown-item aria-role="listitem">
+                <i class="fa-sharp fa-solid fa-pencil" /> Editar llamada
+              </b-dropdown-item>
+              <b-dropdown-item aria-role="listitem" @click="deleteCallTo">
+                <i class="fa-solid fa-trash-can" /> Borrar llamada
+              </b-dropdown-item>
+            </b-dropdown>
+          </div>
         </div>
         <p class="title is-uppercase">
           {{ callTo.title }}
@@ -38,9 +59,8 @@
               <span class="is-mono has-text-weight-semibold">LOCACION</span>
               <hr class="divider mb-2">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
-                <div v-for="(location, index) in callTo.location" :key="index">
-                  <span class="tag is-rounded has-background-grey-light mx-1">{{ location }}</span>
-                </div>
+                <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.country }}</span>
+                <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.location }}</span>
               </div>
             </div>
           </div>
@@ -56,9 +76,6 @@
           <p class="is-condensed is-uppercase is-size-5 has-text-weight-semibold">
             Respuestas
           </p>
-          <!-- <button class="ml-2 button is-small is-rounded is-outlined is-roboto is-black is-mono">
-            Responder
-          </button> -->
         </div>
         <div class="py-4">
           <CommentCard />
@@ -74,6 +91,7 @@
 </template>
 
 <script>
+import { actionNotification } from '../../components/matchmaking/notifications.js'
 import ResponseCard from '../../components/matchmaking/ResponseCard.vue'
 import CommentCard from '../../components/matchmaking/CommentCard.vue'
 
@@ -91,10 +109,43 @@ export default {
   async fetch () {
     try {
       const { data } = await this.$axios.get(`http://localhost:4000/api/callto/${this.$route.params.id}`)
-
       this.callTo = data
     } catch (error) {
       console.log(error)
+    }
+  },
+  computed: {
+    userFromStore () {
+      if (this.$store.state.user) { return this.$store.state.user }
+      return null
+    }
+  },
+  methods: {
+    checkIsAdmin () {
+      if (this.userFromStore) {
+        const isAdmin = this.userFromStore.roles.find(role => role.name === 'admin')
+        if (isAdmin) {
+          return true
+        } else {
+          return false
+        }
+      }
+    },
+    deleteCallTo () {
+      this.$axios.delete(`http://localhost:4000/api/callto/${this.$route.params.id}`)
+        .then((res) => {
+          actionNotification(this.$buefy, 'Call to eliminado', 'is-danger', 'trash-can')
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          this.$router.push({ path: this.localePath('matchmaking') })
+        })
+    },
+    debug (v) {
+      console.log(v)
     }
   }
 }
