@@ -8,9 +8,11 @@
       </div>
     </section>
     <section class="section container">
-      <button class="button is-rounded is-outlined is-roboto is-black is-medium button-position is-mono">
-        Crear llamada
-      </button>
+      <nuxt-link :to="{path: localePath('/match/createcall')}">
+        <button class="button is-rounded is-outlined is-roboto is-black is-medium button-position is-mono">
+          Crear llamada
+        </button>
+      </nuxt-link>
       <MatchmakingFilter />
       <div class="columns is-6">
         <div v-for="(ct, index) in callTo" :key="index" class="column">

@@ -89,13 +89,26 @@ export default ({ app, i18n, params }, inject) => {
       }
       `
     },
+    getQueryForAllBarriers (langCode) {
+      return `
+        {
+          barrier_types {
+            id
+            field_name
+            translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+              name
+            }
+          }
+        }
+      `
+    },
     getQueryForInitiativeFilters (langCode) {
       return `
       {
         hubs{
           id,
           translations (filter: {languages_id: {code: {_eq: "${langCode}"}}}) {
-            name
+            names
           }
         }
         barrier_categories {
