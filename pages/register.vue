@@ -48,6 +48,11 @@
         </b-select>
       </b-field>
       <b-field
+        label="Web"
+      >
+        <b-input v-model="web" :placeholder="$t('register.placeholderWeb')" />
+      </b-field>
+      <b-field
         :label="$t('register.password')"
         :state="passwordState"
         :message="passwordMessage"
@@ -92,6 +97,7 @@ export default {
       first_name: '',
       last_name: '',
       password: '',
+      web: '',
       passwordState: null,
       passwordMessage: '',
       passwordType: '',
@@ -144,7 +150,8 @@ export default {
           name: this.selectedOrganization.name,
           country_en: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[0].name : 'nocountry',
           country_es: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[1].name : 'nocountry',
-          logoUrl: this.selectedOrganization.logo !== null ? this.selectedOrganization.logo.id : 'nologo'
+          logoUrl: this.selectedOrganization.logo !== null ? this.selectedOrganization.logo.id : 'nologo',
+          web: this.web
         }
       }).then((response) => {
         alertSuccess(this.$buefy, 'Cuenta creada correctamente')

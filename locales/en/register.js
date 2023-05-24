@@ -15,7 +15,8 @@ const register = {
   placeholderPassword: 'Enter your password',
   terms: 'I accept the',
   termsAnchor: 'terms and conditions',
-  registerButton: 'Register'
+  registerButton: 'Register',
+  placeholderWeb: 'Enter organization website (if any)'
 }
 
 export default register
