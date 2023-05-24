@@ -7,7 +7,7 @@
             <div>
               <span class="has-text-weight-semibold is-mono">{{ `${comment.user.first_name} ${comment.user.last_name}` }} - {{ comment.user.organization }}</span>
               <p class="is-size-7">
-                {{ comment.createdAt }} {{ comment.updatedAt > comment.createdAt ? ' - Editado' : '' }}
+                {{ comment.createdAt | timeAgo($i18n.locale) }} {{ comment.updatedAt > comment.createdAt ? ' - Editado' : '' }}
               </p>
             </div>
             <div v-if="userFromStore && userFromStore._id === comment.user._id || userFromStore && checkIsAdmin()">
@@ -84,7 +84,7 @@
                 <div>
                   <span class="has-text-weight-semibold">{{ `${reply.user.first_name} ${reply.user.last_name}` }} - {{ reply.user.organization }}</span>
                   <span class="has-text-grey ml-1 is-size-7 mb-0">
-                    {{ reply.updatedAt }}
+                    {{ reply.updatedAt | timeAgo($i18n.locale) }}
                   </span>
                 </div>
                 <div v-if="userFromStore && userFromStore._id === reply.user._id || userFromStore && checkIsAdmin()">
@@ -127,10 +127,23 @@
 </template>
 
 <script>
+import { formatDistanceToNow, parseISO } from 'date-fns'
+import { es } from 'date-fns/locale'
 import { actionNotification, notConnectedAlert } from '../../components/matchmaking/notifications.js'
 
 export default {
   name: 'ResponseCard',
+  filters: {
+    timeAgo (date, locale) {
+      if (typeof date === 'string') { date = parseISO(date) }
+      const options = { addSuffix: true }
+      if (locale === 'es') { options.locale = es }
+      console.log(options)
+      const distance = formatDistanceToNow(date, { ...options })
+      console.log(distance)
+      return distance
+    }
+  },
   props: {
     commentprop: {
       type: Object,

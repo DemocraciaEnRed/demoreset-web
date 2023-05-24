@@ -1,33 +1,27 @@
 <template>
-  <div>
-    <div v-if="!userFromStore">
-      <div class="card notConnected" @click="sendNotConnectedAlert">
-        <div class="card-content">
-          <div class="content">
-            Escribe un comentario...
-          </div>
-        </div>
+  <div v-if="!userFromStore" class="card notConnected" @click="sendNotConnectedAlert">
+    <div class="card-content">
+      <div class="content">
+        Escribe un comentario...
       </div>
     </div>
-    <div v-else class="column is-full">
-      <div class="card">
-        <div class="card-content">
-          <div class="content">
-            <div class="columns is-multiline">
-              <div class="column is-full">
-                <span class="has-text-weight-semibold is-mono">{{ userFromStore.first_name }} {{ userFromStore.last_name }} - {{ userFromStore.organization }}</span>
-              </div>
-              <div class="column is-full">
-                <b-field type="is-primary">
-                  <b-input v-model="comment" type="textarea" placeholder="Escribe un comentario ..." maxlength="200" />
-                </b-field>
-              </div>
-              <div class="column is-full has-text-right">
-                <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="sendComment" @mouseleave="$event.target.blur()">
-                  Publicar
-                </button>
-              </div>
-            </div>
+  </div>
+  <div v-else class="card">
+    <div class="card-content">
+      <div class="content">
+        <div class="columns is-multiline">
+          <div class="column is-full">
+            <span class="has-text-weight-semibold is-mono">{{ userFromStore.first_name }} {{ userFromStore.last_name }} - {{ userFromStore.organization }}</span>
+          </div>
+          <div class="column is-full">
+            <b-field type="is-primary">
+              <b-input v-model="comment" type="textarea" placeholder="Escribe un comentario ..." maxlength="200" />
+            </b-field>
+          </div>
+          <div class="column is-full has-text-right">
+            <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="sendComment" @mouseleave="$event.target.blur()">
+              Publicar
+            </button>
           </div>
         </div>
       </div>
