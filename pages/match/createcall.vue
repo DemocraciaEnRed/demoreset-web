@@ -135,7 +135,7 @@ export default {
       endDate: [],
       title: '',
       about: '',
-      content: 'Escribe el contenido de tu llamado aquí'
+      content: '<em>Escribe el contenido de tu llamado aquí...</em>'
     }
   },
   computed: {

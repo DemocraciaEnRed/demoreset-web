@@ -16,12 +16,11 @@
               <template #trigger>
                 <b-button icon-right="menu-down" position="is-top-left" />
               </template>
-
-              <b-dropdown-item aria-role="listitem">
-                <nuxt-link :to="{ path: localePath(`/match/editcall/${$route.params.id}`) }">
+              <nuxt-link :to="{ path: localePath(`/match/editcall/${$route.params.id}`) }">
+                <b-dropdown-item aria-role="listitem">
                   <i class="fa-sharp fa-solid fa-pencil" /> Editar llamada
-                </nuxt-link>
-              </b-dropdown-item>
+                </b-dropdown-item>
+              </nuxt-link>
               <b-dropdown-item aria-role="listitem" @click="deleteCallTo">
                 <i class="fa-solid fa-trash-can" /> Borrar llamada
               </b-dropdown-item>
@@ -67,7 +66,7 @@
     <section>
       <div class="section container py-6">
         <div>
-          {{ callTo.content }}
+          <tip-tap-reader :content="callTo.content" class="box call-to-content" />
         </div>
         <div class="is-flex is-flex-direction-row is-align-items-center pt-6">
           <p class="is-condensed is-uppercase is-size-5 has-text-weight-semibold">
@@ -122,12 +121,14 @@
 import { actionNotification } from '../../components/matchmaking/notifications.js'
 import ResponseCard from '../../components/matchmaking/ResponseCard.vue'
 import CommentCard from '../../components/matchmaking/CommentCard.vue'
+import TipTapReader from '~/components/matchmaking/TipTapReader.vue'
 
 export default {
   name: 'MatchMakingId',
   components: {
     ResponseCard,
-    CommentCard
+    CommentCard,
+    TipTapReader
   },
   data: () => {
     return {

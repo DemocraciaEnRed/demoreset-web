@@ -1,84 +1,84 @@
 <template>
   <div>
     <div v-if="editor" class="is-flex is-flex-wrap-wrap my-3">
-      <button :class="`button is-primary is-light ${editor.isActive('heading', { level: 1 })? 'is-active': ''}`" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()">
+      <button :class="`button is-primary is-light ${editor.isActive('heading', { level: 1 })? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleHeading({ level: 1 }).run()">
         <b-icon
           pack="fas"
           icon="heading"
           custom-size="fa-lg"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive('heading', { level: 2 })? 'is-active': ''}`" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()">
+      <button :class="`button is-primary is-light ${editor.isActive('heading', { level: 2 })? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleHeading({ level: 2 }).run()">
         <b-icon
           pack="fas"
           icon="heading"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive('heading', { level: 3 })? 'is-active': ''}`" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()">
+      <button :class="`button is-primary is-light ${editor.isActive('heading', { level: 3 })? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleHeading({ level: 3 }).run()">
         <b-icon
           pack="fas"
           icon="heading"
           custom-size="fa-sm"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive('paragraph')? 'is-active': ''}`" @click="editor.chain().focus().setParagraph().run()">
+      <button :class="`button is-primary is-light ${editor.isActive('paragraph')? 'is-active': ''}`" @click.prevent="editor.chain().focus().setParagraph().run()">
         <b-icon
           pack="fas"
           icon="paragraph"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive('bold')? 'is-active': ''}`" @click="editor.chain().focus().toggleBold().run()">
+      <button :class="`button is-primary is-light ${editor.isActive('bold')? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleBold().run()">
         <b-icon
           pack="fas"
           icon="bold"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive('italic')? 'is-active': ''}`" @click="editor.chain().focus().toggleItalic().run()">
+      <button :class="`button is-primary is-light ${editor.isActive('italic')? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleItalic().run()">
         <b-icon
           pack="fas"
           icon="italic"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive('strike')? 'is-active': ''}`" @click="editor.chain().focus().toggleStrike().run()">
+      <button :class="`button is-primary is-light ${editor.isActive('strike')? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleStrike().run()">
         <b-icon
           pack="fas"
           icon="strikethrough"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive('hightlight')? 'is-active': ''}`" @click="editor.chain().focus().toggleHighlight().run()">
+      <button :class="`button is-primary is-light ${editor.isActive('hightlight')? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleHighlight().run()">
         <b-icon
           pack="fas"
           icon="highlighter"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive({ textAlign: 'left' })? 'is-active': ''}`" @click="editor.chain().focus().setTextAlign('left').run()">
+      <button :class="`button is-primary is-light ${editor.isActive({ textAlign: 'left' })? 'is-active': ''}`" @click.prevent="editor.chain().focus().setTextAlign('left').run()">
         <b-icon
           pack="fas"
           icon="align-left"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive({ textAlign: 'center' })? 'is-active': ''}`" @click="editor.chain().focus().setTextAlign('center').run()">
+      <button :class="`button is-primary is-light ${editor.isActive({ textAlign: 'center' })? 'is-active': ''}`" @click.prevent="editor.chain().focus().setTextAlign('center').run()">
         <b-icon
           pack="fas"
           icon="align-center"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive({ textAlign: 'right' })? 'is-active': ''}`" @click="editor.chain().focus().setTextAlign('right').run()">
+      <button :class="`button is-primary is-light ${editor.isActive({ textAlign: 'right' })? 'is-active': ''}`" @click.prevent="editor.chain().focus().setTextAlign('right').run()">
         <b-icon
           pack="fas"
           icon="align-right"
           size="is-small"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive({ textAlign: 'justify' })? 'is-active': ''}`" @click="editor.chain().focus().setTextAlign('justify').run()">
+      <button :class="`button is-primary is-light ${editor.isActive({ textAlign: 'justify' })? 'is-active': ''}`" @click.prevent="editor.chain().focus().setTextAlign('justify').run()">
         <b-icon
           pack="fas"
           icon="align-justify"
@@ -86,7 +86,7 @@
         />
       </button>
     </div>
-    <editor-content v-model="contentcopy" :editor="editor" class="custom-editor" />
+    <editor-content :editor="editor" class="tip-tap-editor" />
   </div>
 </template>
 
@@ -101,32 +101,25 @@ export default {
     EditorContent
   },
   props: {
-    modelValue: {
+    value: {
       type: String,
       default: ''
     }
   },
 
-  emits: ['update:modelValue'],
+  // emits: ['update:modelValue'],
 
   data () {
     return {
       editor: null
     }
   },
-
   watch: {
-    modelValue (value) {
-      // HTML
+    value (value) {
       const isSame = this.editor.getHTML() === value
-
-      // JSON
-      // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
-
       if (isSame) {
         return
       }
-
       this.editor.commands.setContent(value, false)
     }
   },
@@ -139,19 +132,38 @@ export default {
         }),
         Highlight
       ],
-      content: this.modelValue,
+      content: this.value,
       onUpdate: () => { this.$emit('input', this.editor.getHTML()) }
     })
   },
-
   beforeUnmount () {
     this.editor.destroy()
   }
 }
 </script>
 <style lang="scss">
-
 .ProseMirror{
+   > * + * {
+    margin-top: 0.75em;
+  }
+  h1{
+    font-size:26px;
+    font-weight:500
+  }
+  h2{
+    font-size:18px;
+    font-weight:500
+  }
+  h3{
+    font-size:16px;
+    font-weight:500
+  }
+  span i{
+    color: rgba(128, 128, 128, 0.651);
+  }
+}
+
+.tip-tap-editor .ProseMirror{
     padding: 8px;
     background-color: hsl(0deg, 0%, 100%);
     border: 1px solid hsl(0deg, 0%, 86%);
@@ -164,18 +176,6 @@ export default {
         outline: 0;
         border-color: hsl(229deg, 53%, 53%);
         box-shadow: 0 0 0 0.125em rgba(72, 95, 199, 0.25);
-    }
-    & h1{
-        font-size:26px;
-        font-weight:500
-    }
-    & h2{
-        font-size:18px;
-        font-weight:500
-    }
-    & h3{
-        font-size:16px;
-        font-weight:500
     }
 }
 
