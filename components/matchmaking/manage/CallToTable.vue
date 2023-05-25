@@ -1,39 +1,41 @@
 <template>
-  <table-container>
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>View</th>
-          <th>Title</th>
-          <th>Owner</th>
-          <th>Enabled</th>
-          <th>Created at</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="c in ct" :key="c._id">
-          <td>
-            <nuxt-link :to="{ path: localePath(`/match/${c._id}`)}" target="_blank">
-              <b-icon icon="eye" size="is-small" />
-            </nuxt-link>
-          </td>
-          <td>{{ c.title }}</td>
-          <td>{{ c.owner.first_name }} {{ c.owner.last_name }}</td>
-          <td>{{ c.enabled }}</td>
-          <td>{{ c.createdAt | createdAt() }}</td>
-          <td>
-            <b-button v-if="c.enabled === false" type="is-success is-rounded" size="is-small" @click="enableCallTo(c)">
-              Make enabled
-            </b-button>
-            <b-button v-else type="is-danger is-rounded" size="is-small" @click="enableCallTo(c)">
-              Make disabled
-            </b-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </table-container>
+  <section>
+    <b-table
+      :data="ct"
+      :mobile-cards="hasMobileCards"
+    >
+      <b-table-column v-slot="props" field="view" label="View">
+        <nuxt-link :to="{ path: localePath(`/match/${props.row._id}`)}" target="_blank">
+          <b-icon icon="eye" size="is-small" />
+        </nuxt-link>
+      </b-table-column>
+      <b-table-column v-slot="props" field="title" label="Title">
+        {{ props.row.title }}
+      </b-table-column>
+      <b-table-column v-slot="props" field="owner" label="Owner">
+        {{ props.row.owner.first_name }} {{ props.row.owner.last_name }}
+      </b-table-column>
+      <b-table-column v-slot="props" field="created_at" label="Created At">
+        {{ props.row.createdAt | createdAt() }}
+      </b-table-column>
+      <b-table-column v-slot="props" field="status" label="Status">
+        <span v-if="props.row.enabled === true" class="tag is-success">
+          Enabled
+        </span>
+        <span v-else class="tag is-danger">
+          Disabled
+        </span>
+      </b-table-column>
+      <b-table-column v-slot="props" label="Actions">
+        <b-button v-if="props.row.enabled === false" type="is-success is-rounded" size="is-small" @click="enableCallTo(props)">
+          Make enabled
+        </b-button>
+        <b-button v-else type="is-danger is-rounded" size="is-small" @click="enableCallTo(props)">
+          Make disabled
+        </b-button>
+      </b-table-column>
+    </b-table>
+  </section>
 </template>
 
 <script>
@@ -54,7 +56,7 @@ export default {
   },
   methods: {
     enableCallTo (callTo) {
-      this.$axios.$put(`http://localhost:4000/api/callto/${callTo._id}`, {
+      this.$axios.$put(`http://localhost:4000/api/callto/${callTo.row._id}`, {
         enabled: true
       })
         .then((res) => {
