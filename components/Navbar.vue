@@ -36,6 +36,9 @@
           <b-navbar-item @click="logout">
             Log out
           </b-navbar-item>
+          <b-navbar-item v-if="userFromStore.roles.find(role => role.name === 'admin')" tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match/manage')}">
+            Admin panel
+          </b-navbar-item>
         </b-navbar-dropdown>
         <b-navbar-item tag="div">
           <div class="buttons">
