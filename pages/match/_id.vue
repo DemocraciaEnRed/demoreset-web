@@ -55,8 +55,8 @@
               <span class="is-mono has-text-weight-semibold">LOCACION</span>
               <hr class="divider mb-2">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
-                <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.country }}</span>
-                <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.location }}</span>
+                <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.country | valueToName('country', $i18n.locale) }}</span>
+                <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.location | valueToName('location', $i18n.locale) }}</span>
               </div>
             </div>
           </div>
@@ -118,6 +118,7 @@
 </template>
 
 <script>
+import { countriesEn, countriesEs, calltoTypesEn, calltoTypesEs, locationEn, locationEs } from '../../static'
 import { actionNotification } from '../../components/matchmaking/notifications.js'
 import ResponseCard from '../../components/matchmaking/ResponseCard.vue'
 import CommentCard from '../../components/matchmaking/CommentCard.vue'
@@ -129,6 +130,35 @@ export default {
     ResponseCard,
     CommentCard,
     TipTapReader
+  },
+  filters: {
+    valueToName (value, field, locale) {
+      let source = []
+      let searchField = ''
+      if (field === 'country') {
+        searchField = 'code'
+        if (locale === 'es') {
+          source = [...countriesEs]
+        }
+        source = [...countriesEn]
+      }
+      if (field === 'location') {
+        searchField = 'value'
+        if (locale === 'es') {
+          source = [...locationEs]
+        }
+        source = [...locationEn]
+      }
+      if (field === 'types') {
+        searchField = 'value'
+        if (locale === 'es') {
+          source = [...calltoTypesEs]
+        }
+        source = [...calltoTypesEn]
+      }
+      const item = source.find(x => x[searchField] === value)
+      return item.name
+    }
   },
   data: () => {
     return {
