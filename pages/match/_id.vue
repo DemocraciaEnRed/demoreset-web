@@ -47,7 +47,7 @@
               <hr class="divider mb-2 ">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
                 <div v-for="(type, index) in callTo.types" :key="index">
-                  <span class="tag is-rounded has-background-grey-light mx-1">{{ type }}</span>
+                  <span class="tag is-rounded has-background-grey-light mx-1">{{ type | valueToName('types', $i18n.locale) }}</span>
                 </div>
               </div>
             </div>
@@ -139,24 +139,30 @@ export default {
         searchField = 'code'
         if (locale === 'es') {
           source = [...countriesEs]
+        } else {
+          source = [...countriesEn]
         }
-        source = [...countriesEn]
       }
       if (field === 'location') {
         searchField = 'value'
         if (locale === 'es') {
           source = [...locationEs]
+        } else {
+          source = [...locationEn]
         }
-        source = [...locationEn]
       }
       if (field === 'types') {
         searchField = 'value'
+        console.log('type: ' + value)
         if (locale === 'es') {
           source = [...calltoTypesEs]
+        } else {
+          source = [...calltoTypesEn]
         }
-        source = [...calltoTypesEn]
       }
+      console.log(source)
       const item = source.find(x => x[searchField] === value)
+      console.log(item)
       return item.name
     }
   },
