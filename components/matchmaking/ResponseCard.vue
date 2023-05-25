@@ -138,9 +138,7 @@ export default {
       if (typeof date === 'string') { date = parseISO(date) }
       const options = { addSuffix: true }
       if (locale === 'es') { options.locale = es }
-      console.log(options)
       const distance = formatDistanceToNow(date, { ...options })
-      console.log(distance)
       return distance
     }
   },

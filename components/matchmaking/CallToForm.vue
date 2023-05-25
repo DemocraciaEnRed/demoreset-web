@@ -23,13 +23,13 @@
     </b-field>
 
     <b-field label="Type of call">
-      <b-select v-if="$i18n.locale == 'es'" v-model="types" placeholder="Selecciona el tipo de llamado" required>
-        <option v-for="c in calltoTypesEs" :key="c.value" :value="c.name">
+      <b-select v-if="$i18n.locale == 'es'" v-model="types[0]" placeholder="Selecciona el tipo de llamado" required>
+        <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
           {{ c.name }}
         </option>
       </b-select>
-      <b-select v-else v-model="types" placeholder="Select a type of call" required>
-        <option v-for="c in calltoTypesEn" :key="c.value" :value="c.name">
+      <b-select v-else v-model="types[0]" placeholder="Select a type of call" required>
+        <option v-for="c in calltoTypesEn" :key="c.value" :value="c.value">
           {{ c.name }}
         </option>
       </b-select>
@@ -42,7 +42,7 @@
         </option>
       </b-select>
       <b-select v-else v-model="country" placeholder="Enter your country" required>
-        <option v-for="c in countriesEn" :key="c.code" :value="c.name">
+        <option v-for="c in countriesEn" :key="c.code" :value="c.code">
           {{ c.name }}
         </option>
       </b-select>
@@ -50,12 +50,12 @@
 
     <b-field label="Location">
       <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" required>
-        <option v-for="c in locationEs" :key="c.value" :value="c.name">
+        <option v-for="c in locationEs" :key="c.value" :value="c.value">
           {{ c.name }}
         </option>
       </b-select>
       <b-select v-else v-model="location" placeholder="Select location" required>
-        <option v-for="c in locationEn" :key="c.value" :value="c.name">
+        <option v-for="c in locationEn" :key="c.value" :value="c.value">
           {{ c.name }}
         </option>
       </b-select>
@@ -87,8 +87,8 @@
       </b-button>
     </div>
     <div v-else>
-      <!-- <b-button type="submit" class="login-button" @click.prevent="editCall()"> -->
-      <b-button type="submit" class="login-button">
+      <b-button type="submit" class="login-button" @click.prevent="editCall(updatedCallTo)">
+        <!-- <b-button type="submit" class="login-button"> -->
         Save Changes
       </b-button>
     </div>
@@ -159,7 +159,19 @@ export default {
     }
   },
   computed: {
-    unselectableBeforeDate () { return endOfToday() }
+    unselectableBeforeDate () { return endOfToday() },
+    updatedCallTo () {
+      return {
+        title: this.title,
+        about: this.about,
+        types: this.types,
+        tags: this.tags,
+        country: this.country,
+        location: this.location,
+        endDate: this.endDate,
+        content: this.content
+      }
+    }
   },
   mounted () {
     if (this.callto) {
@@ -172,19 +184,13 @@ export default {
         }
         if (Array.isArray(this.callto[key])) {
           this[key] = [...this.callto[key]]
-          console.log('VALOR PARA: ' + key)
-          console.log(this[key])
           return
         }
         if (typeof this.callto[key] === 'object') {
           this[key] = { ...this.callto[key] }
-          console.log('VALOR PARA: ' + key)
-          console.log(this[key])
           return
         }
         this[key] = this.callto[key]
-        console.log('VALOR PARA: ' + key)
-        console.log(this[key])
       })
     }
     // if (this.barriers) { this.copyOfBarriers = [...this.barriers] }

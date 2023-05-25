@@ -26,12 +26,12 @@
       </b-field>
       <b-field label="Type of call">
         <b-select v-if="$i18n.locale == 'es'" v-model="types" placeholder="Selecciona el tipo de llamado" required>
-          <option v-for="c in calltoTypesEs" :key="c.value" :value="c.name">
+          <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
             {{ c.name }}
           </option>
         </b-select>
         <b-select v-else v-model="types" placeholder="Select a type of call" required>
-          <option v-for="c in calltoTypesEn" :key="c.value" :value="c.name">
+          <option v-for="c in calltoTypesEn" :key="c.value" :value="c.value">
             {{ c.name }}
           </option>
         </b-select>
@@ -43,19 +43,19 @@
           </option>
         </b-select>
         <b-select v-else v-model="country" placeholder="Enter your country" required>
-          <option v-for="c in countriesEn" :key="c.code" :value="c.name">
+          <option v-for="c in countriesEn" :key="c.code" :value="c.code">
             {{ c.name }}
           </option>
         </b-select>
       </b-field>
       <b-field label="Location">
         <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" required>
-          <option v-for="c in locationEs" :key="c.value" :value="c.name">
+          <option v-for="c in locationEs" :key="c.value" :value="c.value">
             {{ c.name }}
           </option>
         </b-select>
         <b-select v-else v-model="location" placeholder="Select location" required>
-          <option v-for="c in locationEn" :key="c.value" :value="c.name">
+          <option v-for="c in locationEn" :key="c.value" :value="c.value">
             {{ c.name }}
           </option>
         </b-select>

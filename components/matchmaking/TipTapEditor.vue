@@ -22,13 +22,13 @@
           custom-size="fa-sm"
         />
       </button>
-      <button :class="`button is-primary is-light ${editor.isActive('paragraph')? 'is-active': ''}`" @click.prevent="editor.chain().focus().setParagraph().run()">
+      <!-- <button :class="`button is-primary is-light ${editor.isActive('paragraph')? 'is-active': ''}`" @click.prevent="editor.chain().focus().setParagraph().run()">
         <b-icon
           pack="fas"
           icon="paragraph"
           size="is-small"
         />
-      </button>
+      </button> -->
       <button :class="`button is-primary is-light ${editor.isActive('bold')? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleBold().run()">
         <b-icon
           pack="fas"
@@ -54,6 +54,20 @@
         <b-icon
           pack="fas"
           icon="highlighter"
+          size="is-small"
+        />
+      </button>
+      <button :class="`button is-primary is-light ${editor.isActive('orderedList')? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleOrderedList().run()">
+        <b-icon
+          pack="fas"
+          icon="list-ol"
+          size="is-small"
+        />
+      </button>
+      <button :class="`button is-primary is-light ${editor.isActive('bulletList')? 'is-active': ''}`" @click.prevent="editor.chain().focus().toggleBulletList().run()">
+        <b-icon
+          pack="fas"
+          icon="list-ul"
           size="is-small"
         />
       </button>
@@ -147,24 +161,30 @@ export default {
     margin-top: 0.75em;
   }
   h1{
+    font-family: 'Roboto Condensed', sans-serif;
     font-size:26px;
     font-weight:500
   }
   h2{
+    font-family: 'Roboto Condensed', sans-serif;
     font-size:18px;
     font-weight:500
   }
   h3{
+    font-family: 'Roboto Condensed', sans-serif;
     font-size:16px;
     font-weight:500
   }
-  span i{
-    color: rgba(128, 128, 128, 0.651);
+  ol, ul{
+    margin-left: 16px;
+  }
+  ul{
+    list-style: disc;
   }
 }
 
 .tip-tap-editor .ProseMirror{
-    padding: 8px;
+    padding: 16px;
     background-color: hsl(0deg, 0%, 100%);
     border: 1px solid hsl(0deg, 0%, 86%);
     border-radius: 4px;
