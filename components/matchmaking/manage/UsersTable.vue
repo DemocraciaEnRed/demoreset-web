@@ -4,10 +4,10 @@
       :data="users"
       :mobile-cards="hasMobileCards"
     >
-      <b-table-column v-slot="props" field="email" label="Email">
+      <b-table-column v-slot="props" field="email" label="Email" searchable>
         {{ props.row.email }}
       </b-table-column>
-      <b-table-column v-slot="props" field="last_name" label="Full name">
+      <b-table-column v-slot="props" field="last_name" label="Full name" searchable>
         {{ props.row.first_name }} {{ props.row.last_name }}
       </b-table-column>
       <b-table-column
@@ -19,6 +19,14 @@
       </b-table-column>
       <b-table-column v-slot="props" field="created_at" label="Created At">
         {{ props.row.createdAt | createdAt() }}
+      </b-table-column>
+      <b-table-column v-slot="props" field="created_at" label="Is active">
+        <span v-if="props.row.active === true" class="tag is-link">
+          User active
+        </span>
+        <span v-else class="tag is-warning">
+          User inactive
+        </span>
       </b-table-column>
       <b-table-column v-slot="props" label="Actions">
         <b-button v-if="checkAdmin(props) === false" type="is-success is-rounded" size="is-small" @click="makeAdmin(props)">

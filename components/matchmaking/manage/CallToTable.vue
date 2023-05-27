@@ -9,20 +9,20 @@
           <b-icon icon="eye" size="is-small" />
         </nuxt-link>
       </b-table-column>
-      <b-table-column v-slot="props" field="title" label="Title">
+      <b-table-column v-slot="props" field="title" label="Title" searchable>
         {{ props.row.title }}
       </b-table-column>
-      <b-table-column v-slot="props" field="owner" label="Owner">
+      <b-table-column v-slot="props" field="owner" label="Owner" searchable>
         {{ props.row.owner.first_name }} {{ props.row.owner.last_name }}
       </b-table-column>
       <b-table-column v-slot="props" field="created_at" label="Created At">
         {{ props.row.createdAt | createdAt() }}
       </b-table-column>
       <b-table-column v-slot="props" field="status" label="Status">
-        <span v-if="props.row.enabled === true" class="tag is-success">
+        <span v-if="props.row.enabled === true" class="tag is-link">
           Enabled
         </span>
-        <span v-else class="tag is-danger">
+        <span v-else class="tag is-warning">
           Disabled
         </span>
       </b-table-column>
