@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid is-flex-grow-1 is-flex is-flex-direction-column is-justify-space-between">
+    <div class="container-fluid is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-space-between">
       <div class="content my-5">
         <p class="is-mono is-size-5">
           {{ ct.title }}
