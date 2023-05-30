@@ -97,7 +97,7 @@ export default {
         )
     },
     removeAdmin (user) {
-      if (this.userFromStore._id === user.row._id) { return actionNotification(this.$buefy, 'No puedes quitarte el admin a ti mismo', 'is-danger', 'trash-can') }
+      if (this.userFromStore._id === user.row._id) { return actionNotification(this.$buefy, 3000, 'No puedes quitarte el admin a ti mismo', 'is-danger', 'times-circle') }
       this.$axios.$put(`http://localhost:4000/api/users/${user.row._id}`, {
         roles: ['user']
       })
