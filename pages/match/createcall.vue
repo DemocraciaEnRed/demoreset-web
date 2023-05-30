@@ -143,7 +143,6 @@ export default {
   },
   methods: {
     createCall () {
-      actionNotification(this.$buefy, 'Call to creado', 'is-success', 'check')
       this.$axios.$post('http://localhost:4000/api/callto', {
         title: this.title,
         about: this.about,
@@ -154,6 +153,7 @@ export default {
         endDate: this.endDate,
         content: this.content
       }).then((response) => {
+        actionNotification(this.$buefy, 3000, 'Call to creado', 'is-success', 'check')
         console.log(response)
       }).catch((error) => {
         console.log(error)

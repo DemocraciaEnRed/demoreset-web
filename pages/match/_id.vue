@@ -203,7 +203,7 @@ export default {
     deleteCallTo () {
       this.$axios.delete(`http://localhost:4000/api/callto/${this.$route.params.id}`)
         .then((res) => {
-          actionNotification(this.$buefy, 'Call to eliminado', 'is-danger', 'trash-can')
+          actionNotification(this.$buefy, 3000, 'Call to eliminado', 'is-danger', 'trash-can')
           console.log(res)
         })
         .catch((err) => {

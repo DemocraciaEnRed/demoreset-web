@@ -84,7 +84,7 @@ export default {
         roles: ['admin']
       })
         .then((res) => {
-          actionNotification(this.$buefy, `Hiciste admin a ${user.row.first_name} ${user.row.last_name}`, 'is-success', 'check')
+          actionNotification(this.$buefy, 3000, `Hiciste admin a ${user.row.first_name} ${user.row.last_name}`, 'is-success', 'check')
           console.log(res)
         })
         .catch((err) => {
@@ -102,7 +102,7 @@ export default {
         roles: ['user']
       })
         .then((res) => {
-          actionNotification(this.$buefy, `Quitaste admin a ${user.row.first_name} ${user.row.last_name}`, 'is-danger', 'trash-can')
+          actionNotification(this.$buefy, 3000, `Quitaste admin a ${user.row.first_name} ${user.row.last_name}`, 'is-danger', 'trash-can')
           console.log(res)
         })
         .catch((err) => {

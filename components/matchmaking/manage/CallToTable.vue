@@ -60,7 +60,7 @@ export default {
         enabled: true
       })
         .then((res) => {
-          actionNotification(this.$buefy, `Activaste la callto ${callTo.title}`, 'is-success', 'check')
+          actionNotification(this.$buefy, 3000, `Activaste la callto ${callTo.title}`, 'is-success', 'check')
           console.log(res)
         })
         .catch((err) => {

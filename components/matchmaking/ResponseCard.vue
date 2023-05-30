@@ -187,12 +187,12 @@ export default {
               this.comment.likes = [...res.likes]
             })
             .catch((err) => {
-              actionNotification(this.$buefy, 'Ocurrio un error al conectarse con la base de datos', 'is-danger', 'exclamation-triangle')
+              actionNotification(this.$buefy, 3000, 'Ocurrio un error al conectarse con la base de datos', 'is-danger', 'exclamation-triangle')
               console.error(err)
             })
         })
         .catch((err) => {
-          actionNotification(this.$buefy, 'Ocurrio un error guardando tu like', 'is-danger', 'exclamation-triangle')
+          actionNotification(this.$buefy, 3000, 'Ocurrio un error guardando tu like', 'is-danger', 'exclamation-triangle')
           console.error(err)
         })
 
@@ -211,7 +211,7 @@ export default {
     deleteComment () {
       this.$axios.$delete(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}`)
         .then((res) => {
-          actionNotification(this.$buefy, 'Comentario eliminado', 'is-danger', 'trash-can')
+          actionNotification(this.$buefy, 3000, 'Comentario eliminado', 'is-danger', 'trash-can')
         })
         .catch((err) => {
           console.error(err)
@@ -226,7 +226,7 @@ export default {
       this.$axios.$delete(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`)
         .then(async (res) => {
           this.comment = await this.getComment()
-          actionNotification(this.$buefy, 'Respuesta eliminada', 'is-danger', 'trash-can')
+          actionNotification(this.$buefy, 3000, 'Respuesta eliminada', 'is-danger', 'trash-can')
         })
         .catch((err) => {
           console.error(err)
@@ -251,7 +251,7 @@ export default {
             content: value
           }).then(async (res) => {
             this.comment = await this.getComment()
-            actionNotification(this.$buefy, 'Comentario editado', 'is-success', 'pen-to-square')
+            actionNotification(this.$buefy, 3000, 'Comentario editado', 'is-success', 'pen-to-square')
           }).catch((err) => {
             console.log(err)
           })
@@ -274,7 +274,7 @@ export default {
             content: value
           }).then(async (res) => {
             this.comment = await this.getComment()
-            actionNotification(this.$buefy, 'Respuesta editada', 'is-success', 'pen-to-square')
+            actionNotification(this.$buefy, 3000, 'Respuesta editada', 'is-success', 'pen-to-square')
           }).catch((err) => {
             console.log(err)
           })
@@ -294,7 +294,7 @@ export default {
     },
     sendReply () {
       if (this.replyBoxText === '') {
-        actionNotification(this.$buefy, 'Tu respuesta está vacía', 'is-warning', 'circle-exclamation')
+        actionNotification(this.$buefy, 3000, 'Tu respuesta está vacía', 'is-warning', 'circle-exclamation')
         return null
       }
       this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply`, {
@@ -305,7 +305,7 @@ export default {
         // this.toggleReplyBox()
       }).then(async (res) => {
         this.comment = await this.getComment()
-        actionNotification(this.$buefy, 'Respuesta enviada', 'is-success', 'check')
+        actionNotification(this.$buefy, 3000, 'Respuesta enviada', 'is-success', 'check')
       }).catch((err) => {
         console.log(err)
       })

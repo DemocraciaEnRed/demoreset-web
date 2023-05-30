@@ -39,6 +39,17 @@ export default {
     } catch (error) {
       console.log(error)
     }
+  },
+  computed: {
+    userFromStore () {
+      const user = this.$store.state.user
+      return user
+    }
+  },
+  mounted () {
+    if (!this.userFromStore.roles.find(role => role.name === 'admin')) {
+      this.$router.push({ path: this.localePath('/') })
+    }
   }
 }
 </script>

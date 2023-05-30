@@ -48,14 +48,14 @@ export default {
   methods: {
     sendComment () {
       if (this.comment === '') {
-        actionNotification(this.$buefy, 'Tu comentario está vacío', 'is-warning', 'circle-exclamation')
+        actionNotification(this.$buefy, 3000, 'Tu comentario está vacío', 'is-warning', 'circle-exclamation')
         return null
       }
       this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment`, {
         content: this.comment
       }).then(
         this.comment = '',
-        actionNotification(this.$buefy, 'Comentario enviado', 'is-success', 'check')
+        actionNotification(this.$buefy, 3000, 'Comentario enviado', 'is-success', 'check')
       ).catch((err) => {
         console.error(err)
       })

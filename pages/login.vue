@@ -11,7 +11,9 @@
         <b-input v-model="password" type="password" password-reveal :placeholder="$t('login.placeholderPassword')" />
       </b-field>
       <div class="pb-2 has-text-right">
-        <a href="#" class="has-text-primary">{{ $t('login.forgotPassword') }}</a>
+        <nuxt-link :to="{ path: localePath('/auth/forgotpassword') }">
+          {{ $t('login.forgotPassword') }}
+        </nuxt-link>
       </div>
       <div class="has-text-centered mt-1">
         <b-button type="submit" class="login-button" @click.prevent="login">
@@ -63,6 +65,9 @@ export default {
         this.$router.push({ path: this.localePath('/') })
       })
         .catch(async (err) => {
+          if (err.response.status === 403) {
+            alertCustomError(this.$buefy, 'Tu usuario no está activo, revisa tu correo electrónico')
+          }
           this.$store.dispatch('clearToken')
           this.$store.dispatch('clearUser')
           await this.$store.dispatch('setLoginError', err.response.data.message)

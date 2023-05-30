@@ -1,7 +1,7 @@
 
-export const actionNotification = (buefyInstance, message, type, icon) => {
+export const actionNotification = (buefyInstance, duration, message, type, icon) => {
   buefyInstance.notification.open({
-    duration: 3000,
+    duration,
     message,
     position: 'is-bottom-right',
     closable: false,
