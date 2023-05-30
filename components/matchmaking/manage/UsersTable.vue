@@ -2,7 +2,6 @@
   <section>
     <b-table
       :data="users"
-      :mobile-cards="hasMobileCards"
     >
       <b-table-column v-slot="props" field="email" label="Email" searchable>
         {{ props.row.email }}
@@ -52,8 +51,7 @@ export default {
   },
   data () {
     return {
-      users: [],
-      hasMobileCards: true
+      users: []
     }
   },
   async fetch () {

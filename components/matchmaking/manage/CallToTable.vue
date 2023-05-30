@@ -2,7 +2,6 @@
   <section>
     <b-table
       :data="ct"
-      :mobile-cards="hasMobileCards"
     >
       <b-table-column v-slot="props" field="title" label="Title" searchable>
         <nuxt-link :to="{ path: localePath(`/match/${props.row._id}`)}" target="_blank">
@@ -62,7 +61,6 @@ export default {
           } else {
             actionNotification(this.$buefy, 3000, `Activaste la callto ${callTo.row.title}`, 'is-success', 'check')
           }
-          console.log(res)
         })
         .catch((err) => {
           console.log(err)

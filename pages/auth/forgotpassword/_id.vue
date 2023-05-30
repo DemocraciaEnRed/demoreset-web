@@ -6,7 +6,7 @@
       </h1>
       <p>Ingresa la nueva contraseña para tu cuenta</p>
     </div>
-    <form>
+    <form @submit.prevent="sendRecoveryEmail">
       <b-field label="Contraseña">
         <b-input
           v-model="password"
@@ -43,9 +43,9 @@ export default {
       }).then((response) => {
         console.log(response)
         actionNotification(this.$buefy, 3000, 'Contraseña cambiada correctamente', 'is-success', 'check')
-        // setInterval(() => {
-        //   this.$router.push({ path: '/login' })
-        // }, 3000)
+        setInterval(() => {
+          this.$router.push({ path: '/login' })
+        }, 3000)
       })
         .catch((error) => {
           console.log({ error })

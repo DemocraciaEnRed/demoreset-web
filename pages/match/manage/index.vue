@@ -47,7 +47,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.userFromStore)
     if (this.userFromStore === null) {
       this.$router.push({ path: this.localePath('/') })
     }

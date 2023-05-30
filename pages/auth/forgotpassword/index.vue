@@ -6,7 +6,7 @@
       </h1>
       <p>Al ingresar tu email, recibirás un correo electrónico con un enlace para continuar con el cambio de contraseña.</p>
     </div>
-    <form>
+    <form @submit.prevent="sendRecoveryEmail">
       <b-field :label="$t('login.email')">
         <b-input v-model="email" type="email" :placeholder="$t('login.placeholderEmail')" />
       </b-field>
