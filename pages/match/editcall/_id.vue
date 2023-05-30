@@ -40,8 +40,7 @@ export default {
   },
   methods: {
     editCall (data) {
-      // this.$axios.$patch(`http://localhost:4000/api/callto/${this.$route.params.id}`, { data })
-      console.log(data)
+      this.$axios.$patch(`http://localhost:4000/api/callto/${this.$route.params.id}`, { data })
     }
   }
 }

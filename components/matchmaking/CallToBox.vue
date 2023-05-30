@@ -1,5 +1,5 @@
 <template>
-  <div :class="`box ${isActive}`">
+  <div :class="`box ${isActive} is-flex is-flex-direction-column`">
     <div class="media is-align-items-center">
       <div class="media-left">
         <figure class="image is-48x48">
@@ -15,30 +15,31 @@
         </div>
       </div>
     </div>
-    <div class="container my-5">
-      <p class="is-mono is-size-5">
-        {{ ct.title }}
-      </p>
-    </div>
-    <div class="container mb-3">
-      <span class="mr-3 is-size-6">Tags:</span> <span class="tag is-rounded is-size-7">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
-    </div>
-    <div class="container">
-      <span class="mr-3 is-size-6">Tipo:</span> <span class="tag is-rounded is-size-7 has-background-yellow">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
-    </div>
-    <div class="container my-3">
-      <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ endDate | formatDate }}</span>
-      <b-progress
-        type="is-primary"
-        size="is-large"
-        :value="datePercents"
-        show-value
-      >
-        <b v-if="dayDiff > 0 && dayDiff < 1" class="has-text-black">Quedan solo algunas horas para aplicar</b>
-        <!-- <b v-else-if="dayDiff > 0" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff === 1 ? 'día restante':'días restantes' }} para aplicar</b> -->
-        <b v-else-if="dayDiff >= 1" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff | pluralize('día restante','días restantes', 'días restantes') }} para aplicar</b>
-        <b v-else class="has-text-black">Finalizó el periodo para aplicar</b>
-      </b-progress>
+    <div class="container-fluid is-flex-grow-1 is-flex is-flex-direction-column is-justify-space-between">
+      <div class="content my-5">
+        <p class="is-mono is-size-5">
+          {{ ct.title }}
+        </p>
+      </div>
+      <div class="content mb-3">
+        <span class="mr-3 is-size-6">Tags:</span> <span class="tag is-rounded is-size-7">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
+      </div>
+      <div class="content">
+        <span class="mr-3 is-size-6">Tipo:</span> <span class="tag is-rounded is-size-7 has-background-yellow">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
+      </div>
+      <div class="content my-3">
+        <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ endDate | formatDate }}</span>
+        <b-progress
+          type="is-primary"
+          size="is-large"
+          :value="datePercents"
+          show-value
+        >
+          <b v-if="dayDiff > 0 && dayDiff < 1" class="has-text-black">Quedan solo algunas horas para aplicar</b>
+          <b v-else-if="dayDiff >= 1" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff | pluralize('día restante','días restantes', 'días restantes') }} para aplicar</b>
+          <b v-else class="has-text-black">Finalizó el periodo para aplicar</b>
+        </b-progress>
+      </div>
     </div>
   </div>
 </template>
@@ -117,10 +118,12 @@ export default {
 .tag{
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
+
 .box{
   border: 1px solid #E6E6E6;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.35);
   border-radius: 20px;
+  height: 100%;
   &.inactive{
     background: #C7C7C7;
     opacity: 0.75;
