@@ -160,9 +160,7 @@ export default {
           source = [...calltoTypesEn]
         }
       }
-      console.log(source)
       const item = source.find(x => x[searchField] === value)
-      console.log(item)
       return item.name
     }
   },

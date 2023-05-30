@@ -14,8 +14,8 @@
         </button>
       </nuxt-link>
       <MatchmakingFilter />
-      <div class="columns is-6">
-        <div v-for="(ct, index) in callTo" :key="index" class="column">
+      <div class="columns is-multiline">
+        <div v-for="(ct, index) in callTo" :key="index" class="column is-6">
           <nuxt-link :to="`/match/${ct._id}`">
             <CallToBox :ct="ct" />
           </nuxt-link>
