@@ -3,8 +3,8 @@
     <div :class="`box ${isActive} is-flex is-flex-direction-column`">
       <div class="media is-align-items-center">
         <div class="media-left">
-          <figure class="image is-48x48">
-            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+          <figure v-if="ct.owner.organization.logoUrl !== null" class="image is-64x64">
+            <img :src="`${apiUrl}/assets/${ct.owner.organization.logoUrl}?${transformationImage}`" class="is-rounded">
           </figure>
         </div>
         <div class="media-content">
@@ -76,6 +76,7 @@ export default {
   },
   data () {
     return {
+      transformationImage: 'transforms=[["resize", {"background":"rgb(255,255,255)","width": 150,"height": 150,"fit":"contain"}]]',
       activeCallTo: this.activeBox,
       currentDate: new Date()
     }
@@ -107,6 +108,9 @@ export default {
       const callToPeriod = differenceInMilliseconds(parseISO(this.ct.endDate), parseISO(this.ct.createdAt))
       const timeUnits = callToPeriod / 100
       return this.dateDiff / timeUnits
+    },
+    apiUrl () {
+      return process.env.API_URL
     }
   },
   methods: {
