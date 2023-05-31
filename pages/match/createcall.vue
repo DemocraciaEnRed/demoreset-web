@@ -143,8 +143,7 @@ export default {
   },
   methods: {
     createCall () {
-      console.log(this.endDate)
-      if (this.title === '' || this.about === '' || this.tags.length === 0 || this.types === '' || this.country === '' || this.location === '' || this.endDate.length === 0 || this.content === '') {
+      if (this.title === '' || this.about === '' || this.tags.length === 0 || this.types === '' || this.country === '' || this.location === '' || this.endDate.length === 0 || this.content === '' || this.content === '<p></p>') {
         alertCustomError(this.$buefy, 'Debes completar todos los campos')
         return
       }
