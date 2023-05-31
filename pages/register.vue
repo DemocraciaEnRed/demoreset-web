@@ -147,9 +147,9 @@ export default {
         organization: {
           directusId: this.selectedOrganization.id,
           name: this.selectedOrganization.name,
-          country_en: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[0].name : 'nocountry',
-          country_es: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[1].name : 'nocountry',
-          logoUrl: this.selectedOrganization.logo !== null ? this.selectedOrganization.logo.id : 'nologo',
+          country_en: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[0].name : null,
+          country_es: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[1].name : null,
+          logoUrl: this.selectedOrganization.logo !== null ? this.selectedOrganization.logo.id : null,
           web: this.web
         }
       }).then((response) => {

@@ -3,13 +3,23 @@
     <section class="hero has-background-grey-lighter">
       <div class="hero-body mx-6">
         <div class="is-flex us-flex-direction-row is-justify-content-space-between">
-          <div class="pb-6">
-            <p class="is-mono has-text-weight-semibold">
-              DEMOCRACIA EN RED
-            </p>
-            <p>
-              Buenos Aires, Argentina
-            </p>
+          <div class="columns pb-6">
+            <div class="column is-one-quarter">
+              <figure v-if="callTo.owner.organization.logoUrl !== null" class="image is-64x64">
+                <img :src="`${apiUrl}/assets/${callTo.owner.organization.logoUrl}?${transformationImage}`" class="is-rounded">
+              </figure>
+            </div>
+            <div class="column">
+              <p class="is-mono has-text-weight-semibold">
+                {{ callTo.owner.organization.name }}
+              </p>
+              <p v-if="$i18n.locale === 'es'">
+                {{ callTo.owner.organization.country_es }}
+              </p>
+              <p v-else>
+                {{ callTo.owner.organization.country_en }}
+              </p>
+            </div>
           </div>
           <div v-if="userFromStore && checkIsAdmin()">
             <b-dropdown aria-role="list" position="is-bottom-left">
@@ -174,6 +184,7 @@ export default {
     try {
       const { data } = await this.$axios.get(`http://localhost:4000/api/callto/${this.$route.params.id}`)
       this.callTo = data
+      console.log(this.callTo)
     } catch (error) {
       console.log(error)
     }
