@@ -10,6 +10,7 @@
   </section>
 </template>
 <script>
+import { alertCustomError } from '~/components/matchmaking/notifications.js'
 import CallToForm from '~/components/matchmaking/CallToForm.vue'
 export default {
   components: { CallToForm },
@@ -40,6 +41,11 @@ export default {
   },
   methods: {
     editCall (data) {
+      console.log(data)
+      if (data.title === '' || data.about === '' || data.types.length === 0 || data.country === '' || data.location === '' || data.endDate.length === 0 || data.tags.length === 0 || data.content === '' || data.content === '<p></p>' || data.content === '') {
+        alertCustomError(this.$buefy, 'Debes completar todos los campos')
+        return
+      }
       this.$axios.$patch(`http://localhost:4000/api/callto/${this.$route.params.id}`, { data })
     }
   }

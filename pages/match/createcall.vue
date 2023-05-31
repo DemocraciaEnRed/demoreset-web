@@ -5,10 +5,10 @@
     </h1>
     <form>
       <b-field label="Title of your call">
-        <b-input v-model="title" type="text" placeholder="Call to title" />
+        <b-input v-model="title" type="text" placeholder="Call to title" required />
       </b-field>
       <b-field label="Brief about of the call">
-        <b-input v-model="about" type="text" placeholder="Call to description" />
+        <b-input v-model="about" type="text" placeholder="Call to description" required />
       </b-field>
       <b-field label="Barriers - up to 3">
         {{ tags }}
@@ -90,7 +90,7 @@
 
 <script>
 import { endOfToday, isBefore, isToday, parseISO } from 'date-fns'
-import { actionNotification } from '../../components/matchmaking/notifications.js'
+import { actionNotification, alertCustomError } from '../../components/matchmaking/notifications.js'
 import { calltoTypesEs, calltoTypesEn, countriesEn, countriesEs, locationEn, locationEs } from '../../static/index.js'
 import TipTapEditor from '~/components/matchmaking/TipTapEditor.vue'
 
@@ -143,6 +143,10 @@ export default {
   },
   methods: {
     createCall () {
+      if (this.title === '' || this.about === '' || this.tags.length === 0 || this.types === '' || this.country === '' || this.location === '' || this.endDate.length === 0 || this.content === '' || this.content === '<p></p>') {
+        alertCustomError(this.$buefy, 'Debes completar todos los campos')
+        return
+      }
       this.$axios.$post('http://localhost:4000/api/callto', {
         title: this.title,
         about: this.about,

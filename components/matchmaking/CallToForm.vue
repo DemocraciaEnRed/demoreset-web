@@ -1,11 +1,11 @@
 <template>
   <form v-if="!loading || isNewCall">
     <b-field label="Title of your call">
-      <b-input v-model="title" type="text" placeholder="Call to title" />
+      <b-input v-model="title" type="text" placeholder="Call to title" required />
     </b-field>
 
     <b-field label="Brief about of the call">
-      <b-input v-model="about" type="text" placeholder="Call to description" />
+      <b-input v-model="about" type="text" placeholder="Call to description" required />
     </b-field>
 
     <b-field label="Barriers - up to 3">
