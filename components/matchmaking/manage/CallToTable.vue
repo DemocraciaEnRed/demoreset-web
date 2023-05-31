@@ -56,15 +56,11 @@ export default {
   },
   methods: {
     enableCallTo (callTo) {
-      this.$axios.$patch(`http://localhost:4000/api/callto/${callTo.row._id}`, {
-        enabled: !callTo.row.enabled
+      this.$axios.$put(`http://localhost:4000/api/callto/${callTo.row._id}`, {
+        enabled: true
       })
         .then((res) => {
-          if (callTo.row.enabled === true) {
-            actionNotification(this.$buefy, 3000, `Desactivaste la callto ${callTo.row.title}`, 'is-danger', 'times-circle')
-          } else {
-            actionNotification(this.$buefy, 3000, `Activaste la callto ${callTo.row.title}`, 'is-success', 'check')
-          }
+          actionNotification(this.$buefy, `Activaste la callto ${callTo.title}`, 'is-success', 'check')
           console.log(res)
         })
         .catch((err) => {

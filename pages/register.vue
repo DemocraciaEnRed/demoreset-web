@@ -14,7 +14,6 @@
           v-model="email"
           type="email"
           :placeholder="$t('register.placeholderEmail')"
-          maxlength="30"
           required
         />
       </b-field>
