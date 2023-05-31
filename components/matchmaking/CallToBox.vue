@@ -1,44 +1,49 @@
 <template>
-  <div :class="`box ${isActive} is-flex is-flex-direction-column`">
-    <div class="media is-align-items-center">
-      <div class="media-left">
-        <figure class="image is-48x48">
-          <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-        </figure>
-      </div>
-      <div class="media-content">
-        <div class="content is-size-5">
-          <span class="is-mono">NOMBRE DE LA ORG</span>
-          <span class="icon is-small has-text-red ml-1 ctm-opacity-60">
-            <i class="fas fa-envelope" aria-hidden="true" />
-          </span>
+  <div v-if="ct.enabled === true">
+    <div :class="`box ${isActive} is-flex is-flex-direction-column`">
+      <div class="media is-align-items-center">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content is-size-5">
+            <span class="is-mono">{{ ct.owner.organization.name || ct.owner.name }}</span>
+            <!-- <span class="icon is-small has-text-red ml-1 ctm-opacity-60">
+              <i class="fas fa-envelope" aria-hidden="true"><a :href="`mailto:${ct.owner.email}`" /></i>
+            </span> -->
+          </div>
         </div>
       </div>
-    </div>
-    <div class="container-fluid is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-space-between">
-      <div class="content my-5">
-        <p class="is-mono is-size-5">
-          {{ ct.title }}
-        </p>
-      </div>
-      <div class="content mb-3">
-        <span class="mr-3 is-size-6">Tags:</span> <span class="tag is-rounded is-size-7">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
-      </div>
-      <div class="content">
-        <span class="mr-3 is-size-6">Tipo:</span> <span class="tag is-rounded is-size-7 has-background-yellow">Rounded</span> <span class="tag is-rounded is-size-7">Rounded</span>
-      </div>
-      <div class="content my-3">
-        <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ endDate | formatDate }}</span>
-        <b-progress
-          type="is-primary"
-          size="is-large"
-          :value="datePercents"
-          show-value
-        >
-          <b v-if="dayDiff > 0 && dayDiff < 1" class="has-text-black">Quedan solo algunas horas para aplicar</b>
-          <b v-else-if="dayDiff >= 1" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff | pluralize('día restante','días restantes', 'días restantes') }} para aplicar</b>
-          <b v-else class="has-text-black">Finalizó el periodo para aplicar</b>
-        </b-progress>
+      <div class="container-fluid is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-space-between">
+        <div class="content my-5">
+          <p class="is-mono is-size-5">
+            {{ ct.title }}
+          </p>
+        </div>
+        <div class="content mb-3 is-flex">
+          <span class="mr-3 is-size-6">Tags:</span>
+          <div>
+            <span v-for="(tag,idx) in ct.tags" :key="idx" class="tag is-rounded is-size-7">{{ tag }}</span>
+          </div>
+        </div>
+        <div class="content">
+          <span class="mr-3 is-size-6">Tipo:</span> <span class="tag is-rounded is-size-7 has-background-yellow">{{ ct.location }}</span><span v-for="(type,idx) in ct.types" :key="idx" class="tag is-rounded is-size-7">{{ type }}</span>
+        </div>
+        <div class="content my-3">
+          <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ endDate | formatDate }}</span>
+          <b-progress
+            type="is-primary"
+            size="is-large"
+            :value="datePercents"
+            show-value
+          >
+            <b v-if="dayDiff > 0 && dayDiff < 1" class="has-text-black">Quedan solo algunas horas para aplicar</b>
+            <b v-else-if="dayDiff >= 1" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff | pluralize('día restante','días restantes', 'días restantes') }} para aplicar</b>
+            <b v-else class="has-text-black">Finalizó el periodo para aplicar</b>
+          </b-progress>
+        </div>
       </div>
     </div>
   </div>
@@ -107,6 +112,9 @@ export default {
   methods: {
     toggleActive (v) {
       this.activeCallTo = false
+    },
+    debug (v) {
+      console.log(v)
     }
   }
 }

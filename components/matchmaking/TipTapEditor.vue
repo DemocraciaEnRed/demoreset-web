@@ -105,8 +105,11 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-named-as-default
 import Highlight from '@tiptap/extension-highlight'
+// eslint-disable-next-line import/no-named-as-default
 import TextAlign from '@tiptap/extension-text-align'
+// eslint-disable-next-line import/no-named-as-default
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-2'
 
@@ -184,7 +187,7 @@ export default {
 }
 
 .tip-tap-editor .ProseMirror{
-    height: 500px;
+    min-height: 500px;
     padding: 16px;
     background-color: hsl(0deg, 0%, 100%);
     border: 1px solid hsl(0deg, 0%, 86%);
