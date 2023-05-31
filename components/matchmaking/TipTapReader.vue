@@ -3,8 +3,11 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-named-as-default
 import Highlight from '@tiptap/extension-highlight'
+// eslint-disable-next-line import/no-named-as-default
 import TextAlign from '@tiptap/extension-text-align'
+// eslint-disable-next-line import/no-named-as-default
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-2'
 
@@ -28,14 +31,14 @@ export default {
   mounted () {
     this.editor = new Editor({
       editable: false,
-      content: `${this.content}`,
       extensions: [
         StarterKit,
         TextAlign.configure({
           types: ['heading', 'paragraph']
         }),
         Highlight
-      ]
+      ],
+      content: `${this.content}`
     })
   },
 
