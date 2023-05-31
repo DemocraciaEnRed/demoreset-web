@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     enableCallTo (callTo) {
-      this.$axios.$put(`http://localhost:4000/api/callto/${callTo.row._id}`, {
+      this.$axios.$patch(`http://localhost:4000/api/callto/${callTo.row._id}`, {
         enabled: true
       })
         .then((res) => {
