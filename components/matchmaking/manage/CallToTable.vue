@@ -2,15 +2,11 @@
   <section>
     <b-table
       :data="ct"
-      :mobile-cards="hasMobileCards"
     >
-      <b-table-column v-slot="props" field="view" label="View">
-        <nuxt-link :to="{ path: localePath(`/match/${props.row._id}`)}" target="_blank">
-          <b-icon icon="eye" size="is-small" />
-        </nuxt-link>
-      </b-table-column>
       <b-table-column v-slot="props" field="title" label="Title" searchable>
-        {{ props.row.title }}
+        <nuxt-link :to="{ path: localePath(`/match/${props.row._id}`)}" target="_blank">
+          {{ props.row.title }}
+        </nuxt-link>
       </b-table-column>
       <b-table-column v-slot="props" field="owner" label="Owner" searchable>
         {{ props.row.owner.first_name }} {{ props.row.owner.last_name }}
@@ -28,10 +24,10 @@
       </b-table-column>
       <b-table-column v-slot="props" label="Actions">
         <b-button v-if="props.row.enabled === false" type="is-success is-rounded" size="is-small" @click="enableCallTo(props)">
-          Make enabled
+          Show
         </b-button>
         <b-button v-else type="is-danger is-rounded" size="is-small" @click="enableCallTo(props)">
-          Make disabled
+          Hide
         </b-button>
       </b-table-column>
     </b-table>
@@ -60,8 +56,11 @@ export default {
         enabled: true
       })
         .then((res) => {
-          actionNotification(this.$buefy, `Activaste la callto ${callTo.title}`, 'is-success', 'check')
-          console.log(res)
+          if (callTo.row.enabled === true) {
+            actionNotification(this.$buefy, 3000, `Desactivaste la callto ${callTo.row.title}`, 'is-danger', 'times-circle')
+          } else {
+            actionNotification(this.$buefy, 3000, `Activaste la callto ${callTo.row.title}`, 'is-success', 'check')
+          }
         })
         .catch((err) => {
           console.log(err)

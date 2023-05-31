@@ -184,6 +184,7 @@ export default {
 }
 
 .tip-tap-editor .ProseMirror{
+    min-height: 500px;
     padding: 16px;
     background-color: hsl(0deg, 0%, 100%);
     border: 1px solid hsl(0deg, 0%, 86%);

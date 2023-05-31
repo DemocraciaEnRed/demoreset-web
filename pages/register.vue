@@ -3,7 +3,7 @@
     <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
       {{ $t('register.title') }}
     </h1>
-    <form>
+    <form @submit.prevent="register">
       <b-field
         :label="$t('register.email')"
         :state="emailState"
