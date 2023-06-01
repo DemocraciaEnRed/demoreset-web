@@ -1,8 +1,6 @@
 <template>
   <section>
-    <b-table
-      :data="ct"
-    >
+    <b-table :data="ct">
       <b-table-column v-slot="props" field="title" :label="$t('adminpanel.callTitle')" searchable>
         <nuxt-link :to="{ path: localePath(`/match/${props.row._id}`)}" target="_blank">
           {{ props.row.title }}

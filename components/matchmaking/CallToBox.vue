@@ -1,5 +1,5 @@
 <template>
-  <div v-if="ct.enabled === true">
+  <div v-if="ct.enabled === true" class="h-100">
     <div :class="`box ${isActive} is-flex is-flex-direction-column`">
       <div class="media is-align-items-center">
         <div class="media-left">
@@ -22,14 +22,17 @@
             {{ ct.title }}
           </p>
         </div>
-        <div class="content mb-3 is-flex">
-          <span class="mr-3 is-size-6">Tags:</span>
-          <div>
-            <span v-for="(tag,idx) in ct.tags" :key="idx" class="tag is-rounded is-size-7">{{ tag }}</span>
+        <div class="mb-3">
+          <div class="content is-flex">
+            <span class="mr-3 is-size-6">Tags:</span>
+            <div>
+              <span v-for="(tag,idx) in ct.tags" :key="idx" class="tag is-rounded is-size-7">{{ tag }}</span>
+            </div>
           </div>
-        </div>
-        <div class="content">
-          <span class="mr-3 is-size-6">{{ $t('matchmaking.type') }}</span> <span class="tag is-rounded is-size-7 has-background-yellow">{{ ct.location }}</span><span v-for="(type,idx) in ct.types" :key="idx" class="tag is-rounded is-size-7">{{ type }}</span>
+          <div class="content">
+            <span class="mr-3 is-size-6">{{ $t('matchmaking.type') }}</span>
+            <span class="tag is-rounded is-size-7 has-background-yellow">{{ ct.location }}</span><span v-for="(type,idx) in ct.types" :key="idx" class="tag is-rounded is-size-7">{{ type }}</span>
+          </div>
         </div>
         <div class="content my-3">
           <span class="is-font-size-14"><b>{{ $t('matchmaking.dateEnd') }} </b>{{ endDate | formatDate }}</span>
@@ -65,10 +68,6 @@ export default {
     }
   },
   props: {
-    activeBox: {
-      type: Boolean,
-      default: true
-    },
     ct: {
       type: Object,
       default: () => {}
@@ -77,12 +76,10 @@ export default {
   data () {
     return {
       transformationImage: 'transforms=[["resize", {"background":"rgb(255,255,255)","width": 150,"height": 150,"fit":"contain"}]]',
-      activeCallTo: this.activeBox,
       currentDate: new Date()
     }
   },
   computed: {
-    isActive () { return this.activeCallTo ? '' : 'inactive' },
     endDate () { return parseISO(this.ct.endDate) },
     dateDiff () {
       const currentDate = this.currentDate
@@ -102,7 +99,6 @@ export default {
     },
     datePercents () {
       if (this.dayDiff < 0) {
-        console.log(this.dayDiff)
         return -1
       }
       const callToPeriod = differenceInMilliseconds(parseISO(this.ct.endDate), parseISO(this.ct.createdAt))
@@ -111,15 +107,8 @@ export default {
     },
     apiUrl () {
       return process.env.API_URL
-    }
-  },
-  methods: {
-    toggleActive (v) {
-      this.activeCallTo = false
     },
-    debug (v) {
-      console.log(v)
-    }
+    isActive () { return this.datePercents !== -1 ? '' : 'inactive' }
   }
 }
 </script>
@@ -129,6 +118,10 @@ export default {
 }
 .tag{
   border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.h-100{
+  height: 100%;
 }
 
 .box{

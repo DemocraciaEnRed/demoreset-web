@@ -16,7 +16,7 @@
       <MatchmakingFilter />
       <div class="columns is-multiline">
         <div v-for="(ct, index) in callTo" :key="index" class="column is-6">
-          <nuxt-link :to="`/match/${ct._id}`">
+          <nuxt-link class="h-100" :to="{ path: localePath(`/match/${ct._id}`) }">
             <CallToBox :ct="ct" />
           </nuxt-link>
         </div>
@@ -50,7 +50,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
 .button-position{
  position: absolute;
  right: 0;
