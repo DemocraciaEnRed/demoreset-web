@@ -2,23 +2,21 @@
   <section class="py-5 mw-300">
     <div class="has-text-centered py-4">
       <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6">
-        Cambiar contraseña
+        {{ $t('login.changePasswordTitle') }}
       </h1>
-      <p>Ingresa la nueva contraseña para tu cuenta</p>
+      {{ $t('login.changePasswordSubtitle') }}
     </div>
     <form @submit.prevent="sendRecoveryEmail">
-      <b-field label="Contraseña">
-        <b-input
-          v-model="password"
-          type="password"
-          password-reveal
-          placeholder="Contraseña"
-          minlength="6"
-          required
-        />
-      </b-field>
+      <b-input
+        v-model="password"
+        type="password"
+        password-reveal
+        :placeholder="$t('login.password')"
+        minlength="6"
+        required
+      />
       <b-button class="button mt-2" @click="sendRecoveryEmail">
-        Cambiar contraseña
+        {{ $t('login.changePasswordButton') }}
       </b-button>
     </form>
   </section>
@@ -27,6 +25,7 @@
 <script>
 import { alertCustomError, actionNotification } from '../../../components/matchmaking/notifications.js'
 export default {
+  inject: ['$t'],
   data () {
     return {
       password: ''
@@ -35,7 +34,7 @@ export default {
   methods: {
     sendRecoveryEmail () {
       if (!this.password) {
-        alertCustomError(this.$buefy, 'Debes ingresar tu nueva contraseña')
+        alertCustomError(this.$buefy, `${this.$t('login.emptyFieldErrorPassword')}`)
         return
       }
       this.$axios.$put(`http://localhost:4000/api/auth/forgotpassword/${this.$route.params.id}`, {
@@ -51,16 +50,16 @@ export default {
           console.log({ error })
           if (error.response.status === 498 || error.response.status === 404) {
             this.$buefy.dialog.confirm({
-              title: 'Token inválido',
-              message: 'El link de recuperación de contraseña ha expirado o no existe. <br> Por favor, solicita un nuevo link de recuperación de contraseña.',
+              title: `${this.$t('login.errorTokenTitle')}`,
+              message: `${this.$t('login.errorTokenMsg')}`,
               type: 'is-danger',
               hasIcon: true,
               icon: 'times-circle',
               iconPack: 'fa',
               ariaRole: 'alertdialog',
               ariaModal: true,
-              confirmText: 'Volver a solicitar',
-              cancelText: 'Cancelar',
+              confirmText: `${this.$t('login.errorTokenConfirm')}`,
+              cancelText: `${this.$t('login.errorTokenCancel')}`,
               onConfirm: () => {
                 this.$router.push({ path: '/auth/forgotpassword' })
               },
@@ -68,6 +67,8 @@ export default {
                 this.$router.push({ path: '/login' })
               }
             })
+          } else {
+            alertCustomError(this.$buefy, `${this.$t('login.genericError')}`)
           }
         })
     }

@@ -6,7 +6,25 @@ const login = {
   placeholderPassword: 'Ingresa tu contraseña',
   forgotPassword: '¿Olvidaste tu contraseña?',
   registerTitle: '¿Todavía no te registraste?',
-  registerButton: '¡Crea una nueva cuenta!'
+  registerButton: '¡Crea una nueva cuenta!',
+  recoveryPasswordTitle: 'Recupera tu contraseña',
+  recoveryPasswordSubtitle: 'Al ingresar tu email, recibirás un correo electrónico con un enlace para continuar con el cambio de contraseña.',
+  recoveryPasswordButton: 'Enviar correo electrónico',
+  emptyFieldError: 'Debes ingresar un email',
+  sucessMessage: 'Email de recuperación enviado',
+  userNotFound: 'No se encontró un usuario con ese email',
+  genericError: 'Ocurrió un error, contacta a soporte',
+  changePasswordTitle: 'Cambia tu contraseña',
+  changePasswordSubtitle: 'Ingresa tu nueva contraseña',
+  changePasswordButton: 'Cambiar contraseña',
+  emptyFieldErrorPassword: 'Debes ingresar una contraseña',
+  successMessagePassword: 'Contraseña cambiada con éxito',
+  errorTokenTitle: 'Token inválido',
+  errorTokenMsg: 'El link de recuperación de contraseña ha expirado o no existe. <br> Por favor, solicita un nuevo link de recuperación de contraseña.',
+  errorTokenConfirm: 'Volver a solicitar',
+  errorTokenCancel: 'Cancelar',
+  navbarLogin: 'Ingresar',
+  navbarLogout: 'Cerrar sesión'
 }
 
 export default login

@@ -3,14 +3,14 @@
     <section class="hero">
       <div class="hero-body has-background-grey-lighter">
         <p class="title has-text-centered is-uppercase">
-          Conecta y colabora
+          {{ $t('matchmaking.title') }}
         </p>
       </div>
     </section>
     <section class="section container">
       <nuxt-link :to="{path: localePath('/match/createcall')}">
         <button class="button is-rounded is-outlined is-roboto is-black is-medium button-position is-mono">
-          Crear llamada
+          {{ $t('matchmaking.createCallButton') }}
         </button>
       </nuxt-link>
       <MatchmakingFilter />

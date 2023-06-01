@@ -1,0 +1,28 @@
+const adminpanel = {
+  title: 'Panel de administración',
+  calLTo: 'Llamadas',
+  callTitle: 'Título',
+  callOwner: 'Creador',
+  callCreatedAt: 'Creado el',
+  callStatus: 'Estado',
+  callEnabled: 'Habilitada',
+  callDisabled: 'Deshabilitada',
+  callActions: 'Acciones',
+  callShow: 'Mostrar',
+  callHide: 'Ocultar',
+  callEnabledAlert: 'Activaste la llamada',
+  callDisabledAlert: 'Desactivaste la llamada',
+  users: 'Usuarios',
+  userName: 'Nombre',
+  userOrganization: 'Organización',
+  userCreatedAt: 'Creado el',
+  userStatus: 'Estado',
+  userActive: 'Activo',
+  userInactive: 'Inactivo',
+  makeAdmin: 'Hacer admin',
+  removeAdmin: 'Quitar admin',
+  alertMakeAdmin: 'Hiciste admin a ',
+  alertRemoveAdmin: 'Quitaste admin a '
+}
+
+export default adminpanel

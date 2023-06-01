@@ -1,14 +1,14 @@
 <template>
   <section class="section container">
     <h1 class="is-size-4 has-text-centered">
-      Admin panel
+      {{ $t('adminpanel.title') }}
     </h1>
     <section class="mt-6">
       <b-tabs v-model="activeTab" type="is-boxed" expanded>
-        <b-tab-item label="Users">
+        <b-tab-item :label="$t('adminpanel.users')">
           <UsersTable />
         </b-tab-item>
-        <b-tab-item label="llamados">
+        <b-tab-item :label="$t('adminpanel.callTo')">
           <CallToTable :ct="callTo" />
         </b-tab-item>
       </b-tabs>

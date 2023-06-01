@@ -4,7 +4,7 @@
     <b-dropdown class="dropdown-filter" aria-role="list" expanded>
       <template #trigger="{ active }">
         <b-button
-          label="Estado del llamado"
+          :label="$t('matchmaking.filterStatusTitle')"
           type="is-white"
           expanded
           class="filter-button"
@@ -12,12 +12,12 @@
         />
       </template>
       <b-dropdown-item>
-        Inactivos
+        {{ $t('matchmaking.filterEnded') }}
       </b-dropdown-item>
       <!-- <b-dropdown-item v-for="state in CalltoStates" :key="`ct-dd-${hub.id}`" :value="state"> -->
       <b-dropdown-item>
         <!-- {{ state.name }} -->
-        Activos
+        {{ $t('matchmaking.filterOpen') }}
       </b-dropdown-item>
     </b-dropdown>
   </div>

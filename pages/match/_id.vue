@@ -28,11 +28,11 @@
               </template>
               <nuxt-link :to="{ path: localePath(`/match/editcall/${$route.params.id}`) }">
                 <b-dropdown-item aria-role="listitem">
-                  <i class="fa-sharp fa-solid fa-pencil" /> Editar llamada
+                  <i class="fa-sharp fa-solid fa-pencil" /> {{ $t('matchmaking.editCall') }}
                 </b-dropdown-item>
               </nuxt-link>
               <b-dropdown-item aria-role="listitem" @click="deleteCallTo">
-                <i class="fa-solid fa-trash-can" /> Borrar llamada
+                <i class="fa-solid fa-trash-can" /> {{ $t('matchmaking.deleteCall') }}
               </b-dropdown-item>
             </b-dropdown>
           </div>
@@ -44,7 +44,7 @@
         <div class="py-3">
           <div class="columns">
             <div class="column is-one-third">
-              <span class="is-mono has-text-weight-semibold">BARRERA</span>
+              <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.barrier') }}</span>
               <hr class="divider mb-2">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
                 <div v-for="(tag, index) in callTo.tags" :key="index">
@@ -53,7 +53,7 @@
               </div>
             </div>
             <div class="column is-one-third">
-              <span class="is-mono has-text-weight-semibold">TIPO DE LLAMADO</span>
+              <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.callType') }}</span>
               <hr class="divider mb-2 ">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
                 <div v-for="(type, index) in callTo.types" :key="index">
@@ -62,7 +62,7 @@
               </div>
             </div>
             <div class="column is-one-third">
-              <span class="is-mono has-text-weight-semibold">LOCACION</span>
+              <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.ubication') }}</span>
               <hr class="divider mb-2">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
                 <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.country | valueToName('country', $i18n.locale) }}</span>
@@ -80,7 +80,7 @@
         </div>
         <div class="is-flex is-flex-direction-row is-align-items-center pt-6">
           <p class="is-condensed is-uppercase is-size-5 has-text-weight-semibold">
-            Respuestas
+            {{ $t('matchmaking.answers') }}
           </p>
         </div>
         <div class="py-4">

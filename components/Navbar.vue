@@ -30,14 +30,14 @@
           {{ $t('navbar.contact') }}
         </b-navbar-item>
         <b-navbar-item v-if="!userFromStore" tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/login')}">
-          {{ $t('navbar.login') }}
+          {{ $t('login.navbarLogin') }}
         </b-navbar-item>
         <b-navbar-dropdown v-else class="is-poppins is-500" :label="userFromStore.first_name" hoverable>
           <b-navbar-item @click="logout">
-            Log out
+            {{ $t('login.navbarLogout') }}
           </b-navbar-item>
           <b-navbar-item v-if="userFromStore.roles.find(role => role.name === 'admin')" tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match/manage')}">
-            Admin panel
+            {{ $t('adminpanel.title') }}
           </b-navbar-item>
         </b-navbar-dropdown>
         <b-navbar-item tag="div">

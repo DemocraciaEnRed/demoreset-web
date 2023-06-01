@@ -7,6 +7,8 @@ import about from './about'
 import organizations from './organizations'
 import login from './login'
 import register from './register'
+import matchmaking from './matchmaking'
+import adminpanel from './adminpanel'
 
 const es = {
   ...general,
@@ -18,7 +20,9 @@ const es = {
   about,
   organizations,
   login,
-  register
+  register,
+  matchmaking,
+  adminpanel
 }
 
 export default es

@@ -3,31 +3,31 @@
     <b-table
       :data="ct"
     >
-      <b-table-column v-slot="props" field="title" label="Title" searchable>
+      <b-table-column v-slot="props" field="title" :label="$t('adminpanel.callTitle')" searchable>
         <nuxt-link :to="{ path: localePath(`/match/${props.row._id}`)}" target="_blank">
           {{ props.row.title }}
         </nuxt-link>
       </b-table-column>
-      <b-table-column v-slot="props" field="owner" label="Owner" searchable>
+      <b-table-column v-slot="props" field="owner" :label="$t('adminpanel.callOwner')" searchable>
         {{ props.row.owner.first_name }} {{ props.row.owner.last_name }}
       </b-table-column>
-      <b-table-column v-slot="props" field="created_at" label="Created At">
+      <b-table-column v-slot="props" field="created_at" :label="$t('adminpanel.callCreatedAt')">
         {{ props.row.createdAt | createdAt() }}
       </b-table-column>
-      <b-table-column v-slot="props" field="status" label="Status">
+      <b-table-column v-slot="props" field="status" :label="$t('adminpanel.callStatus')">
         <span v-if="props.row.enabled === true" class="tag is-link">
-          Enabled
+          {{ $t('adminpanel.callEnabled') }}
         </span>
         <span v-else class="tag is-warning">
-          Disabled
+          {{ $t('adminpanel.callDisabled') }}
         </span>
       </b-table-column>
-      <b-table-column v-slot="props" label="Actions">
+      <b-table-column v-slot="props" :label="$t('adminpanel.actions')">
         <b-button v-if="props.row.enabled === false" type="is-success is-rounded" size="is-small" @click="enableCallTo(props)">
-          Show
+          {{ $t('adminpanel.callShow') }}
         </b-button>
         <b-button v-else type="is-danger is-rounded" size="is-small" @click="enableCallTo(props)">
-          Hide
+          {{ $t('adminpanel.callHide') }}
         </b-button>
       </b-table-column>
     </b-table>
@@ -44,6 +44,7 @@ export default {
       return formatISO(new Date(date), { representation: 'date' })
     }
   },
+  inject: ['$t'],
   props: {
     ct: {
       type: Array,
@@ -57,9 +58,9 @@ export default {
       })
         .then((res) => {
           if (callTo.row.enabled === true) {
-            actionNotification(this.$buefy, 3000, `Desactivaste la callto ${callTo.row.title}`, 'is-danger', 'times-circle')
+            actionNotification(this.$buefy, 3000, `${this.$t('adminpanel.callDisabledAlert')} ${callTo.row.title}`, 'is-danger', 'times-circle')
           } else {
-            actionNotification(this.$buefy, 3000, `Activaste la callto ${callTo.row.title}`, 'is-success', 'check')
+            actionNotification(this.$buefy, 3000, `${this.$t('adminpanel.callEnabledAlert')}${callTo.row.title}`, 'is-success', 'check')
           }
         })
         .catch((err) => {

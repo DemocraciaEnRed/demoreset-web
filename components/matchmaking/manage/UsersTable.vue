@@ -6,33 +6,33 @@
       <b-table-column v-slot="props" field="email" label="Email" searchable>
         {{ props.row.email }}
       </b-table-column>
-      <b-table-column v-slot="props" field="last_name" label="Full name" searchable>
+      <b-table-column v-slot="props" field="full_name" :label="$t('adminpanel.userName')" searchable>
         {{ props.row.first_name }} {{ props.row.last_name }}
       </b-table-column>
       <b-table-column
         v-slot="props"
         field="organization"
-        label="Organization"
+        :label="$t('adminpanel.userOrganization')"
       >
         {{ props.row.organization.name }}
       </b-table-column>
-      <b-table-column v-slot="props" field="created_at" label="Created At">
+      <b-table-column v-slot="props" field="created_at" :label="$t('adminpanel.userCreatedAt')">
         {{ props.row.createdAt | createdAt() }}
       </b-table-column>
-      <b-table-column v-slot="props" field="created_at" label="Is active">
+      <b-table-column v-slot="props" field="status" :label="$t('adminpanel.userStatus')">
         <span v-if="props.row.active === true" class="tag is-link">
-          User active
+          {{ $t('adminpanel.userActive') }}
         </span>
         <span v-else class="tag is-warning">
-          User inactive
+          {{ $t('adminpanel.userInactive') }}
         </span>
       </b-table-column>
-      <b-table-column v-slot="props" label="Actions">
+      <b-table-column v-slot="props" :label="$t('adminpanel.actions')">
         <b-button v-if="checkAdmin(props) === false" type="is-success is-rounded" size="is-small" @click="makeAdmin(props)">
-          Make admin
+          {{ $t('adminpanel.makeAdmin') }}
         </b-button>
         <b-button v-else type="is-danger is-rounded" size="is-small" @click="removeAdmin(props)">
-          Remove admin
+          {{ $t('adminpanel.removeAdmin') }}
         </b-button>
       </b-table-column>
     </b-table>
@@ -49,6 +49,7 @@ export default {
       return formatISO(new Date(date), { representation: 'date' })
     }
   },
+  inject: ['$t'],
   data () {
     return {
       users: []
@@ -82,7 +83,7 @@ export default {
         roles: ['admin']
       })
         .then((res) => {
-          actionNotification(this.$buefy, 3000, `Hiciste admin a ${user.row.first_name} ${user.row.last_name}`, 'is-success', 'check')
+          actionNotification(this.$buefy, 3000, `${this.$t('adminpanel.alertMakeAdmin')} ${user.row.first_name} ${user.row.last_name}`, 'is-success', 'check')
           console.log(res)
         })
         .catch((err) => {
@@ -100,7 +101,7 @@ export default {
         roles: ['user']
       })
         .then((res) => {
-          actionNotification(this.$buefy, 3000, `Quitaste admin a ${user.row.first_name} ${user.row.last_name}`, 'is-danger', 'trash-can')
+          actionNotification(this.$buefy, 3000, `${this.$t('adminpanel.alertRemoveAdmin')} ${user.row.first_name} ${user.row.last_name}`, 'is-danger', 'trash-can')
           console.log(res)
         })
         .catch((err) => {

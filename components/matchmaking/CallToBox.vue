@@ -29,19 +29,19 @@
           </div>
         </div>
         <div class="content">
-          <span class="mr-3 is-size-6">Tipo:</span> <span class="tag is-rounded is-size-7 has-background-yellow">{{ ct.location }}</span><span v-for="(type,idx) in ct.types" :key="idx" class="tag is-rounded is-size-7">{{ type }}</span>
+          <span class="mr-3 is-size-6">{{ $t('matchmaking.type') }}</span> <span class="tag is-rounded is-size-7 has-background-yellow">{{ ct.location }}</span><span v-for="(type,idx) in ct.types" :key="idx" class="tag is-rounded is-size-7">{{ type }}</span>
         </div>
         <div class="content my-3">
-          <span class="is-font-size-14"><b>Fecha de finalización: </b>{{ endDate | formatDate }}</span>
+          <span class="is-font-size-14"><b>{{ $t('matchmaking.dateEnd') }} </b>{{ endDate | formatDate }}</span>
           <b-progress
             type="is-primary"
             size="is-large"
             :value="datePercents"
             show-value
           >
-            <b v-if="dayDiff > 0 && dayDiff < 1" class="has-text-black">Quedan solo algunas horas para aplicar</b>
-            <b v-else-if="dayDiff >= 1" class="has-text-black">Hay {{ dayDiff }} {{ dayDiff | pluralize('día restante','días restantes', 'días restantes') }} para aplicar</b>
-            <b v-else class="has-text-black">Finalizó el periodo para aplicar</b>
+            <b v-if="dayDiff > 0 && dayDiff < 1" class="has-text-black">{{ $t('matchmaking.statusHours') }}</b>
+            <b v-else-if="dayDiff >= 1" class="has-text-black">{{ $t('matchmaking.pluralize1') }} {{ dayDiff }} {{ dayDiff | pluralize(`${ $t('matchmaking.pluralize2') }`,`${ $t('matchmaking.pluralize3') }`, `${ $t('matchmaking.pluralize3') }`) }} {{ $t('matchmaking.pluralize4') }}</b>
+            <b v-else class="has-text-black">{{ $t('matchmaking.statusEnded') }}</b>
           </b-progress>
         </div>
       </div>
