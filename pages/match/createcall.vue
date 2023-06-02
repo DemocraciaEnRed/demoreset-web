@@ -1,5 +1,5 @@
 <template>
-  <section class="py-5 section container">
+  <section v-if="userFromStore()" class="py-5 section container">
     <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
       {{ $t('matchmaking.formCreateCall') }}
     </h1>
@@ -85,6 +85,9 @@
         </b-button>
       </div>
     </form>
+  </section>
+  <section v-else>
+    {{ redirectToLogin() }}
   </section>
 </template>
 
@@ -173,6 +176,13 @@ export default {
         return false
       }
       return true
+    },
+    userFromStore () {
+      const user = this.$store.state.user
+      return user
+    },
+    redirectToLogin () {
+      this.$router.push({ path: this.localePath('/login') })
     }
   }
 }

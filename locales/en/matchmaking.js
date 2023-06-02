@@ -54,7 +54,7 @@ const matchmaking = {
   buttonEdit: 'Edit',
   buttonCancel: 'Cancel',
   notConnectedAlertTitle: 'You are not connected',
-  notConnectedAlertMessage: 'To be able to send a comment you must have an account. If you do not have one yet, you can generate it by clicking <a href="/register" class="has-text-primary">here</a>. <br> If you already have an account, <a href="/login" class="has-text-primary">log in</a>.',
+  notConnectedAlertMessage: 'In order to perform this action, you must have an account.. If you do not have one yet, you can generate it by clicking <a href="/register" class="has-text-primary">here</a>. <br> If you already have an account, <a href="/login" class="has-text-primary">log in</a>.',
   notConnectedAlertButton: 'Accept',
   emptyFields: 'You must complete all fields',
   createdCallToAlert: 'Call created',
