@@ -1,27 +1,34 @@
 <template>
   <form v-if="!loading || isNewCall">
     <b-field :label="$t('matchmaking.formCreateCallTitle')">
-      <b-input v-model="title" type="text" placeholder="Call to title" required />
+      <b-input v-model="title" type="text" :placeholder="$t('matchmaking.formCreateCallTitle')" required />
     </b-field>
 
     <b-field :label="$t('matchmaking.formCreateCallAbout')">
-      <b-input v-model="about" type="text" placeholder="Call to description" required />
+      <b-input v-model="about" type="text" :placeholder="$t('matchmaking.formCreateCallAbout')" required />
     </b-field>
-
-    <b-field :label="$t('matchmaking.formCreateCallBarriers')">
-      <b-select
-        v-model="tags"
-        required
-        multiple
-        expanded
-        :placeholder="$t('matchmaking.formCreateCallBarriers')"
-      >
-        <option v-for="(tag, index) in barriers" :key="index" :value="tag.translations[0].name">
+    <div class="columns">
+      <div class="column is-9">
+        <b-field :label="$t('matchmaking.formCreateCallBarriers')">
+          <b-select
+            v-model="tags"
+            required
+            multiple
+            expanded
+            :placeholder="$t('matchmaking.formCreateCallBarriers')"
+          >
+            <option v-for="(tag, index) in barriers" :key="index" :value="tag">
+              {{ tag.translations[0].name }}
+            </option>
+          </b-select>
+        </b-field>
+      </div>
+      <div class="column is-flex tags-flex">
+        <div v-for="(tag,idx) in tags" :key="idx" class="tag is-rounded is-dark is-size-7">
           {{ tag.translations[0].name }}
-        </option>
-      </b-select>
-    </b-field>
-
+        </div>
+      </div>
+    </div>
     <b-field :label="$t('matchmaking.formCreateCallType')">
       <b-select v-if="$i18n.locale == 'es'" v-model="types[0]" placeholder="Selecciona el tipo de llamado" required>
         <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
@@ -76,18 +83,18 @@
       />
     </b-field>
 
-    <b-field label="content">
+    <b-field :label="$t('matchmaking.formCreateCallContent')">
       <client-only>
         <TipTapEditor v-model="content" />
       </client-only>
     </b-field>
     <div v-if="isNewCall" class="has-text-centered mt-5">
-      <b-button type="submit" class="login-button" @click.prevent="createCall">
+      <b-button type="submit" class="login-button" @click.prevent="createCall(callToDb)">
         {{ $t('matchmaking.createCallButton') }}
       </b-button>
     </div>
     <div v-else>
-      <b-button type="submit" class="login-button" @click.prevent="editCall(updatedCallTo)">
+      <b-button type="submit" class="login-button" @click.prevent="editCall(callToDb)">
         <!-- <b-button type="submit" class="login-button"> -->
         {{ $t('matchmaking.formEditCallButton') }}
       </b-button>
@@ -138,7 +145,6 @@ export default {
       default: () => {}
     }
   },
-
   data: () => {
     return {
       loading: true,
@@ -149,6 +155,7 @@ export default {
       locationEn,
       locationEs,
       tags: [],
+      tagNames: [],
       types: [''],
       country: '',
       location: '',
@@ -160,16 +167,27 @@ export default {
   },
   computed: {
     unselectableBeforeDate () { return endOfToday() },
-    updatedCallTo () {
+    tagsToDb () { return this.tags.map(t => t.field_name) },
+    callToDb () {
       return {
         title: this.title,
         about: this.about,
         types: this.types,
-        tags: this.tags,
+        tags: this.tagsToDb,
         country: this.country,
         location: this.location,
         endDate: this.endDate,
         content: this.content
+      }
+    },
+    getTagText (aTag) {
+      return aTag[0].name
+    }
+  },
+  watch: {
+    tags (newTags) {
+      if (newTags.length > 3) {
+        newTags = newTags.splice(3, newTags.length - 3)
       }
     }
   },
@@ -193,7 +211,9 @@ export default {
         this[key] = this.callto[key]
       })
     }
-    // if (this.barriers) { this.copyOfBarriers = [...this.barriers] }
+    if (this.isNewCall) {
+      this.endDate = ''
+    }
     this.loading = false
   },
   methods: {
@@ -212,7 +232,12 @@ export default {
   max-width: 300px;
   margin: auto;
 }
-
+.tags-flex{
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+}
 .login-button {
   width: 100%;
   max-width: 100%;

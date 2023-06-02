@@ -58,7 +58,8 @@ const matchmaking = {
   notConnectedAlertButton: 'Accept',
   emptyFields: 'You must complete all fields',
   createdCallToAlert: 'Call created',
-  deletedCallToAlert: 'Call edited',
+  editedCallToAlert: 'Call edited',
+  deletedCallToAlert: 'Call deleted',
   callDeleted: 'Call deleted',
   notLoaded: 'Loading...',
   removeAdminToYou: 'You cannot remove yourself as an administrator'

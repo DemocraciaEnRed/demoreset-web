@@ -10,15 +10,16 @@
   </section>
 </template>
 <script>
-import { alertCustomError } from '~/components/matchmaking/notifications.js'
+import { actionNotification, alertCustomError } from '~/components/matchmaking/notifications.js'
 import CallToForm from '~/components/matchmaking/CallToForm.vue'
 export default {
   components: { CallToForm },
   async asyncData ({ i18n, $axios, $graphql, route }) {
     try {
       const data = { barriers: [], callto: {} }
-      const theQuery = { query: $graphql.getQueryForAllBarriers(i18n.localeProperties.iso) }
-
+      const theQuery = {
+        query: $graphql.getQueryForAllBarriers(i18n.localeProperties.iso)
+      }
       const barriers = await $axios.post('/graphql', theQuery)
       data.barriers = [...barriers.data.data.barrier_types]
 
@@ -40,13 +41,21 @@ export default {
     }
   },
   methods: {
-    editCall (data) {
-      console.log(data)
-      if (data.title === '' || data.about === '' || data.types.length === 0 || data.country === '' || data.location === '' || data.endDate.length === 0 || data.tags.length === 0 || data.content === '' || data.content === '<p></p>' || data.content === '') {
+    editCall (callToDb) {
+      if (callToDb.title === '' || callToDb.about === '' || callToDb.types.length === 0 || callToDb.country === '' || callToDb.location === '' || callToDb.endDate.length === 0 || callToDb.tags.length === 0 || callToDb.content === '' || callToDb.content === '<p></p>' || callToDb.content === '') {
         alertCustomError(this.$buefy, `${this.$t('matchmaking.emptyFields')}`)
         return
       }
-      this.$axios.$patch(`http://localhost:4000/api/callto/${this.$route.params.id}`, { data })
+      this.$axios.$patch(`http://localhost:4000/api/callto/${this.$route.params.id}`, { callToDb })
+        .then((response) => {
+          actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.createdCallToAlert')}`, 'is-success', 'check')
+          console.log(response)
+        }).catch((error) => {
+          console.log(error)
+        })
+        .finally(() => {
+          this.$router.push('/match')
+        })
     },
     userFromStore () {
       const user = this.$store.state.user

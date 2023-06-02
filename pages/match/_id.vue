@@ -1,9 +1,9 @@
 <template>
-  <div v-if="callTo.owner !== undefined " class="container-fluid">
+  <div v-if="callTo.owner !== undefined && loading !== true" class="container-fluid">
     <section class="hero has-background-grey-lighter">
       <div class="hero-body mx-6">
         <div class="is-flex us-flex-direction-row is-justify-content-space-between">
-          <div class="columns pb-6">
+          <div class="columns is-multiline pb-6">
             <div class="column is-narrow">
               <figure v-if="callTo.owner.organization.logoUrl !== null" class="image is-64x64">
                 <img :src="`${apiUrl}/assets/${callTo.owner.organization.logoUrl}?${transformationImage}`" class="is-rounded">
@@ -19,6 +19,9 @@
               <p v-else>
                 {{ callTo.owner.organization.country_en }}
               </p>
+            </div>
+            <div class="column is-full web-margin">
+              <a :href="URLwhithHttpsAdded" target="_blank"> {{ URLwhithHttpsAdded }}</a>
             </div>
           </div>
           <div v-if="userFromStore && checkIsAdmin()">
@@ -48,7 +51,7 @@
               <hr class="divider mb-2">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
                 <div v-for="(tag, index) in callTo.tags" :key="index">
-                  <span class="tag is-rounded has-background-grey-light mx-1">{{ tag }}</span>
+                  <span class="tag is-rounded has-background-grey-light mx-1">{{ getTagName(tag) }}</span>
                 </div>
               </div>
             </div>
@@ -177,6 +180,8 @@ export default {
   data: () => {
     return {
       callTo: {},
+      barriers: [],
+      loading: true,
       transformationImage: 'transforms=[["resize", {"background":"rgb(255,255,255)","width": 150,"height": 150,"fit":"contain"}]]'
     }
   },
@@ -184,6 +189,13 @@ export default {
     try {
       const { data } = await this.$axios.get(`http://localhost:4000/api/callto/${this.$route.params.id}`)
       this.callTo = data
+
+      const theQuery = {
+        query: this.$graphql.getQueryForAllBarriers(this.$i18n.localeProperties.iso)
+      }
+      const response = await this.$axios.post('/graphql', theQuery)
+      this.barriers = response.data.data.barrier_types
+      console.log(this.barriers)
       // console.log(this.callTo)
     } catch (error) {
       console.log(error)
@@ -196,7 +208,16 @@ export default {
     },
     apiUrl () {
       return process.env.API_URL
+    },
+    URLwhithHttpsAdded () {
+      if (!/^https?:\/\//i.test(this.callTo.owner.organization.web)) {
+        return 'https://' + this.callTo.owner.organization.web
+      }
+      return this.callTo.owner.organization.web
     }
+  },
+  mounted () {
+    this.loading = false
   },
   methods: {
     checkIsAdmin () {
@@ -221,6 +242,11 @@ export default {
         .finally(() => {
           this.$router.push({ path: this.localePath('match') })
         })
+    },
+    getTagName (t) {
+      console.log(t)
+      const tag = this.barriers.find(barrier => barrier.field_name === t)
+      return tag.translations[0].name
     }
   }
 }
@@ -232,7 +258,9 @@ export default {
   padding: 0;
   margin: 0;
 }
-
+.web-margin{
+  margin-left: calc(64px + 1.5rem)
+}
 .tag {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
