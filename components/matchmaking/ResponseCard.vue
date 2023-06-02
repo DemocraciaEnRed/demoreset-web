@@ -5,7 +5,7 @@
         <div class="columns is-multiline">
           <div class="column is-full is-flex is-flex-direction-row is-justify-content-space-between">
             <div>
-              <span class="has-text-weight-semibold is-mono">{{ `${comment.user.first_name} ${comment.user.last_name}` }} - {{ comment.user.organization }}</span>
+              <span class="has-text-weight-semibold is-mono">{{ `${comment.user.first_name} ${comment.user.last_name}` }} - {{ comment.user.organization.name }}</span>
               <p class="is-size-7">
                 {{ comment.createdAt | timeAgo($i18n.locale) }} {{ comment.updatedAt > comment.createdAt ? ` - ${$t('matchmaking.edited')} ` : '' }}
               </p>
@@ -87,7 +87,7 @@
             <div class="column my-2 is-full">
               <div class="is-flex is-flex-direction-row is-align-items-center is-justify-content-space-between">
                 <div>
-                  <span class="has-text-weight-semibold">{{ `${reply.user.first_name} ${reply.user.last_name}` }} - {{ reply.user.organization }}</span>
+                  <span class="has-text-weight-semibold">{{ `${reply.user.first_name} ${reply.user.last_name}` }} - {{ reply.user.organization.name }}</span>
                   <span class="has-text-grey ml-1 is-size-7 mb-0">
                     {{ reply.updatedAt | timeAgo($i18n.locale) }} {{ reply.updatedAt > reply.createdAt ? ` - ${$t('matchmaking.edited')} ` : '' }}
                   </span>
@@ -168,6 +168,7 @@ export default {
   },
   mounted () {
     this.comment = { ...this.commentprop }
+    console.log(this.commentprop)
     window.addEventListener('click', this.onClickOutside)
   },
   beforeUnmount () {
@@ -306,7 +307,6 @@ export default {
       this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply`, {
         content: this.replyBoxText
       }).then((res) => {
-        console.log(res)
         this.replyBoxText = ''
         // this.toggleReplyBox()
       }).then(async (res) => {

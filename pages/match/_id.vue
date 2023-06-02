@@ -4,7 +4,7 @@
       <div class="hero-body mx-6">
         <div class="is-flex us-flex-direction-row is-justify-content-space-between">
           <div class="columns pb-6">
-            <div class="column is-one-quarter">
+            <div class="column is-narrow">
               <figure v-if="callTo.owner.organization.logoUrl !== null" class="image is-64x64">
                 <img :src="`${apiUrl}/assets/${callTo.owner.organization.logoUrl}?${transformationImage}`" class="is-rounded">
               </figure>
@@ -184,7 +184,7 @@ export default {
     try {
       const { data } = await this.$axios.get(`http://localhost:4000/api/callto/${this.$route.params.id}`)
       this.callTo = data
-      console.log(this.callTo)
+      // console.log(this.callTo)
     } catch (error) {
       console.log(error)
     }

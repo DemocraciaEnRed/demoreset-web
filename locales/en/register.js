@@ -11,6 +11,7 @@ const register = {
   country: 'Country',
   organization: 'Organization',
   placeholderOrganization: 'Enter your organization (if any)',
+  notOrganized: 'No organization',
   password: 'Password',
   placeholderPassword: 'Enter your password',
   terms: 'I accept the',

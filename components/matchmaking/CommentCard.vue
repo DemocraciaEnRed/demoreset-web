@@ -11,7 +11,7 @@
       <div class="content">
         <div class="columns is-multiline">
           <div class="column is-full">
-            <span class="has-text-weight-semibold is-mono">{{ userFromStore.first_name }} {{ userFromStore.last_name }} - {{ userFromStore.organization }}</span>
+            <span class="has-text-weight-semibold is-mono">{{ userFromStore.first_name }} {{ userFromStore.last_name }} - {{ userFromStore.organization.name }}</span>
           </div>
           <div class="column is-full">
             <b-field type="is-primary">

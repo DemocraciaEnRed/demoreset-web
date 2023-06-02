@@ -18,20 +18,25 @@
       </div>
       <div class="container-fluid is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-space-between">
         <div class="content my-5">
-          <p class="is-mono is-size-5">
+          <p class="is-mono is-size-5 is-capitalized">
             {{ ct.title }}
           </p>
         </div>
         <div class="mb-3">
-          <div class="content is-flex">
+          <div class="is-flex">
             <span class="mr-3 is-size-6">Tags:</span>
             <div>
-              <span v-for="(tag,idx) in ct.tags" :key="idx" class="tag is-rounded is-size-7">{{ tag }}</span>
+              <span v-for="(tag,idx) in ct.tags" :key="idx" class="tag is-rounded is-size-7 mr-1 mb-1">{{ tag }}</span>
             </div>
           </div>
           <div class="content">
             <span class="mr-3 is-size-6">{{ $t('matchmaking.type') }}</span>
-            <span class="tag is-rounded is-size-7 has-background-yellow">{{ ct.location }}</span><span v-for="(type,idx) in ct.types" :key="idx" class="tag is-rounded is-size-7">{{ type }}</span>
+            <span class="tag is-rounded is-size-7 has-background-yellow">
+              {{ ct.location | valueToName('location', $i18n.locale) }}
+            </span>
+            <span v-for="(type,idx) in ct.types" :key="idx" class="tag is-rounded is-size-7">
+              {{ type | valueToName('types', $i18n.locale) }}
+            </span>
           </div>
         </div>
         <div class="content my-3">
@@ -53,6 +58,7 @@
 </template>
 <script>
 import { format, parseISO, differenceInMilliseconds, milliseconds } from 'date-fns'
+import { calltoTypesEn, calltoTypesEs, countriesEn, countriesEs, locationEn, locationEs } from '~/static'
 
 export default {
   name: 'CallToBox',
@@ -65,6 +71,37 @@ export default {
       if (num === 1) { return singularStr }
       if (num <= 0) { return none }
       return pluralStr
+    },
+    valueToName (value, field, locale) {
+      let source = []
+      let searchField = ''
+      if (field === 'country') {
+        searchField = 'code'
+        if (locale === 'es') {
+          source = [...countriesEs]
+        } else {
+          source = [...countriesEn]
+        }
+      }
+      if (field === 'location') {
+        searchField = 'value'
+        if (locale === 'es') {
+          source = [...locationEs]
+        } else {
+          source = [...locationEn]
+        }
+      }
+      if (field === 'types') {
+        searchField = 'value'
+        console.log('type: ' + value)
+        if (locale === 'es') {
+          source = [...calltoTypesEs]
+        } else {
+          source = [...calltoTypesEn]
+        }
+      }
+      const item = source.find(x => x[searchField] === value)
+      return item.name
     }
   },
   props: {

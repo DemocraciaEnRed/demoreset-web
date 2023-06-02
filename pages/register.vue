@@ -41,6 +41,9 @@
       </b-field>
       <b-field :label="$t('register.organization')">
         <b-select v-model="selectedOrganization" :placeholder="$t('register.placeholderOrganization')" required>
+          <!-- <option :value="0" class="has-text-primary-dark">
+            {{ $t('register.notOrganized') }}
+          </option> -->
           <option v-for="org in organizationList" :key="org.id" :value="org">
             {{ org.name }}
           </option>
@@ -101,7 +104,7 @@ export default {
       passwordState: null,
       passwordMessage: '',
       passwordType: '',
-      selectedOrganization: [],
+      selectedOrganization: '',
       organization: [],
       country: null,
       countriesEn,
@@ -145,14 +148,7 @@ export default {
         last_name: this.last_name,
         country: this.country,
         password: this.password,
-        organization: {
-          directusId: this.selectedOrganization.id,
-          name: this.selectedOrganization.name,
-          country_en: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[0].name : null,
-          country_es: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[1].name : null,
-          logoUrl: this.selectedOrganization.logo !== null ? this.selectedOrganization.logo.id : null,
-          web: this.web
-        }
+        organization: this.setOrganization()
       }).then((response) => {
         alertSuccess(this.$buefy, `${this.$t('register.accountCreated')}`, `${this.$t('register.accountCreatedMessage')}`)
         console.log(response)
@@ -215,6 +211,21 @@ export default {
         this.checkbox = false
       } else {
         this.checkbox = true
+      }
+    },
+    setOrganization () {
+      if (this.selectedOrganization === 0) {
+        return null
+      } else {
+        console.log(this.selectedOrganization)
+        return {
+          directusId: this.selectedOrganization.id,
+          name: this.selectedOrganization.name,
+          country_en: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[0].name : null,
+          country_es: this.selectedOrganization.country !== null ? this.selectedOrganization.country.translations[1].name : null,
+          logoUrl: this.selectedOrganization.logo !== null ? this.selectedOrganization.logo.id : null,
+          web: this.web
+        }
       }
     },
     debug (v) {
