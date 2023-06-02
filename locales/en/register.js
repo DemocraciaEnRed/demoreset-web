@@ -16,7 +16,15 @@ const register = {
   terms: 'I accept the',
   termsAnchor: 'terms and conditions',
   registerButton: 'Register',
-  placeholderWeb: 'Enter organization website (if any)'
+  placeholderWeb: 'Enter organization website (if any)',
+  accountCreated: 'Account created',
+  accountCreatedMessage: 'Your account has been created successfully.',
+  invalidEmail: 'Invalid email',
+  invalidPassword: 'Invalid password',
+  notAcceptTerms: 'You must accept the terms and conditions',
+  passwordLength: 'Password must be at least 6 characters',
+  passwordSpaces: 'Password cannot contain spaces',
+  emptyFields: 'You must complete all fields'
 }
 
 export default register

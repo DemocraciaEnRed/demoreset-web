@@ -7,7 +7,7 @@ const adminpanel = {
   callStatus: 'Estado',
   callEnabled: 'Habilitada',
   callDisabled: 'Deshabilitada',
-  callActions: 'Acciones',
+  actions: 'Acciones',
   callShow: 'Mostrar',
   callHide: 'Ocultar',
   callEnabledAlert: 'Activaste la llamada',

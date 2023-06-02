@@ -77,6 +77,7 @@
 import { alertSuccess } from '../components/matchmaking/notifications.js'
 import { countriesEn, countriesEs } from '../static/index.js'
 export default {
+  inject: ['$t'],
   async asyncData ({ i18n, $axios, $graphql }) {
     const theQuery = {
       query: $graphql.getQueryForAllOrganizations(i18n.localeProperties.iso)
@@ -127,15 +128,15 @@ export default {
         return
       }
       if (!this.emailState) {
-        this.alertCustomError('El email no es válido')
+        this.alertCustomError(`${this.$t('register.invalidEmail')}`)
         return
       }
       if (!this.passwordState) {
-        this.alertCustomError('La contraseña no es válida')
+        this.alertCustomError(`${this.$t('register.invalidPassword')}`)
         return
       }
       if (!this.checkbox) {
-        this.alertCustomError('Debes aceptar los términos y condiciones')
+        this.alertCustomError(`${this.$t('register.notAcceptTerms')}`)
         return
       }
       this.$axios.$post('http://localhost:4000/api/auth/signup', {
@@ -153,7 +154,7 @@ export default {
           web: this.web
         }
       }).then((response) => {
-        alertSuccess(this.$buefy, 'Cuenta creada correctamente')
+        alertSuccess(this.$buefy, `${this.$t('register.accountCreated')}`, `${this.$t('register.accountCreatedMessage')}`)
         console.log(response)
         // redirect to the email validation view when ready
         this.$router.push({ path: this.localePath('/login') })
@@ -164,7 +165,7 @@ export default {
     alertCustomError (prop) {
       this.$buefy.dialog.alert({
         title: 'Error',
-        message: prop !== '' ? prop : 'Todos los campos son requeridos',
+        message: prop !== '' ? prop : `${this.$t('register.emptyFields')}`,
         type: 'is-danger',
         hasIcon: true,
         icon: 'times-circle',
@@ -186,7 +187,7 @@ export default {
         this.emailType = 'is-success'
       } else {
         this.emailState = false
-        this.emailMessage = 'This email is invalid'
+        this.emailMessage = `${this.$t('register.invalidEmail')}`
         this.emailType = 'is-danger'
       }
     },
@@ -197,11 +198,11 @@ export default {
         this.passwordMessage = ''
       } else if (this.password.length < 6) {
         this.passwordState = false
-        this.passwordMessage = 'La contraseña debe contener más de 6 caracteres'
+        this.passwordMessage = `${this.$t('register.passwordLength')}`
         this.passwordType = 'is-danger'
       } else if (!passwordRegex.test(this.password)) {
         this.passwordState = false
-        this.passwordMessage = 'La contraseña no puede contener espacios'
+        this.passwordMessage = `${this.$t('register.passwordSpaces')}`
         this.passwordType = 'is-danger'
       } else {
         this.passwordState = true

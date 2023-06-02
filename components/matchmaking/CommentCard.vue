@@ -2,7 +2,7 @@
   <div v-if="!userFromStore" class="card notConnected" @click="sendNotConnectedAlert">
     <div class="card-content">
       <div class="content">
-        Escribe un comentario...
+        {{ $t('matchmaking.writeComment') }}
       </div>
     </div>
   </div>
@@ -15,12 +15,12 @@
           </div>
           <div class="column is-full">
             <b-field type="is-primary">
-              <b-input v-model="comment" type="textarea" placeholder="Escribe un comentario ..." maxlength="200" />
+              <b-input v-model="comment" type="textarea" :placeholder="$t('matchmaking.writeComment')" maxlength="200" />
             </b-field>
           </div>
           <div class="column is-full has-text-right">
             <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="sendComment" @mouseleave="$event.target.blur()">
-              Publicar
+              {{ $t('matchmaking.publish') }}
             </button>
           </div>
         </div>
@@ -33,6 +33,7 @@
 import { actionNotification, notConnectedAlert } from './notifications.js'
 export default {
   name: 'CommentCard',
+  inject: ['$t'],
   data: () => {
     return {
       isActive: false,
@@ -48,15 +49,16 @@ export default {
   methods: {
     sendComment () {
       if (this.comment === '') {
-        actionNotification(this.$buefy, 3000, 'Tu comentario está vacío', 'is-warning', 'circle-exclamation')
+        actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.commentEmpty')}`, 'is-warning', 'circle-exclamation')
         return null
       }
       this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment`, {
         content: this.comment
       }).then(
         this.comment = '',
-        actionNotification(this.$buefy, 3000, 'Comentario enviado', 'is-success', 'check')
+        actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.commentSend')}`, 'is-success', 'check')
       ).catch((err) => {
+        actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.commentError')}`, 'is-danger', 'circle-exclamation')
         console.error(err)
       })
         .finally(() => {
@@ -66,7 +68,7 @@ export default {
         })
     },
     sendNotConnectedAlert () {
-      notConnectedAlert(this.$buefy)
+      notConnectedAlert(this.$buefy, this.$t('matchmaking.notConnectedAlertTitle'), this.$t('matchmaking.notConnectedAlertMessage'), this.$t('matchmaking.notConnectedAlertButton'))
     }
   }
 }

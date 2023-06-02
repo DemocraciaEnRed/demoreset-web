@@ -7,7 +7,7 @@
             <div>
               <span class="has-text-weight-semibold is-mono">{{ `${comment.user.first_name} ${comment.user.last_name}` }} - {{ comment.user.organization }}</span>
               <p class="is-size-7">
-                {{ comment.createdAt | timeAgo($i18n.locale) }} {{ comment.updatedAt > comment.createdAt ? ' - Editado' : '' }}
+                {{ comment.createdAt | timeAgo($i18n.locale) }} {{ comment.updatedAt > comment.createdAt ? ` - ${$t('matchmaking.edited')} ` : '' }}
               </p>
             </div>
             <div v-if="userFromStore && userFromStore._id === comment.user._id || userFromStore && checkIsAdmin()">
@@ -23,10 +23,10 @@
                   />
                 </template>
                 <b-dropdown-item aria-role="listitem" @click="editCommentModal(comment.content)">
-                  <i class="fa-sharp fa-solid fa-pencil" /> Editar comentario
+                  <i class="fa-sharp fa-solid fa-pencil" /> {{ $t('matchmaking.editComment') }}
                 </b-dropdown-item>
                 <b-dropdown-item aria-role="listitem" @click="deleteComment">
-                  <i class="fa-solid fa-trash-can" /> Borrar comentario
+                  <i class="fa-solid fa-trash-can" /> {{ $t('matchmaking.deleteComment') }}
                 </b-dropdown-item>
               </b-dropdown>
             </div>
@@ -40,13 +40,13 @@
             <div class="columns">
               <div class="column">
                 <button class="button is-small is-rounded is-outlined is-black is-mono" @click="addLike" @mouseleave="$event.target.blur()">
-                  Util <i class="fa-solid fa-thumbs-up mx-1" /> {{ comment.likes.length }}
+                  {{ $t('matchmaking.likeButton') }} <i class="fa-solid fa-thumbs-up mx-1" /> {{ comment.likes.length }}
                 </button>
                 <button v-if="!userFromStore" class="button is-small is-rounded is-outlined is-black is-mono" @click="sendNotConnectedAlert">
-                  Responder
+                  {{ $t('matchmaking.replyButton') }}
                 </button>
                 <button v-else-if="!replyBox" ref="replyBtnToggler" class="button is-small is-rounded is-outlined is-black is-mono">
-                  Responder
+                  {{ $t('matchmaking.replyButton') }}
                 </button>
                 <div v-else>
                   <div ref="replyBoxWrapper" class="field">
@@ -54,18 +54,23 @@
                       <textarea
                         v-model="replyBoxText"
                         class="textarea is-small is-primary my-3"
-                        placeholder="Escribe una respuesta..."
+                        :placeholder="$t('matchmaking.writeReply')"
                         maxlength="140"
                       />
                     </div>
                   </div>
                   <button class="button is-small is-rounded is-outlined is-roboto is-black is-mono" @click="sendReply">
-                    Responder
+                    {{ $t('matchmaking.replyButton') }}
                   </button>
                 </div>
               </div>
               <div class="column is-narrow">
-                <p><span class="has-text-weight-semibold">{{ comment.replies.length }}</span> respuesta{{ comment.replies.length == 1 ? '': 's' }} <img src="~/assets/img/commentIcon.svg"></p>
+                <p v-if="$i18n.locale == 'es'">
+                  <span class="has-text-weight-semibold">{{ comment.replies.length }}</span> respuesta{{ comment.replies.length == 1 ? '': 's' }} <img src="~/assets/img/commentIcon.svg">
+                </p>
+                <p v-else>
+                  <span class="has-text-weight-semibold">{{ comment.replies.length }}</span> {{ comment.replies.length == 1 ? 'reply': 'replies' }} <img src="~/assets/img/commentIcon.svg">
+                </p>
               </div>
             </div>
           </div>
@@ -74,7 +79,7 @@
         <div v-if="comment.replies.length > 0">
           <hr class="has-background-black">
           <p>
-            Respuestas
+            {{ $t('matchmaking.answers') }}
           </p>
         </div>
         <div v-for="(reply, index) in comment.replies" :key="index" class="pt-2 mx-4">
@@ -84,7 +89,7 @@
                 <div>
                   <span class="has-text-weight-semibold">{{ `${reply.user.first_name} ${reply.user.last_name}` }} - {{ reply.user.organization }}</span>
                   <span class="has-text-grey ml-1 is-size-7 mb-0">
-                    {{ reply.updatedAt | timeAgo($i18n.locale) }}
+                    {{ reply.updatedAt | timeAgo($i18n.locale) }} {{ reply.updatedAt > reply.createdAt ? ` - ${$t('matchmaking.edited')} ` : '' }}
                   </span>
                 </div>
                 <div v-if="userFromStore && userFromStore._id === reply.user._id || userFromStore && checkIsAdmin()">
@@ -99,10 +104,10 @@
                       />
                     </template>
                     <b-dropdown-item aria-role="listitem" @click="editReplyModal(reply._id, reply.content)">
-                      <i class="fa-sharp fa-solid fa-pencil" /> Editar respuesta
+                      <i class="fa-sharp fa-solid fa-pencil" /> {{ $t('matchmaking.editReply') }}
                     </b-dropdown-item>
                     <b-dropdown-item aria-role="listitem" @click="deleteReply(reply._id)">
-                      <i class="fa-solid fa-trash-can" /> Borrar respuesta
+                      <i class="fa-solid fa-trash-can" /> {{ $t('matchmaking.deleteReply') }}
                     </b-dropdown-item>
                   </b-dropdown>
                 </div>
@@ -142,6 +147,7 @@ export default {
       return distance
     }
   },
+  inject: ['$t'],
   props: {
     commentprop: {
       type: Object,
@@ -187,12 +193,12 @@ export default {
               this.comment.likes = [...res.likes]
             })
             .catch((err) => {
-              actionNotification(this.$buefy, 3000, 'Ocurrio un error al conectarse con la base de datos', 'is-danger', 'exclamation-triangle')
+              actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.databaseError')}`, 'is-danger', 'exclamation-triangle')
               console.error(err)
             })
         })
         .catch((err) => {
-          actionNotification(this.$buefy, 3000, 'Ocurrio un error guardando tu like', 'is-danger', 'exclamation-triangle')
+          actionNotification(this.$buefy, 3000, `${this.t('matchmaking.likeError')}`, 'is-danger', 'exclamation-triangle')
           console.error(err)
         })
 
@@ -211,7 +217,7 @@ export default {
     deleteComment () {
       this.$axios.$delete(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}`)
         .then((res) => {
-          actionNotification(this.$buefy, 3000, 'Comentario eliminado', 'is-danger', 'trash-can')
+          actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.commentDeleted')}`, 'is-danger', 'trash-can')
         })
         .catch((err) => {
           console.error(err)
@@ -226,32 +232,32 @@ export default {
       this.$axios.$delete(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`)
         .then(async (res) => {
           this.comment = await this.getComment()
-          actionNotification(this.$buefy, 3000, 'Respuesta eliminada', 'is-danger', 'trash-can')
+          actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.replyDeleted')}`, 'is-danger', 'trash-can')
         })
         .catch((err) => {
           console.error(err)
         })
     },
     sendNotConnectedAlert () {
-      notConnectedAlert(this.$buefy)
+      notConnectedAlert(this.$buefy, this.$t('matchmaking.notConnectedAlertTitle'), this.$t('matchmaking.notConnectedAlertMessage'), this.$t('matchmaking.notConnectedAlertButton'))
     },
     editCommentModal (content) {
       this.$buefy.dialog.prompt({
-        message: 'Editar comentario',
+        message: `${this.$t('matchmaking.editComment')}`,
         inputAttrs: {
           type: 'text',
           value: content,
           maxlength: 200
         },
-        confirmText: 'Editar',
-        cancelText: 'Cancelar',
+        confirmText: `${this.$t('matchmaking.buttonEdit')}`,
+        cancelText: `${this.$t('matchmaking.buttonCancel')}`,
         trapFocus: true,
         onConfirm: (value) => {
           this.$axios.$put(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}`, {
             content: value
           }).then(async (res) => {
             this.comment = await this.getComment()
-            actionNotification(this.$buefy, 3000, 'Comentario editado', 'is-success', 'pen-to-square')
+            actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.commentEdited')}`, 'is-success', 'pen-to-square')
           }).catch((err) => {
             console.log(err)
           })
@@ -260,21 +266,21 @@ export default {
     },
     editReplyModal (replyId, content) {
       this.$buefy.dialog.prompt({
-        message: 'Editar respuesta',
+        message: `${this.$t('matchmaking.editReply')}`,
         inputAttrs: {
           type: 'text',
           value: content,
           maxlength: 200
         },
-        confirmText: 'Editar',
-        cancelText: 'Cancelar',
+        confirmText: `${this.$t('matchmaking.buttonEdit')}`,
+        cancelText: `${this.$t('matchmaking.buttonCancel')}`,
         trapFocus: true,
         onConfirm: (value) => {
           this.$axios.$put(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`, {
             content: value
           }).then(async (res) => {
             this.comment = await this.getComment()
-            actionNotification(this.$buefy, 3000, 'Respuesta editada', 'is-success', 'pen-to-square')
+            actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.replyEdited')}`, 'is-success', 'pen-to-square')
           }).catch((err) => {
             console.log(err)
           })
@@ -294,7 +300,7 @@ export default {
     },
     sendReply () {
       if (this.replyBoxText === '') {
-        actionNotification(this.$buefy, 3000, 'Tu respuesta está vacía', 'is-warning', 'circle-exclamation')
+        actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.replyEmpty')}`, 'is-warning', 'circle-exclamation')
         return null
       }
       this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment/${this.comment._id}/reply`, {
@@ -305,7 +311,7 @@ export default {
         // this.toggleReplyBox()
       }).then(async (res) => {
         this.comment = await this.getComment()
-        actionNotification(this.$buefy, 3000, 'Respuesta enviada', 'is-success', 'check')
+        actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.replySend')}`, 'is-success', 'check')
       }).catch((err) => {
         console.log(err)
       })

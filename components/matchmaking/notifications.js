@@ -13,19 +13,19 @@ export const actionNotification = (buefyInstance, duration, message, type, icon)
   })
 }
 
-export const notConnectedAlert = (buefyInstance) => {
+export const notConnectedAlert = (buefyInstance, title, message, confirmText) => {
   buefyInstance.dialog.alert({
     duration: 3000,
-    title: 'No estás conectado',
-    message: 'Para poder enviar un comentario debes tener una cuenta. Si aún no la tiene, puede generarla haciendo <a href="/register" class="has-text-primary">click aquí</a>. <br> Si ya tienes una cuenta, <a href="/login" class="has-text-primary">inicia sesión</a>. ',
-    confirmText: 'Aceptar'
+    title,
+    message,
+    confirmText
   })
 }
 
-export const alertSuccess = (buefyInstance, message) => {
+export const alertSuccess = (buefyInstance, title, message) => {
   buefyInstance.dialog.alert({
     duration: 2000,
-    title: 'Cuenta creada',
+    title,
     message,
     type: 'is-success',
     hasIcon: true,

@@ -1,12 +1,12 @@
 <template>
   <section v-if="!loading" class="py-5 section container">
     <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
-      Edit your call
+      {{ $t('matchmaking.editCall') }}
     </h1>
     <call-to-form :barriers="data.barriers" :callto="data.callto" :is-new-call="isNewCall" :edit-call="editCall" />
   </section>
   <section v-else class="py-5 section container">
-    NOT LOADED
+    {{ $t('matchmaking.notLoaded') }}
   </section>
 </template>
 <script>
@@ -43,7 +43,7 @@ export default {
     editCall (data) {
       console.log(data)
       if (data.title === '' || data.about === '' || data.types.length === 0 || data.country === '' || data.location === '' || data.endDate.length === 0 || data.tags.length === 0 || data.content === '' || data.content === '<p></p>' || data.content === '') {
-        alertCustomError(this.$buefy, 'Debes completar todos los campos')
+        alertCustomError(this.$buefy, `${this.$t('matchmaking.emptyFields')}`)
         return
       }
       this.$axios.$patch(`http://localhost:4000/api/callto/${this.$route.params.id}`, { data })

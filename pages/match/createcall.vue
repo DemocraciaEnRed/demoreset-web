@@ -1,30 +1,30 @@
 <template>
   <section class="py-5 section container">
     <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
-      Upload your call
+      {{ $t('matchmaking.formCreateCall') }}
     </h1>
     <form>
-      <b-field label="Title of your call">
-        <b-input v-model="title" type="text" placeholder="Call to title" required />
+      <b-field :label="$t('matchmaking.formCreateCallTitle')">
+        <b-input v-model="title" type="text" :placeholder="$t('matchmaking.formCreateCallTitle')" required />
       </b-field>
-      <b-field label="Brief about of the call">
-        <b-input v-model="about" type="text" placeholder="Call to description" required />
+      <b-field :label="$t('matchmaking.formCreateCallAbout')">
+        <b-input v-model="about" type="text" :placeholder="$t('matchmaking.formCreateCallAbout')" required />
       </b-field>
-      <b-field label="Barriers - up to 3">
+      <b-field :label="$t('matchmaking.formCreateCallBarriers')">
         {{ tags }}
         <b-select
           v-model="tags"
           required
           multiple
           expanded
-          placeholder="Selecciona el tipo de llamado (máximo 3)"
+          :placeholder="$t('matchmaking.formCreateCallBarriers')"
         >
           <option v-for="(barrier, index) in data" :key="index" :value="barrier.translations[0].name">
             {{ barrier.translations[0].name }}
           </option>
         </b-select>
       </b-field>
-      <b-field label="Type of call">
+      <b-field :label="$t('matchmaking.formCreateCallType')">
         <b-select v-if="$i18n.locale == 'es'" v-model="types" placeholder="Selecciona el tipo de llamado" required>
           <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
             {{ c.name }}
@@ -36,7 +36,7 @@
           </option>
         </b-select>
       </b-field>
-      <b-field :label="$t('register.country')">
+      <b-field :label="$t('matchmaking.formCreateCallCountry')">
         <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Ingresa tu país" required>
           <option v-for="c in countriesEs" :key="c.code" :value="c.code">
             {{ c.name }}
@@ -48,7 +48,7 @@
           </option>
         </b-select>
       </b-field>
-      <b-field label="Location">
+      <b-field :label="$t('matchmaking.ubication')">
         <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" required>
           <option v-for="c in locationEs" :key="c.value" :value="c.value">
             {{ c.name }}
@@ -60,13 +60,13 @@
           </option>
         </b-select>
       </b-field>
-      <b-field label="end date">
+      <b-field :label="$t('matchmaking.formCreateCallDate')">
         <b-datepicker
           ref="datepicker"
           v-model="endDate"
           expanded
           :min-date="unselectableBeforeDate"
-          placeholder="Select a date"
+          :placeholder="$t('matchmaking.formCreateCallSelectDate')"
         />
         <b-button
           icon-left="calendar-today"
@@ -74,14 +74,14 @@
           @click="$refs.datepicker.toggle()"
         />
       </b-field>
-      <b-field label="content">
+      <b-field :label="$t('matchmaking.formCreateCallContent')">
         <client-only>
           <TipTapEditor v-model="content" />
         </client-only>
       </b-field>
       <div class="has-text-centered mt-5">
         <b-button type="submit" class="login-button" @click.prevent="createCall">
-          Send Call
+          {{ $t('matchmaking.createCallButton') }}
         </b-button>
       </div>
     </form>
@@ -99,6 +99,7 @@ export default {
   components: {
     TipTapEditor
   },
+  inject: ['$t'],
   async asyncData ({ i18n, $axios, $graphql }) {
     try {
       const theQuery = {
@@ -135,7 +136,7 @@ export default {
       endDate: [],
       title: '',
       about: '',
-      content: '<em>Escribe el contenido de tu llamado aquí...</em>'
+      content: ''
     }
   },
   computed: {
@@ -144,7 +145,7 @@ export default {
   methods: {
     createCall () {
       if (this.title === '' || this.about === '' || this.tags.length === 0 || this.types === '' || this.country === '' || this.location === '' || this.endDate.length === 0 || this.content === '' || this.content === '<p></p>') {
-        alertCustomError(this.$buefy, 'Debes completar todos los campos')
+        alertCustomError(this.$buefy, `${this.$t('matchmaking.emptyFields')}`)
         return
       }
       this.$axios.$post('http://localhost:4000/api/callto', {
@@ -157,7 +158,7 @@ export default {
         endDate: this.endDate,
         content: this.content
       }).then((response) => {
-        actionNotification(this.$buefy, 3000, 'Call to creado', 'is-success', 'check')
+        actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.createdCallToAlert')}`, 'is-success', 'check')
         console.log(response)
       }).catch((error) => {
         console.log(error)
@@ -172,12 +173,6 @@ export default {
         return false
       }
       return true
-    },
-    tagsLimiter () {
-      if (this.tags.length > 3) {
-        alert('Solo puedes seleccionar 3 tags')
-        this.tags.pop()
-      }
     }
   }
 }

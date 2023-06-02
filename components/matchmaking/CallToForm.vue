@@ -1,20 +1,20 @@
 <template>
   <form v-if="!loading || isNewCall">
-    <b-field label="Title of your call">
+    <b-field :label="$t('matchmaking.formCreateCallTitle')">
       <b-input v-model="title" type="text" placeholder="Call to title" required />
     </b-field>
 
-    <b-field label="Brief about of the call">
+    <b-field :label="$t('matchmaking.formCreateCallAbout')">
       <b-input v-model="about" type="text" placeholder="Call to description" required />
     </b-field>
 
-    <b-field label="Barriers - up to 3">
+    <b-field :label="$t('matchmaking.formCreateCallBarriers')">
       <b-select
         v-model="tags"
         required
         multiple
         expanded
-        placeholder="Selecciona el tipo de llamado (máximo 3)"
+        :placeholder="$t('matchmaking.formCreateCallBarriers')"
       >
         <option v-for="(tag, index) in barriers" :key="index" :value="tag.translations[0].name">
           {{ tag.translations[0].name }}
@@ -22,7 +22,7 @@
       </b-select>
     </b-field>
 
-    <b-field label="Type of call">
+    <b-field :label="$t('matchmaking.formCreateCallType')">
       <b-select v-if="$i18n.locale == 'es'" v-model="types[0]" placeholder="Selecciona el tipo de llamado" required>
         <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
           {{ c.name }}
@@ -35,7 +35,7 @@
       </b-select>
     </b-field>
 
-    <b-field :label="$t('register.country')">
+    <b-field :label="$t('matchmaking.formCreateCallCountry')">
       <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Ingresa tu país" required>
         <option v-for="c in countriesEs" :key="c.code" :value="c.code">
           {{ c.name }}
@@ -48,7 +48,7 @@
       </b-select>
     </b-field>
 
-    <b-field label="Location">
+    <b-field :label="$t('matchmaking.ubication')">
       <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" required>
         <option v-for="c in locationEs" :key="c.value" :value="c.value">
           {{ c.name }}
@@ -61,13 +61,13 @@
       </b-select>
     </b-field>
 
-    <b-field label="end date">
+    <b-field :label="$t('matchmaking.formCreateCallDate')">
       <b-datepicker
         ref="datepicker"
         v-model="endDate"
         expanded
         :min-date="unselectableBeforeDate"
-        placeholder="Select a date"
+        :placeholder="$t('matchmaking.formCreateCallSelectDate')"
       />
       <b-button
         icon-left="calendar-today"
@@ -83,13 +83,13 @@
     </b-field>
     <div v-if="isNewCall" class="has-text-centered mt-5">
       <b-button type="submit" class="login-button" @click.prevent="createCall">
-        Send Call
+        {{ $t('matchmaking.createCallButton') }}
       </b-button>
     </div>
     <div v-else>
       <b-button type="submit" class="login-button" @click.prevent="editCall(updatedCallTo)">
         <!-- <b-button type="submit" class="login-button"> -->
-        Save Changes
+        {{ $t('matchmaking.formEditCallButton') }}
       </b-button>
     </div>
   </form>
@@ -155,7 +155,7 @@ export default {
       endDate: new Date(),
       title: '',
       about: '',
-      content: '<p>Escribe el contenido de tu llamado aquí...</p>'
+      content: ''
     }
   },
   computed: {
@@ -203,12 +203,6 @@ export default {
         return false
       }
       return true
-    },
-    tagsLimiter () {
-      if (this.tags.length > 3) {
-        alert('Solo puedes seleccionar 3 tags')
-        this.tags.pop()
-      }
     }
   }
 }
