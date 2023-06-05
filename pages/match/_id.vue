@@ -50,8 +50,8 @@
               <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.barrier') }}</span>
               <hr class="divider mb-2">
               <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
-                <div v-for="(tag, index) in callTo.tags" :key="index">
-                  <span class="tag is-rounded has-background-grey-light mx-1">{{ getTagName(tag) }}</span>
+                <div v-for="(tag, index) in tagNames" :key="index">
+                  <span class="tag is-rounded has-background-grey-light mx-1">{{ tag }}</span>
                 </div>
               </div>
             </div>
@@ -166,7 +166,6 @@ export default {
       }
       if (field === 'types') {
         searchField = 'value'
-        console.log('type: ' + value)
         if (locale === 'es') {
           source = [...calltoTypesEs]
         } else {
@@ -182,6 +181,7 @@ export default {
       callTo: {},
       barriers: [],
       loading: true,
+      tagNames: [],
       transformationImage: 'transforms=[["resize", {"background":"rgb(255,255,255)","width": 150,"height": 150,"fit":"contain"}]]'
     }
   },
@@ -195,8 +195,7 @@ export default {
       }
       const response = await this.$axios.post('/graphql', theQuery)
       this.barriers = response.data.data.barrier_types
-      console.log(this.barriers)
-      // console.log(this.callTo)
+      this.loading = false
     } catch (error) {
       console.log(error)
     }
@@ -216,8 +215,10 @@ export default {
       return this.callTo.owner.organization.web
     }
   },
-  mounted () {
-    this.loading = false
+  watch: {
+    loading () {
+      this.tagNames = this.getTagNames()
+    }
   },
   methods: {
     checkIsAdmin () {
@@ -234,7 +235,6 @@ export default {
       this.$axios.delete(`http://localhost:4000/api/callto/${this.$route.params.id}`)
         .then((res) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.deletedCallToAlert')}`, 'is-danger', 'trash-can')
-          console.log(res)
         })
         .catch((err) => {
           console.log(err)
@@ -243,10 +243,10 @@ export default {
           this.$router.push({ path: this.localePath('match') })
         })
     },
-    getTagName (t) {
-      console.log(t)
-      const tag = this.barriers.find(barrier => barrier.field_name === t)
-      return tag.translations[0].name
+    getTagNames () {
+      const cTags = this.callTo.tags.map(t => this.barriers.find(barrier => barrier.field_name === t))
+      const mappedTagNames = [...cTags].map(tag => tag.translations[0].name)
+      return mappedTagNames
     }
   }
 }
