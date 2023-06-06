@@ -62,7 +62,8 @@ const matchmaking = {
   deletedCallToAlert: 'Call deleted',
   callDeleted: 'Call deleted',
   notLoaded: 'Loading...',
-  removeAdminToYou: 'You cannot remove yourself as an administrator'
+  removeAdminToYou: 'You cannot remove yourself as an administrator',
+  accountValidation: 'Account validation'
 }
 
 export default matchmaking
