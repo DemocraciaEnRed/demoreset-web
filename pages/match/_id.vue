@@ -10,8 +10,12 @@
               </figure>
             </div>
             <div class="column">
-              <p class="is-mono has-text-weight-semibold">
+              <p v-if="callTo.owner.organization.name !== null" class="is-mono has-text-weight-semibold">
                 {{ callTo.owner.organization.name }}
+              </p>
+              <p v-else class="is-mono has-text-weight-semibold">
+                {{ callTo.owner.first_name }}
+                {{ callTo.owner.last_name }}
               </p>
               <p v-if="$i18n.locale === 'es'">
                 {{ callTo.owner.organization.country_es }}
@@ -20,8 +24,8 @@
                 {{ callTo.owner.organization.country_en }}
               </p>
             </div>
-            <div class="column is-full web-margin">
-              <a :href="URLwhithHttpsAdded" target="_blank"> {{ URLwhithHttpsAdded }}</a>
+            <div v-if="callTo.owner.organization.web !== null || callTo.owner.organization.web !== ''" class="column is-full web-margin">
+              <a :href="URLwhithHttpAdded" target="_blank"> {{ URLwhithHttpAdded }}</a>
             </div>
           </div>
           <div v-if="userFromStore && checkIsAdmin()">
@@ -189,7 +193,7 @@ export default {
     try {
       const { data } = await this.$axios.get(`http://localhost:4000/api/callto/${this.$route.params.id}`)
       this.callTo = data
-
+      console.log(this.callTo)
       const theQuery = {
         query: this.$graphql.getQueryForAllBarriers(this.$i18n.localeProperties.iso)
       }
@@ -208,9 +212,12 @@ export default {
     apiUrl () {
       return process.env.API_URL
     },
-    URLwhithHttpsAdded () {
+    URLwhithHttpAdded () {
+      if (!this.callTo.owner.organization.web) {
+        return ''
+      }
       if (!/^https?:\/\//i.test(this.callTo.owner.organization.web)) {
-        return 'https://' + this.callTo.owner.organization.web
+        return 'http://' + this.callTo.owner.organization.web
       }
       return this.callTo.owner.organization.web
     }

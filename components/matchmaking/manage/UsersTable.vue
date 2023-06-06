@@ -14,7 +14,7 @@
         field="organization"
         :label="$t('adminpanel.userOrganization')"
       >
-        {{ props.row.organization.name }}
+        {{ props.row.organization.name !== null ? props.row.organization.name : $t('adminpanel.userNoOrganization') }}
       </b-table-column>
       <b-table-column v-slot="props" field="created_at" :label="$t('adminpanel.userCreatedAt')">
         {{ props.row.createdAt | createdAt() }}

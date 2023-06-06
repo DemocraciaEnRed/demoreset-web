@@ -22,7 +22,8 @@ const adminpanel = {
   makeAdmin: 'Hacer admin',
   removeAdmin: 'Quitar admin',
   alertMakeAdmin: 'Hiciste admin a ',
-  alertRemoveAdmin: 'Quitaste admin a '
+  alertRemoveAdmin: 'Quitaste admin a ',
+  userNoOrganization: 'Sin organización'
 }
 
 export default adminpanel

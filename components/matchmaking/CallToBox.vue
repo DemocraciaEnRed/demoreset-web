@@ -9,7 +9,7 @@
         </div>
         <div class="media-content">
           <div class="content is-size-5">
-            <span class="is-mono">{{ ct.owner.organization.name || ct.owner.name }}</span>
+            <span class="is-mono">{{ ct.owner.organization.name || ct.owner.first_name + ' ' + ct.owner.last_name }}</span>
             <!-- <span class="icon is-small has-text-red ml-1 ctm-opacity-60">
               <i class="fas fa-envelope" aria-hidden="true"><a :href="`mailto:${ct.owner.email}`" /></i>
             </span> -->

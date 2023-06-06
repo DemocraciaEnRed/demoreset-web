@@ -41,15 +41,22 @@
       </b-field>
       <b-field :label="$t('register.organization')">
         <b-select v-model="selectedOrganization" :placeholder="$t('register.placeholderOrganization')" required>
-          <!-- <option :value="0" class="has-text-primary-dark">
+          <option :value="0" class="has-text-primary-dark">
             {{ $t('register.notOrganized') }}
-          </option> -->
+          </option>
           <option v-for="org in organizationList" :key="org.id" :value="org">
             {{ org.name }}
           </option>
         </b-select>
       </b-field>
       <b-field
+        v-if="selectedOrganization === 0"
+        label="Web"
+      >
+        <b-input v-model="web" :placeholder="$t('register.placeholderWeb')" disabled />
+      </b-field>
+      <b-field
+        v-else
         label="Web"
       >
         <b-input v-model="web" :placeholder="$t('register.placeholderWeb')" />
@@ -215,7 +222,14 @@ export default {
     },
     setOrganization () {
       if (this.selectedOrganization === 0) {
-        return null
+        return {
+          directusId: 9999,
+          name: null,
+          country_en: null,
+          country_es: null,
+          logoUrl: null,
+          web: null
+        }
       } else {
         console.log(this.selectedOrganization)
         return {
