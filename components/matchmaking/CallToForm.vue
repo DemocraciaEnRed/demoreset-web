@@ -15,6 +15,7 @@
             required
             multiple
             expanded
+            native-size="5"
             :placeholder="$t('matchmaking.formCreateCallBarriers')"
           >
             <option v-for="(tag, index) in barriers" :key="index" :value="tag">
@@ -179,9 +180,6 @@ export default {
         endDate: this.endDate,
         content: this.content
       }
-    },
-    getTagText (aTag) {
-      return aTag[0].name
     }
   },
   watch: {
@@ -198,6 +196,10 @@ export default {
         if (key === 'comments') { return }
         if (key === 'endDate') {
           this[key] = parseISO(this.callto[key])
+          return
+        }
+        if (key === 'tags') {
+          this[key] = [...this.callto[key]].map(tagField => this.barriers.find(tag => tagField === tag.field_name))
           return
         }
         if (Array.isArray(this.callto[key])) {

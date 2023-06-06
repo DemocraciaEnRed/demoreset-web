@@ -21,7 +21,7 @@
               </p>
             </div>
             <div class="column is-full web-margin">
-              <a :href="URLwhithHttpsAdded" target="_blank"> {{ URLwhithHttpsAdded }}</a>
+              <a :href="callTo.owner.organization.web" target="_blank"> {{ callTo.owner.organization.web }}</a>
             </div>
           </div>
           <div v-if="userFromStore && checkIsAdmin()">
@@ -207,13 +207,14 @@ export default {
     },
     apiUrl () {
       return process.env.API_URL
-    },
-    URLwhithHttpsAdded () {
-      if (!/^https?:\/\//i.test(this.callTo.owner.organization.web)) {
-        return 'https://' + this.callTo.owner.organization.web
-      }
-      return this.callTo.owner.organization.web
     }
+    // ,
+    // URLwhithHttpsAdded () {
+    //   if (!/^https?:\/\//i.test(this.callTo.owner.organization.web)) {
+    //     return 'https://' + this.callTo.owner.organization.web
+    //   }
+    //   return this.callTo.owner.organization.web
+    // }
   },
   watch: {
     loading () {
