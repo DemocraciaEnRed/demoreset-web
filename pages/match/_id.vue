@@ -1,136 +1,146 @@
 <template>
-  <div v-if="callTo.owner !== undefined && loading !== true" class="container-fluid">
-    <section class="hero has-background-grey-lighter">
-      <div class="hero-body mx-6">
-        <div class="is-flex us-flex-direction-row is-justify-content-space-between">
-          <div class="columns is-multiline pb-6">
-            <div class="column is-narrow">
-              <figure v-if="callTo.owner.organization.logoUrl !== null" class="image is-64x64">
-                <img :src="`${apiUrl}/assets/${callTo.owner.organization.logoUrl}?${transformationImage}`" class="is-rounded">
-              </figure>
+  <div v-if="callTo.enabled || checkIsAdmin()">
+    <div v-if="callTo.owner !== undefined && loading !== true" class="container-fluid">
+      <section class="hero has-background-grey-lighter">
+        <div class="hero-body mx-6">
+          <div class="is-flex us-flex-direction-row is-justify-content-space-between">
+            <div class="columns is-multiline pb-6">
+              <div class="column is-narrow">
+                <figure v-if="callTo.owner.organization.logoUrl !== null" class="image is-64x64">
+                  <img :src="`${apiUrl}/assets/${callTo.owner.organization.logoUrl}?${transformationImage}`" class="is-rounded">
+                </figure>
+              </div>
+              <div class="column">
+                <p v-if="callTo.owner.organization.name !== null" class="is-mono has-text-weight-semibold">
+                  {{ callTo.owner.organization.name }}
+                </p>
+                <p v-else class="is-mono has-text-weight-semibold">
+                  {{ callTo.owner.first_name }}
+                  {{ callTo.owner.last_name }}
+                </p>
+                <p v-if="$i18n.locale === 'es'">
+                  {{ callTo.owner.organization.country_es }}
+                </p>
+                <p v-else>
+                  {{ callTo.owner.organization.country_en }}
+                </p>
+              </div>
+              <div v-if="callTo.owner.organization.web !== null || callTo.owner.organization.web !== ''" class="column is-full">
+                <a :href="URLwhithHttpAdded" target="_blank"> {{ URLwhithHttpAdded }}</a>
+              </div>
             </div>
-            <div class="column">
-              <p v-if="callTo.owner.organization.name !== null" class="is-mono has-text-weight-semibold">
-                {{ callTo.owner.organization.name }}
-              </p>
-              <p v-else class="is-mono has-text-weight-semibold">
-                {{ callTo.owner.first_name }}
-                {{ callTo.owner.last_name }}
-              </p>
-              <p v-if="$i18n.locale === 'es'">
-                {{ callTo.owner.organization.country_es }}
-              </p>
-              <p v-else>
-                {{ callTo.owner.organization.country_en }}
-              </p>
-            </div>
-            <div v-if="callTo.owner.organization.web !== null || callTo.owner.organization.web !== ''" class="column is-full web-margin">
-              <a :href="URLwhithHttpAdded" target="_blank"> {{ URLwhithHttpAdded }}</a>
-            </div>
-          </div>
-          <div v-if="userFromStore && checkIsAdmin()">
-            <b-dropdown aria-role="list" position="is-bottom-left">
-              <template #trigger>
-                <b-button icon-right="menu-down" position="is-top-left" />
-              </template>
-              <nuxt-link :to="{ path: localePath(`/match/editcall/${$route.params.id}`) }">
-                <b-dropdown-item aria-role="listitem">
-                  <i class="fa-sharp fa-solid fa-pencil" /> {{ $t('matchmaking.editCall') }}
+            <div v-if="userFromStore && checkIsAdmin()">
+              <b-dropdown aria-role="list" position="is-bottom-left">
+                <template #trigger>
+                  <b-button icon-right="menu-down" position="is-top-left" />
+                </template>
+                <nuxt-link :to="{ path: localePath(`/match/editcall/${$route.params.id}`) }">
+                  <b-dropdown-item aria-role="listitem">
+                    <i class="fa-sharp fa-solid fa-pencil" /> {{ $t('matchmaking.editCall') }}
+                  </b-dropdown-item>
+                </nuxt-link>
+                <b-dropdown-item aria-role="listitem" @click="deleteCallTo">
+                  <i class="fa-solid fa-trash-can" /> {{ $t('matchmaking.deleteCall') }}
                 </b-dropdown-item>
-              </nuxt-link>
-              <b-dropdown-item aria-role="listitem" @click="deleteCallTo">
-                <i class="fa-solid fa-trash-can" /> {{ $t('matchmaking.deleteCall') }}
-              </b-dropdown-item>
-            </b-dropdown>
-          </div>
-        </div>
-        <p class="title is-uppercase">
-          {{ callTo.title }}
-        </p>
-        <p>{{ callTo.about }}</p>
-        <div class="py-3">
-          <div class="columns">
-            <div class="column is-one-third">
-              <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.barrier') }}</span>
-              <hr class="divider mb-2">
-              <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
-                <div v-for="(tag, index) in tagNames" :key="index">
-                  <span class="tag is-rounded has-background-grey-light mx-1">{{ tag }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="column is-one-third">
-              <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.callType') }}</span>
-              <hr class="divider mb-2 ">
-              <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
-                <div v-for="(type, index) in callTo.types" :key="index">
-                  <span class="tag is-rounded has-background-grey-light mx-1">{{ type | valueToName('types', $i18n.locale) }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="column is-one-third">
-              <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.ubication') }}</span>
-              <hr class="divider mb-2">
-              <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
-                <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.country | valueToName('country', $i18n.locale) }}</span>
-                <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.location | valueToName('location', $i18n.locale) }}</span>
-              </div>
+              </b-dropdown>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-    <section>
-      <div class="section container py-6">
-        <div>
-          <tip-tap-reader :content="callTo.content" class="box call-to-content" />
-        </div>
-        <div class="is-flex is-flex-direction-row is-align-items-center pt-6">
-          <p class="is-condensed is-uppercase is-size-5 has-text-weight-semibold">
-            {{ $t('matchmaking.answers') }}
+          <p class="title is-uppercase">
+            {{ callTo.title }}
           </p>
-        </div>
-        <div class="py-4">
-          <CommentCard />
-        </div>
-        <div class="columns is-multiline py-5">
-          <div v-for="(comment, index) in callTo.comments" :key="index" class="column is-full">
-            <ResponseCard :commentprop="comment" />
+          <p>{{ callTo.about }}</p>
+          <div class="py-3">
+            <div class="columns">
+              <div class="column is-one-third">
+                <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.barrier') }}</span>
+                <hr class="divider mb-2">
+                <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
+                  <div v-for="(tag, index) in tagNames" :key="index">
+                    <span class="tag is-rounded has-background-grey-light mx-1">{{ tag }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-one-third">
+                <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.callType') }}</span>
+                <hr class="divider mb-2 ">
+                <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
+                  <div v-for="(type, index) in callTo.types" :key="index">
+                    <span class="tag is-rounded has-background-grey-light mx-1">{{ type | valueToName('types', $i18n.locale) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-one-third">
+                <span class="is-mono has-text-weight-semibold is-uppercase">{{ $t('matchmaking.ubication') }}</span>
+                <hr class="divider mb-2">
+                <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
+                  <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.country | valueToName('country', $i18n.locale) }}</span>
+                  <span class="tag is-rounded has-background-grey-light mx-1">{{ callTo.location | valueToName('location', $i18n.locale) }}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section>
+        <div class="section container py-6">
+          <div>
+            <tip-tap-reader :content="callTo.content" class="box call-to-content" />
+          </div>
+          <div class="is-flex is-flex-direction-row is-align-items-center pt-6">
+            <p class="is-condensed is-uppercase is-size-5 has-text-weight-semibold">
+              {{ $t('matchmaking.answers') }}
+            </p>
+          </div>
+          <div class="py-4">
+            <CommentCard />
+          </div>
+          <div class="columns is-multiline py-5">
+            <div v-for="(comment, index) in callTo.comments" :key="index" class="column is-full">
+              <ResponseCard :commentprop="comment" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div v-else>
+      <article class="media">
+        <figure class="media-left">
+          <p class="image is-64x64">
+            <b-skeleton circle width="64px" height="64px" />
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <b-skeleton active />
+              <b-skeleton height="80px" />
+            </p>
+          </div>
+          <nav class="level is-mobile">
+            <div class="level-left">
+              <a class="level-item">
+                <span class="icon is-small">
+                  <b-skeleton />
+                </span>
+              </a>
+              <a class="level-item">
+                <span class="icon is-small">
+                  <b-skeleton />
+                </span>
+              </a>
+            </div>
+          </nav>
+        </div>
+      </article>
+    </div>
   </div>
-  <div v-else>
-    <article class="media">
-      <figure class="media-left">
-        <p class="image is-64x64">
-          <b-skeleton circle width="64px" height="64px" />
-        </p>
-      </figure>
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <b-skeleton active />
-            <b-skeleton height="80px" />
-          </p>
-        </div>
-        <nav class="level is-mobile">
-          <div class="level-left">
-            <a class="level-item">
-              <span class="icon is-small">
-                <b-skeleton />
-              </span>
-            </a>
-            <a class="level-item">
-              <span class="icon is-small">
-                <b-skeleton />
-              </span>
-            </a>
-          </div>
-        </nav>
-      </div>
-    </article>
+  <div v-else class="noCall is-size-2">
+    <h2>{{ $t('matchmaking.noCall') }}</h2>
+    <nuxt-link :to="{ path: localePath('/match/') }">
+      <b-button class="is-rounded my-2">
+        {{ $t('matchmaking.backToCallList') }}
+      </b-button>
+    </nuxt-link>
   </div>
 </template>
 
@@ -221,13 +231,6 @@ export default {
       }
       return this.callTo.owner.organization.web
     }
-    // ,
-    // URLwhithHttpsAdded () {
-    //   if (!/^https?:\/\//i.test(this.callTo.owner.organization.web)) {
-    //     return 'https://' + this.callTo.owner.organization.web
-    //   }
-    //   return this.callTo.owner.organization.web
-    // }
   },
   watch: {
     loading () {
@@ -236,13 +239,15 @@ export default {
   },
   methods: {
     checkIsAdmin () {
-      if (this.userFromStore) {
+      if (this.userFromStore !== null) {
         const isAdmin = this.userFromStore.roles.find(role => role.name === 'admin')
         if (isAdmin) {
           return true
         } else {
           return false
         }
+      } else {
+        return false
       }
     },
     deleteCallTo () {
@@ -272,10 +277,22 @@ export default {
   padding: 0;
   margin: 0;
 }
-.web-margin{
-  margin-left: calc(64px + 1.5rem)
-}
+// .web-margin{
+//   margin-left: calc(64px + 1.5rem)
+// }
 .tag {
   border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.noCall {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    border: 2px solid #000;
+  }
 }
 </style>

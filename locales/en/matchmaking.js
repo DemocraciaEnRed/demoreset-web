@@ -1,6 +1,7 @@
 const matchmaking = {
   title: 'Connect and collaborate',
   noCalls: 'There are no calls enabled yet',
+  noCall: 'This call is not enabled',
   createCallButton: 'Create call',
   type: 'Type',
   dateEnd: 'Date of ending',
@@ -64,7 +65,8 @@ const matchmaking = {
   callDeleted: 'Call deleted',
   notLoaded: 'Loading...',
   removeAdminToYou: 'You cannot remove yourself as an administrator',
-  accountValidation: 'Account validation'
+  accountValidation: 'Account validation',
+  backToCallList: 'Back to call to list'
 }
 
 export default matchmaking

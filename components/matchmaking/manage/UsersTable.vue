@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="!loading">
     <b-table
       :data="users"
     >
@@ -52,13 +52,16 @@ export default {
   inject: ['$t'],
   data () {
     return {
-      users: []
+      users: [],
+      loading: true
     }
   },
   async fetch () {
     try {
       const { data } = await this.$axios.get('http://localhost:4000/api/users')
       this.users = data
+      this.loading = false
+      console.log(this.users)
     } catch (error) {
       console.log(error)
     }
