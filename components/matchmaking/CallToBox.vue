@@ -23,10 +23,10 @@
           </p>
         </div>
         <div class="mb-3">
-          <div class="is-flex">
+          <div v-if="tagNames.length > 0" class="is-flex">
             <span class="mr-3 is-size-6">Tags:</span>
             <div>
-              <span v-for="(tag,idx) in ct.tags" :key="idx" class="tag is-rounded is-size-7 mr-1 mb-1">{{ tag }}</span>
+              <span v-for="(tag,idx) in tagNames" :key="idx" class="tag is-rounded is-size-7 mr-1 mb-1">{{ tag }}</span>
             </div>
           </div>
           <div class="content">
@@ -108,12 +108,17 @@ export default {
     ct: {
       type: Object,
       default: () => {}
+    },
+    barriers: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
       transformationImage: 'transforms=[["resize", {"background":"rgb(255,255,255)","width": 150,"height": 150,"fit":"contain"}]]',
-      currentDate: new Date()
+      currentDate: new Date(),
+      loading: true
     }
   },
   computed: {
@@ -145,7 +150,16 @@ export default {
     apiUrl () {
       return process.env.API_URL
     },
-    isActive () { return this.datePercents !== -1 ? '' : 'inactive' }
+    isActive () { return this.datePercents !== -1 ? '' : 'inactive' },
+    tagNames () {
+      return this.ct.tags.map((tagField) => {
+        const barrier = this.barriers.find(barrier => barrier.field_name === tagField)
+        if (barrier.translations) {
+          return barrier.translations[0].name
+        }
+        return null
+      })
+    }
   }
 }
 </script>

@@ -221,6 +221,13 @@ export default {
       }
       return this.callTo.owner.organization.web
     }
+    // ,
+    // URLwhithHttpsAdded () {
+    //   if (!/^https?:\/\//i.test(this.callTo.owner.organization.web)) {
+    //     return 'https://' + this.callTo.owner.organization.web
+    //   }
+    //   return this.callTo.owner.organization.web
+    // }
   },
   watch: {
     loading () {

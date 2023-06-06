@@ -1,5 +1,6 @@
 const matchmaking = {
   title: 'Connect and collaborate',
+  noCalls: 'There are no calls enabled yet',
   createCallButton: 'Create call',
   type: 'Type',
   dateEnd: 'Date of ending',
