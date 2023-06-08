@@ -20,7 +20,7 @@
           </button>
         </nuxt-link>
       </div>
-      <MatchmakingFilter />
+      <!-- <MatchmakingFilter :filter-change="filterChange" /> -->
       <div v-if=" callTo.length > 0 && enabledCallToCount > 0" class="columns is-multiline">
         <div v-for="(ct, index) in callTo" :key="index" class="column is-6">
           <nuxt-link class="h-100" :to="{ path: localePath(`/match/${ct._id}`) }">
@@ -66,15 +66,15 @@
   </div>
 </template>
 <script>
-import MatchmakingFilter from '../../components/matchmaking/filters/MatchmakingFilter.vue'
+// import MatchmakingFilter from '../../components/matchmaking/filters/MatchmakingFilter.vue'
 import { notConnectedAlert } from '~/components/matchmaking/notifications'
 import CallToBox from '~/components/matchmaking/CallToBox.vue'
 
 export default {
   name: 'MatchmakingPage',
   components: {
-    CallToBox,
-    MatchmakingFilter
+    CallToBox
+    // MatchmakingFilter
   },
   data: () => {
     return {
@@ -86,7 +86,7 @@ export default {
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get('http://localhost:4000/api/callto')
+      const { data } = await this.$axios.get(`${process.env.EXPRESS_API}/callto`)
       this.callTo = data
       for (const ct of data) {
         if (ct.enabled === true) {
@@ -118,6 +118,13 @@ export default {
     sendNotConnectedAlert () {
       notConnectedAlert(this.$buefy, this.$t('matchmaking.notConnectedAlertTitle'), this.$t('matchmaking.notConnectedAlertMessage'), this.$t('matchmaking.notConnectedAlertButton'))
     }
+    // filterChange (value) {
+    //   const ctCopy = [...this.callto]
+    //   if (value === 0) { this.filteredCalls = ctCopy }
+    //   if (value === 1) {
+    //     this.filteredCalls = ctCopy.filter(ct => )
+    //   }
+    // }
   }
 }
 </script>

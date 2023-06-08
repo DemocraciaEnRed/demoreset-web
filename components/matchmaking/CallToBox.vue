@@ -2,14 +2,14 @@
   <div v-if="ct.enabled === true" class="h-100">
     <div :class="`box ${isActive} is-flex is-flex-direction-column`">
       <div class="media is-align-items-center">
-        <div class="media-left">
-          <figure v-if="ct.owner.organization.logoUrl !== null" class="image is-64x64">
+        <div v-if="ct.owner.organization.logoUrl !== null" class="media-left">
+          <figure class="image is-64x64">
             <img :src="`${apiUrl}/assets/${ct.owner.organization.logoUrl}?${transformationImage}`" class="is-rounded">
           </figure>
         </div>
         <div class="media-content">
           <div class="content is-size-5">
-            <span class="is-mono">{{ ct.owner.organization.name || ct.owner.first_name + ' ' + ct.owner.last_name }}</span>
+            <span class="is-mono has-text-weight-medium">{{ ct.owner.organization.name || ct.owner.first_name + ' ' + ct.owner.last_name }}</span>
             <!-- <span class="icon is-small has-text-red ml-1 ctm-opacity-60">
               <i class="fas fa-envelope" aria-hidden="true"><a :href="`mailto:${ct.owner.email}`" /></i>
             </span> -->
@@ -18,7 +18,7 @@
       </div>
       <div class="container-fluid is-flex-grow-1 is-flex is-flex-direction-column is-justify-content-space-between">
         <div class="content my-5">
-          <p class="is-mono is-size-5 is-capitalized">
+          <p class="is-mono is-size-5 is-capitalized has-text-grey-darker has-text-weight-medium">
             {{ ct.title }}
           </p>
         </div>

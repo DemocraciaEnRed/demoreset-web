@@ -6,7 +6,7 @@
           {{ props.row.title }}
         </nuxt-link>
       </b-table-column>
-      <b-table-column v-slot="props" field="owner" :label="$t('adminpanel.callOwner')" searchable>
+      <b-table-column v-slot="props" field="owner.first_name" :label="$t('adminpanel.callOwner')" searchable>
         {{ props.row.owner.first_name }} {{ props.row.owner.last_name }}
       </b-table-column>
       <b-table-column v-slot="props" field="created_at" :label="$t('adminpanel.callCreatedAt')">
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     enableCallTo (callTo) {
-      this.$axios.$patch(`http://localhost:4000/api/callto/${callTo.row._id}`, {
+      this.$axios.$patch(`${process.env.EXPRESS_API}/callto/${callTo.row._id}`, {
         enabled: true
       })
         .then((res) => {
@@ -69,6 +69,9 @@ export default {
             this.$router.go()
           }, 2000)
         )
+    },
+    debug (v) {
+      console.log(v)
     }
   }
 }

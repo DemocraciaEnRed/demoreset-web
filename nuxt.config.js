@@ -43,7 +43,8 @@ export default {
     { src: '~/plugins/init.js', mode: 'client' }
   ],
   env: {
-    API_URL: process.env.API_URL || 'https://content.demoreset.democraciaenred.org'
+    API_URL: process.env.API_URL || 'https://content.demoreset.democraciaenred.org',
+    EXPRESS_API: process.env.EXPRESS_API
   },
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

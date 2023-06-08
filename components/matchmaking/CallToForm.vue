@@ -96,7 +96,6 @@
     </div>
     <div v-else>
       <b-button type="submit" class="login-button" @click.prevent="editCall(callToDb)">
-        <!-- <b-button type="submit" class="login-button"> -->
         {{ $t('matchmaking.formEditCallButton') }}
       </b-button>
     </div>

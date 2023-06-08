@@ -1,5 +1,5 @@
 <template>
-  <section class="section container">
+  <section v-if="!loading && mounted" class="section container">
     <h1 class="is-size-4 has-text-centered">
       {{ $t('adminpanel.title') }}
     </h1>
@@ -13,6 +13,20 @@
         </b-tab-item>
       </b-tabs>
     </section>
+  </section>
+  <section v-else class="section container">
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
+    <b-skeleton size="is-large" :active="true" />
   </section>
 </template>
 
@@ -29,13 +43,16 @@ export default {
     return {
       activeTab: 0,
       callTo: [],
-      users: []
+      users: [],
+      loading: true,
+      mounted: false
     }
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get('http://localhost:4000/api/callto')
+      const { data } = await this.$axios.get(`${process.env.EXPRESS_API}/callto`)
       this.callTo = data
+      this.loading = false
     } catch (error) {
       console.log(error)
     }
@@ -53,6 +70,7 @@ export default {
     if (!this.userFromStore.roles.find(role => role.name === 'admin')) {
       this.$router.push({ path: this.localePath('/') })
     }
+    this.mounted = true
   }
 }
 </script>

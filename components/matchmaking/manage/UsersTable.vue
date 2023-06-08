@@ -6,7 +6,7 @@
       <b-table-column v-slot="props" field="email" label="Email" searchable>
         {{ props.row.email }}
       </b-table-column>
-      <b-table-column v-slot="props" field="full_name" :label="$t('adminpanel.userName')" searchable>
+      <b-table-column v-slot="props" field="first_name" :label="$t('adminpanel.userName')" searchable>
         {{ props.row.first_name }} {{ props.row.last_name }}
       </b-table-column>
       <b-table-column
@@ -58,12 +58,11 @@ export default {
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get('http://localhost:4000/api/users')
+      const { data } = await this.$axios.get(`${process.env.EXPRESS_API}/users`)
       this.users = data
       this.loading = false
-      console.log(this.users)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   },
   computed: {
@@ -82,12 +81,11 @@ export default {
       }
     },
     makeAdmin (user) {
-      this.$axios.$put(`http://localhost:4000/api/users/${user.row._id}`, {
+      this.$axios.$put(`${process.env.EXPRESS_API}/users/${user.row._id}`, {
         roles: ['admin']
       })
         .then((res) => {
           actionNotification(this.$buefy, 3000, `${this.$t('adminpanel.alertMakeAdmin')} ${user.row.first_name} ${user.row.last_name}`, 'is-success', 'check')
-          console.log(res)
         })
         .catch((err) => {
           console.error(err)
@@ -95,17 +93,16 @@ export default {
         .finally(
           setTimeout(() => {
             this.$router.go()
-          }, 2000)
+          }, 300)
         )
     },
     removeAdmin (user) {
       if (this.userFromStore._id === user.row._id) { return actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.removeAdminToYou')}`, 'is-danger', 'times-circle') }
-      this.$axios.$put(`http://localhost:4000/api/users/${user.row._id}`, {
+      this.$axios.$put(`${process.env.EXPRESS_API}/users/${user.row._id}`, {
         roles: ['user']
       })
         .then((res) => {
           actionNotification(this.$buefy, 3000, `${this.$t('adminpanel.alertRemoveAdmin')} ${user.row.first_name} ${user.row.last_name}`, 'is-danger', 'trash-can')
-          console.log(res)
         })
         .catch((err) => {
           console.error(err)
@@ -113,7 +110,7 @@ export default {
         .finally(
           setTimeout(() => {
             this.$router.go()
-          }, 2000)
+          }, 300)
         )
     }
   }

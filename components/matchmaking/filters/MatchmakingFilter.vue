@@ -10,6 +10,12 @@ import FiltersDropdown from './FiltersDropdown.vue'
 
 export default {
   name: 'MatchmakingFilters',
-  components: { FiltersDropdown }
+  components: { FiltersDropdown },
+  props: {
+    filterChange: {
+      type: Function,
+      default: () => {}
+    }
+  }
 }
 </script>

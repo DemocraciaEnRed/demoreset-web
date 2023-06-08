@@ -37,7 +37,7 @@ export default {
         alertCustomError(this.$buefy, `${this.$t('login.emptyFieldErrorPassword')}`)
         return
       }
-      this.$axios.$put(`http://localhost:4000/api/auth/forgotpassword/${this.$route.params.id}`, {
+      this.$axios.$put(`${process.env.EXPRESS_API}/auth/forgotpassword/${this.$route.params.id}`, {
         password: this.password
       }).then((response) => {
         console.log(response)

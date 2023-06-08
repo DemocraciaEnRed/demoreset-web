@@ -53,7 +53,7 @@ export default {
         actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.commentEmpty')}`, 'is-warning', 'circle-exclamation')
         return null
       }
-      this.$axios.$post(`http://localhost:4000/api/callto/${this.$route.params.id}/comment`, {
+      this.$axios.$post(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}/comment`, {
         content: this.comment
       }).then(
         this.comment = '',

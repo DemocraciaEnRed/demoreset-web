@@ -149,7 +149,7 @@ export default {
         this.alertCustomError(`${this.$t('register.notAcceptTerms')}`)
         return
       }
-      this.$axios.$post('http://localhost:4000/api/auth/signup', {
+      this.$axios.$post(`${process.env.EXPRESS_API}/auth/signup`, {
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,

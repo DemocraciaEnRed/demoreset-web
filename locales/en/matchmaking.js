@@ -14,6 +14,7 @@ const matchmaking = {
   filterStatusTitle: 'Call status',
   filterOpen: 'Open',
   filterEnded: 'Ended',
+  filterAll: 'Open and ended',
   barrier: 'Barrier',
   callType: 'Call type',
   ubication: 'Location',

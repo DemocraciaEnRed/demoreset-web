@@ -102,36 +102,51 @@
         </div>
       </section>
     </div>
-    <div v-else>
-      <article class="media">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <b-skeleton circle width="64px" height="64px" />
-          </p>
-        </figure>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <b-skeleton active />
-              <b-skeleton height="80px" />
-            </p>
-          </div>
-          <nav class="level is-mobile">
-            <div class="level-left">
-              <a class="level-item">
-                <span class="icon is-small">
-                  <b-skeleton />
-                </span>
-              </a>
-              <a class="level-item">
-                <span class="icon is-small">
-                  <b-skeleton />
-                </span>
-              </a>
+    <div v-else class="container-fluid">
+      <section class="hero has-background-grey-lighter">
+        <div class="hero-body mx-6">
+          <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <b-skeleton circle width="64px" height="64px" />
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <b-skeleton active />
+                  <b-skeleton height="80px" />
+                </p>
+              </div>
+              <nav class="level is-mobile">
+                <div class="level-left">
+                  <a class="level-item">
+                    <span class="icon is-small">
+                      <b-skeleton />
+                    </span>
+                  </a>
+                  <a class="level-item">
+                    <span class="icon is-small">
+                      <b-skeleton />
+                    </span>
+                  </a>
+                </div>
+              </nav>
             </div>
-          </nav>
+          </article>
         </div>
-      </article>
+      </section>
+      <section class="py-5 section container">
+        <b-skeleton :animated="true" />
+        <b-skeleton :animated="true" />
+        <b-skeleton :animated="true" />
+        <b-skeleton :animated="true" />
+        <b-skeleton :animated="true" />
+        <b-skeleton :animated="true" />
+        <b-skeleton :animated="true" />
+        <b-skeleton :animated="true" />
+        <b-skeleton :animated="true" />
+      </section>
     </div>
   </div>
   <div v-else class="noCall is-size-2">
@@ -201,9 +216,9 @@ export default {
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get(`http://localhost:4000/api/callto/${this.$route.params.id}`)
+      const { data } = await this.$axios.get(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}`)
       this.callTo = data
-      console.log(this.callTo)
+      // console.log(this.callTo)
       const theQuery = {
         query: this.$graphql.getQueryForAllBarriers(this.$i18n.localeProperties.iso)
       }
@@ -251,7 +266,7 @@ export default {
       }
     },
     deleteCallTo () {
-      this.$axios.delete(`http://localhost:4000/api/callto/${this.$route.params.id}`)
+      this.$axios.delete(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}`)
         .then((res) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.deletedCallToAlert')}`, 'is-danger', 'trash-can')
         })

@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$axios.$post('http://localhost:4000/api/auth/signout')
+      this.$axios.$post(`${process.env.EXPRESS_API}/auth/signout`)
         .then(async (response) => {
           await this.$store.dispatch('setToken', null)
           this.$store.dispatch('clearToken')
