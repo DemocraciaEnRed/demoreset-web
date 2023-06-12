@@ -93,7 +93,6 @@ export default {
       }
       if (field === 'types') {
         searchField = 'value'
-        console.log('type: ' + value)
         if (locale === 'es') {
           source = [...calltoTypesEs]
         } else {

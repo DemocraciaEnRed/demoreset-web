@@ -1,6 +1,6 @@
 const adminpanel = {
   title: 'Panel de administración',
-  calLTo: 'Llamadas',
+  callTo: 'Llamadas',
   callTitle: 'Título',
   callOwner: 'Creador',
   callCreatedAt: 'Creado el',
