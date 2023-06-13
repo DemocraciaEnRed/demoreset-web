@@ -8,7 +8,8 @@ module.exports = {
     masterclass: 'MasterClass',
     initiatives: 'Iniciativas',
     about: 'Acerca de',
-    contact: 'Contacto'
+    contact: 'Contacto',
+    login: 'Iniciar sesión'
   },
   footer: {
     privacy: 'VER LA POLÍTICA DE PRIVACIDAD Y DATOS PERSONALES DE  DEMO RESET'

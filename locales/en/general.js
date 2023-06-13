@@ -4,7 +4,8 @@ module.exports = {
     masterclass: 'MasterClass',
     initiatives: 'Initiatives',
     about: 'About',
-    contact: 'Contact'
+    contact: 'Contact',
+    login: 'Login'
   },
   footer: {
     privacy: "SEE DEMO RESET'S PRIVACY AND PERSONAL DATA POLICY"

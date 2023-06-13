@@ -5,6 +5,10 @@ import hubs from './hubs'
 import initiatives from './initiatives'
 import about from './about'
 import organizations from './organizations'
+import login from './login'
+import register from './register'
+import matchmaking from './matchmaking'
+import adminpanel from './adminpanel'
 
 const es = {
   ...general,
@@ -14,7 +18,11 @@ const es = {
   hubs,
   initiatives,
   about,
-  organizations
+  organizations,
+  login,
+  register,
+  matchmaking,
+  adminpanel
 }
 
 export default es

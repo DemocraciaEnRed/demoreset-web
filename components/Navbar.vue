@@ -20,12 +20,26 @@
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/masterclasses')}">
           {{ $t('navbar.masterclass') }}
         </b-navbar-item>
+        <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match')}">
+          Match
+        </b-navbar-item>
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/about')}">
           {{ $t('navbar.about') }}
         </b-navbar-item>
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/contact')}">
           {{ $t('navbar.contact') }}
         </b-navbar-item>
+        <b-navbar-item v-if="!userFromStore" tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/login')}">
+          {{ $t('login.navbarLogin') }}
+        </b-navbar-item>
+        <b-navbar-dropdown v-else class="is-poppins is-500" :label="userFromStore.first_name" hoverable>
+          <b-navbar-item @click="logout">
+            {{ $t('login.navbarLogout') }}
+          </b-navbar-item>
+          <b-navbar-item v-if="userFromStore.roles.find(role => role.name === 'admin')" tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match/manage')}">
+            {{ $t('adminpanel.title') }}
+          </b-navbar-item>
+        </b-navbar-dropdown>
         <b-navbar-item tag="div">
           <div class="buttons">
             <nuxt-link v-if="$i18n.locale == 'en'" :to="switchLocalePath('es')" class="button is-black is-rounded is-poppins">
@@ -48,6 +62,32 @@ export default {
   computed: {
     availableLocales () {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
+    },
+    userFromStore () {
+      const user = this.$store.state.user
+      return user
+    }
+  },
+  methods: {
+    logout () {
+      this.$axios.$post(`${process.env.EXPRESS_API}/auth/signout`)
+        .then(async (response) => {
+          await this.$store.dispatch('setToken', null)
+          this.$store.dispatch('clearToken')
+        }).then(async (response) => {
+          await this.$store.dispatch('setUser', null)
+          this.$store.dispatch('clearUser')
+          this.$store.dispatch('clearLoginError')
+          // push the user to home
+          this.$router.push({ path: this.localePath('/') })
+        })
+        .catch(async (err) => {
+          await this.$store.dispatch('setLoginError', err.response.data.message)
+          // show an error message or something
+        })
+        .finally(() => {
+          this.loading = false
+        })
     }
   }
 }

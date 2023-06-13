@@ -1,6 +1,6 @@
 @import "~bulma/sass/utilities/_all";
 
-$primary : #FF1A11;
+$primary : #FF17FD;
 $body-size: 16px;
 $body-background-color: #F5F5F5;
 $family-primary: 'Roboto', $family-sans-serif;
@@ -11,7 +11,18 @@ $primary-invert: findColorInvert($primary);
 $text: $black;
 $title-color: $black;
 // Lists and maps
-$custom-colors: null !default;
+// $custom-colors: null !default;
+$red: #FF1A11;
+$red-light: findLightColor($red);
+$red-dark: findDarkColor($red);
+$red-invert: findColorInvert($red);
+$yellow:#FAFF2E;
+$yellow-dark: findDarkColor($yellow);
+$yellow-invert: findColorInvert($yellow);
+$pink: #FF17FD;
+$pink-dark: findDarkColor($pink);
+$pink-invert: findColorInvert($pink);
+$custom-colors: ("pink": ($pink, $pink-dark, $pink-invert), "yellow": ($yellow, $yellow-dark, $yellow-invert),"red": ($red, $red-dark, $red-light, $red-invert));
 $custom-shades: null !default;
 
 $colors: mergeColorMaps(

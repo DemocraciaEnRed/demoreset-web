@@ -13,7 +13,7 @@
                 <img :src="`${apiUrl}g/assets/${masterclass.author_avatar.id}`" class="image author_avatar" :alt="masterclass.author">
               </div>
               <div class="column">
-                <p class="has-text-primary is-300 is-condensed">
+                <p class="has-text-red is-300 is-condensed">
                   MASTERCLASS
                 </p>
                 <p class="is-mono is-uppercase mb-3 is-size-5">
@@ -43,7 +43,7 @@
                 <img :src="`${apiUrl}/assets/${masterclass.author_avatar.id}`" class="image author_avatar" :alt="masterclass.author">
               </div>
               <div class="column">
-                <p class="has-text-primary is-300 is-condensed">
+                <p class="has-text-red is-300 is-condensed">
                   MASTERCLASS
                 </p>
                 <p class="is-mono is-uppercase mb-3 is-size-5">

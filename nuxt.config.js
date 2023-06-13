@@ -38,10 +38,13 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/graphql.js' }
+    { src: '~/plugins/graphql.js' },
+    { src: '~/plugins/axios.js' },
+    { src: '~/plugins/init.js', mode: 'client' }
   ],
   env: {
-    API_URL: process.env.API_URL || 'https://content.demoreset.democraciaenred.org'
+    API_URL: process.env.API_URL || 'https://content.demoreset.democraciaenred.org',
+    EXPRESS_API: process.env.EXPRESS_API
   },
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

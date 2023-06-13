@@ -89,6 +89,19 @@ export default ({ app, i18n, params }, inject) => {
       }
       `
     },
+    getQueryForAllBarriers (langCode) {
+      return `
+        {
+          barrier_types {
+            id
+            field_name
+            translations (filter: {languages_code: {code: {_eq: "${langCode}"}}}) {
+              name
+            }
+          }
+        }
+      `
+    },
     getQueryForInitiativeFilters (langCode) {
       return `
       {
@@ -423,6 +436,24 @@ export default ({ app, i18n, params }, inject) => {
           }
         }
       }
+      `
+    },
+    getQueryForAllOrganizations () {
+      return `
+        {
+          organizations {
+            id
+            name
+            country {
+              translations {
+                name
+              }
+            }
+            logo {
+              id
+            }
+          }
+        }
       `
     },
     getQueryForOrganizationById (id, langCode) {
