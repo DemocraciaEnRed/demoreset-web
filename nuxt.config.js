@@ -66,6 +66,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://i18n.nuxtjs.org/setup
+    '@nuxtjs/proxy',
     '@nuxtjs/i18n'
   ],
   styleResources: {
@@ -75,10 +76,23 @@ export default {
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseUrl: process.env.API_URL || 'https://content.demoreset.democraciaenred.org',
-    prefix: '/graphql',
-    credentials: true
+    //   // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
+    //   baseUrl: process.env.API_URL || 'https://content.demoreset.democraciaenred.org',
+    //   prefix: '/graphql',
+    //   credentials: true
+    proxy: true
+  },
+  proxy: {
+    '/demoresetAPI/': {
+      target: process.env.EXPRESS_API,
+      pathRewrite: { '^/demoresetAPI/': '' },
+      credentials: true
+    },
+    '/graphql': {
+      target: process.env.API_URL || 'https://content.demoreset.democraciaenred.org',
+      prefix: '/graphql',
+      credentials: true
+    }
   },
   i18n: {
     /* module options */

@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     enableCallTo (callTo) {
-      this.$axios.$patch(`${process.env.EXPRESS_API}/callto/${callTo.row._id}`, {
+      this.$axios.$patch(`/demoresetAPI/callto/${callTo.row._id}`, {
         enabled: true
       })
         .then((res) => {

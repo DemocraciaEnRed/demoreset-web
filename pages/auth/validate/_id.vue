@@ -18,7 +18,7 @@
 export default {
   async asyncData ({ params, $axios }) {
     try {
-      const response = await $axios.get(`${process.env.EXPRESS_API}/auth/validate/${params.id}`)
+      const response = await $axios.get(`/demoresetAPI/auth/validate/${params.id}`)
       console.log(response.status)
       return {
         status: response.status,

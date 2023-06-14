@@ -49,7 +49,7 @@ export default {
         alertCustomError(this.$buefy, `${this.$t('matchmaking.emptyFields')}`)
         return
       }
-      this.$axios.$post(`${process.env.EXPRESS_API}/callto`, { ...callToDb })
+      this.$axios.$post(`/demoresetAPI/callto`, { ...callToDb })
         .then((response) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.createdCallToAlert')}`, 'is-success', 'check')
           console.log(response)

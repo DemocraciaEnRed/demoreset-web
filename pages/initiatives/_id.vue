@@ -136,8 +136,6 @@ export default {
       ]
       const barriers = []
       fieldsWithBarriers.forEach((field) => {
-        // console.log(field)
-        // console.log(this.initiative[field])
         // if it is an array, add each element to the barriers array
         if (Array.isArray(this.initiative[field])) {
           this.initiative[field].forEach((element) => {

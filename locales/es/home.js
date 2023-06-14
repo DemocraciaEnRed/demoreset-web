@@ -2,7 +2,7 @@ const home = {
   hello: 'Conoce las acciones de DemoReset',
   mainButtons: {
     wannaBePart: {
-      baseText: 'Quiero <b>formar parte<b/> de DemoReset',
+      baseText: 'Quiero <b>formar parte</b> de DemoReset',
       overlayText: 'Inscribite en nuestro formulario',
       buttonText: 'Formulario'
     },

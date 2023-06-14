@@ -50,7 +50,7 @@ export default {
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get(`${process.env.EXPRESS_API}/callto`)
+      const { data } = await this.$axios.get(`/demoresetAPI/callto`)
       this.callTo = data
       this.loading = false
     } catch (error) {
