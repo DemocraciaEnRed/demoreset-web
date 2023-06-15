@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading">
+  <div v-if="!loading">
     <b-navbar id="navbar-custom" wrapper-class="container" :spaced="true">
       <template #brand>
         <b-navbar-item tag="router-link" :to="{ path: localePath('/') }">
@@ -39,12 +39,9 @@
             <b-navbar-item @click="logout">
               {{ $t('login.navbarLogout') }}
             </b-navbar-item>
-            <div v-if="userFromStore.roles.find(role => role.name === 'admin')">
-              <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match/manage')}">
-                {{ $t('adminpanel.title') }}
-              </b-navbar-item>
-            </div>
-            <div v-else />
+            <b-navbar-item v-if="userFromStore.roles.find(role => role.name === 'admin')" tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match/manage')}">
+              {{ $t('adminpanel.title') }}
+            </b-navbar-item>
           </b-navbar-dropdown>
         </div>
         <b-navbar-item tag="div">
@@ -72,7 +69,7 @@ export default {
   name: 'NavbarComponent',
   data: () => {
     return {
-      loading: false
+      loading: true
     }
   },
   computed: {
@@ -85,7 +82,7 @@ export default {
     }
   },
   mounted () {
-    this.loading = true
+    this.loading = false
   },
   methods: {
     logout () {
