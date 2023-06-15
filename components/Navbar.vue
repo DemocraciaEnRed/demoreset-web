@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="loading">
     <b-navbar id="navbar-custom" wrapper-class="container" :spaced="true">
       <template #brand>
         <b-navbar-item tag="router-link" :to="{ path: localePath('/') }">
@@ -29,25 +29,36 @@
         <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/contact')}">
           {{ $t('navbar.contact') }}
         </b-navbar-item>
-        <b-navbar-item v-if="!userFromStore" tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/login')}">
-          {{ $t('login.navbarLogin') }}
-        </b-navbar-item>
-        <b-navbar-dropdown v-else class="is-poppins is-500" :label="userFromStore.first_name" hoverable>
-          <b-navbar-item @click="logout">
-            {{ $t('login.navbarLogout') }}
+        <div v-if="userFromStore === null">
+          <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/login')}">
+            {{ $t('login.navbarLogin') }}
           </b-navbar-item>
-          <b-navbar-item v-if="userFromStore.roles.find(role => role.name === 'admin')" tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match/manage')}">
-            {{ $t('adminpanel.title') }}
-          </b-navbar-item>
-        </b-navbar-dropdown>
+        </div>
+        <div v-else>
+          <b-navbar-dropdown class="is-poppins is-500" :label="userFromStore.first_name" hoverable>
+            <b-navbar-item @click="logout">
+              {{ $t('login.navbarLogout') }}
+            </b-navbar-item>
+            <div v-if="userFromStore.roles.find(role => role.name === 'admin')">
+              <b-navbar-item tag="nuxt-link" class="is-poppins is-500" :to="{path: localePath('/match/manage')}">
+                {{ $t('adminpanel.title') }}
+              </b-navbar-item>
+            </div>
+            <div v-else />
+          </b-navbar-dropdown>
+        </div>
         <b-navbar-item tag="div">
           <div class="buttons">
-            <nuxt-link v-if="$i18n.locale == 'en'" :to="switchLocalePath('es')" class="button is-black is-rounded is-poppins">
-              EN
-            </nuxt-link>
-            <nuxt-link v-else :to="switchLocalePath('en')" class="button is-black is-rounded is-poppins">
-              ES
-            </nuxt-link>
+            <div v-if="$i18n.locale == 'en'">
+              <nuxt-link :to="switchLocalePath('es')" class="button is-black is-rounded is-poppins">
+                EN
+              </nuxt-link>
+            </div>
+            <div v-else>
+              <nuxt-link :to="switchLocalePath('en')" class="button is-black is-rounded is-poppins">
+                ES
+              </nuxt-link>
+            </div>
           </div>
         </b-navbar-item>
       </template>
@@ -59,6 +70,11 @@
 <script>
 export default {
   name: 'NavbarComponent',
+  data: () => {
+    return {
+      loading: false
+    }
+  },
   computed: {
     availableLocales () {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
@@ -67,6 +83,9 @@ export default {
       const user = this.$store.state.user
       return user
     }
+  },
+  mounted () {
+    this.loading = true
   },
   methods: {
     logout () {
@@ -86,7 +105,7 @@ export default {
           // show an error message or something
         })
         .finally(() => {
-          this.loading = false
+          this.$router.push({ path: this.localePath('/login') })
         })
     }
   }
