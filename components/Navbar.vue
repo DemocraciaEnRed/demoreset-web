@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="loading">
     <b-navbar id="navbar-custom" wrapper-class="container" :spaced="true">
       <template #brand>
         <b-navbar-item tag="router-link" :to="{ path: localePath('/') }">
@@ -59,6 +59,7 @@
 <script>
 export default {
   name: 'NavbarComponent',
+  data: () => { return {'loading': false}},
   computed: {
     availableLocales () {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
@@ -67,6 +68,9 @@ export default {
       const user = this.$store.state.user
       return user
     }
+  },
+  mounted() {
+    this.loading = true;
   },
   methods: {
     logout () {
