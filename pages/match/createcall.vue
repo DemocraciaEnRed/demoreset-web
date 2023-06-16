@@ -1,12 +1,9 @@
 <template>
-  <section v-if="userFromStore()" class="py-5 section container">
+  <section class="py-5 section container">
     <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
       {{ $t('matchmaking.formCreateCall') }}
     </h1>
     <call-to-form :barriers="data" :is-new-call="isNewCall" :create-call="createCall" />
-  </section>
-  <section v-else class="py-5 section container">
-    {{ redirectToLogin() }}
   </section>
 </template>
 
@@ -17,7 +14,6 @@ import CallToForm from '~/components/matchmaking/CallToForm.vue'
 export default {
   name: 'CreateCall',
   components: { CallToForm },
-  inject: ['$t'],
   async asyncData ({ i18n, $axios, $graphql }) {
     try {
       const theQuery = {
@@ -40,7 +36,20 @@ export default {
     return {
       data: null,
       loading: true,
-      isNewCall: true
+      isNewCall: true,
+      loggedIn: false
+    }
+  },
+  computed: {
+    userFromStore () {
+      const user = this.$store.state.user
+      return user
+    }
+  },
+  mounted () {
+    this.loggedIn = !!this.userFromStore
+    if (!this.loggedIn) {
+      this.redirectToLogin()
     }
   },
   methods: {
@@ -49,7 +58,7 @@ export default {
         alertCustomError(this.$buefy, `${this.$t('matchmaking.emptyFields')}`)
         return
       }
-      this.$axios.$post(`${process.env.EXPRESS_API}/callto`, { ...callToDb })
+      this.$axios.$post(`${this.$config.EXPRESS_API}/callto`, { ...callToDb })
         .then((response) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.createdCallToAlert')}`, 'is-success', 'check')
           console.log(response)
@@ -59,10 +68,6 @@ export default {
         .finally(() => {
           this.$router.push('/match')
         })
-    },
-    userFromStore () {
-      const user = this.$store.state.user
-      return user
     },
     redirectToLogin () {
       this.$router.push({ path: this.localePath('/login') })

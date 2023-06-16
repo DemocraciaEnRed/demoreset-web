@@ -1,5 +1,5 @@
 <template>
-  <div v-if="callTo.enabled || checkIsAdmin()">
+  <div v-if="callTo.enabled || showForAdmin">
     <div v-if="callTo.owner !== undefined && loading !== true" class="container-fluid">
       <section class="hero has-background-grey-lighter">
         <div class="hero-body mx-6">
@@ -29,7 +29,7 @@
                 <a :href="URLwhithHttpAdded" target="_blank"> {{ URLwhithHttpAdded }}</a>
               </div>
             </div>
-            <div v-if="userFromStore && checkIsAdmin()">
+            <div v-if="showForAdmin">
               <b-dropdown aria-role="list" position="is-bottom-left">
                 <template #trigger>
                   <b-button icon-right="menu-down" position="is-top-left" />
@@ -56,7 +56,7 @@
                 <hr class="divider mb-2">
                 <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
                   <div v-for="(tag, index) in tagNames" :key="index">
-                    <span class="tag is-rounded has-background-grey-light mx-1">{{ tag }}</span>
+                    <span class="tag is-rounded has-background-grey-light mx-1" style="text-wrap: wrap">{{ tag }}</span>
                   </div>
                 </div>
               </div>
@@ -92,11 +92,11 @@
             </p>
           </div>
           <div class="py-4">
-            <CommentCard />
+            <lazy-comment-card />
           </div>
           <div class="columns is-multiline py-5">
             <div v-for="(comment, index) in callTo.comments" :key="index" class="column is-full">
-              <ResponseCard :commentprop="comment" />
+              <lazy-response-card :commentprop="comment" />
             </div>
           </div>
         </div>
@@ -162,17 +162,12 @@
 <script>
 import { countriesEn, countriesEs, calltoTypesEn, calltoTypesEs, locationEn, locationEs } from '../../static'
 import { actionNotification } from '../../components/matchmaking/notifications.js'
-import ResponseCard from '../../components/matchmaking/ResponseCard.vue'
-import CommentCard from '../../components/matchmaking/CommentCard.vue'
-import TipTapReader from '~/components/matchmaking/TipTapReader.vue'
+// import ResponseCard from '../../components/matchmaking/ResponseCard.vue'
+// import CommentCard from '../../components/matchmaking/CommentCard.vue'
+// import TipTapReader from '~/components/matchmaking/TipTapReader.vue'
 
 export default {
   name: 'MatchMakingId',
-  components: {
-    ResponseCard,
-    CommentCard,
-    TipTapReader
-  },
   filters: {
     valueToName (value, field, locale) {
       let source = []
@@ -210,15 +205,15 @@ export default {
       callTo: {},
       barriers: [],
       loading: true,
+      showForAdmin: false,
       tagNames: [],
       transformationImage: 'transforms=[["resize", {"background":"rgb(255,255,255)","width": 150,"height": 150,"fit":"contain"}]]'
     }
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}`)
+      const { data } = await this.$axios.get(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}`)
       this.callTo = data
-      // console.log(this.callTo)
       const theQuery = {
         query: this.$graphql.getQueryForAllBarriers(this.$i18n.localeProperties.iso)
       }
@@ -235,7 +230,7 @@ export default {
       return null
     },
     apiUrl () {
-      return process.env.API_URL
+      return this.$config.API_URL
     },
     URLwhithHttpAdded () {
       if (!this.callTo.owner.organization.web) {
@@ -252,6 +247,9 @@ export default {
       this.tagNames = this.getTagNames()
     }
   },
+  mounted () {
+    this.showForAdmin = this.checkIsAdmin()
+  },
   methods: {
     checkIsAdmin () {
       if (this.userFromStore !== null) {
@@ -266,7 +264,7 @@ export default {
       }
     },
     deleteCallTo () {
-      this.$axios.delete(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}`)
+      this.$axios.delete(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}`)
         .then((res) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.deletedCallToAlert')}`, 'is-danger', 'trash-can')
         })
@@ -297,6 +295,7 @@ export default {
 // }
 .tag {
   border: 1px solid rgba(0, 0, 0, 0.12);
+  height: auto;
 }
 
 .noCall {

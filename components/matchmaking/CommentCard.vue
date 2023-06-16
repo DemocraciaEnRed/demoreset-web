@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!userFromStore" class="card notConnected" @click="sendNotConnectedAlert">
+  <div v-if="!loggedIn" class="card notConnected" @click="sendNotConnectedAlert">
     <div class="card-content">
       <div class="content">
         {{ $t('matchmaking.writeComment') }}
@@ -34,11 +34,11 @@
 import { actionNotification, notConnectedAlert } from './notifications.js'
 export default {
   name: 'CommentCard',
-  inject: ['$t'],
   data: () => {
     return {
       isActive: false,
-      comment: ''
+      comment: '',
+      loggedIn: false
     }
   },
   computed: {
@@ -47,13 +47,16 @@ export default {
       return user
     }
   },
+  mounted () {
+    this.loggedIn = !!this.userFromStore
+  },
   methods: {
     sendComment () {
       if (this.comment === '') {
         actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.commentEmpty')}`, 'is-warning', 'circle-exclamation')
         return null
       }
-      this.$axios.$post(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}/comment`, {
+      this.$axios.$post(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment`, {
         content: this.comment
       }).then(
         this.comment = '',

@@ -93,7 +93,6 @@ export default {
       query: $graphql.getQueryForAllOrganizations(i18n.localeProperties.iso)
     }
     const response = await $axios.post('/graphql', theQuery)
-    console.log(JSON.stringify(response.data.data.organizations))
     return {
       organizationList: response.data.data.organizations
     }
@@ -149,7 +148,7 @@ export default {
         this.alertCustomError(`${this.$t('register.notAcceptTerms')}`)
         return
       }
-      this.$axios.$post(`${process.env.EXPRESS_API}/auth/signup`, {
+      this.$axios.$post(`${this.$config.EXPRESS_API}/auth/signup`, {
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
@@ -158,7 +157,6 @@ export default {
         organization: this.setOrganization()
       }).then((response) => {
         alertSuccess(this.$buefy, `${this.$t('register.accountCreated')}`, `${this.$t('register.accountCreatedMessage')}`)
-        console.log(response)
         // redirect to the email validation view when ready
         this.$router.push({ path: this.localePath('/login') })
       }).catch((error) => {
@@ -231,7 +229,6 @@ export default {
           web: null
         }
       } else {
-        console.log(this.selectedOrganization)
         return {
           directusId: this.selectedOrganization.id,
           name: this.selectedOrganization.name,
@@ -241,9 +238,6 @@ export default {
           web: this.web
         }
       }
-    },
-    debug (v) {
-      console.log(v)
     }
   }
 }

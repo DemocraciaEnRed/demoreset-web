@@ -42,7 +42,6 @@ export default {
       return formatISO(new Date(date), { representation: 'date' })
     }
   },
-  inject: ['$t'],
   props: {
     ct: {
       type: Array,
@@ -51,7 +50,7 @@ export default {
   },
   methods: {
     enableCallTo (callTo) {
-      this.$axios.$patch(`${process.env.EXPRESS_API}/callto/${callTo.row._id}`, {
+      this.$axios.$patch(`${this.$config.EXPRESS_API}/callto/${callTo.row._id}`, {
         enabled: true
       })
         .then((res) => {

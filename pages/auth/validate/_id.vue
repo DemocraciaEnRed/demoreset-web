@@ -16,9 +16,9 @@
 
 <script>
 export default {
-  async asyncData ({ params, $axios }) {
+  async asyncData ({ params, $axios, $config }) {
     try {
-      const response = await $axios.get(`${process.env.EXPRESS_API}/auth/validate/${params.id}`)
+      const response = await $axios.get(`${$config.EXPRESS_API}/auth/validate/${params.id}`)
       console.log(response.status)
       return {
         status: response.status,

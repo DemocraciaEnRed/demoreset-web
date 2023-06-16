@@ -59,7 +59,7 @@
 <script>
 export default {
   name: 'NavbarComponent',
-  data: () => { return {'loading': false}},
+  data: () => { return { loading: false } },
   computed: {
     availableLocales () {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
@@ -69,12 +69,12 @@ export default {
       return user
     }
   },
-  mounted() {
-    this.loading = true;
+  mounted () {
+    this.loading = true
   },
   methods: {
     logout () {
-      this.$axios.$post(`${process.env.EXPRESS_API}/auth/signout`)
+      this.$axios.$post(`${this.$config.EXPRESS_API}/auth/signout`)
         .then(async (response) => {
           await this.$store.dispatch('setToken', null)
           this.$store.dispatch('clearToken')

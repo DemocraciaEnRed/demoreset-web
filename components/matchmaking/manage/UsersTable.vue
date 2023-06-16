@@ -49,7 +49,6 @@ export default {
       return formatISO(new Date(date), { representation: 'date' })
     }
   },
-  inject: ['$t'],
   data () {
     return {
       users: [],
@@ -58,7 +57,7 @@ export default {
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get(`${process.env.EXPRESS_API}/users`)
+      const { data } = await this.$axios.get(`${this.$config.EXPRESS_API}/users`)
       this.users = data
       this.loading = false
     } catch (error) {
@@ -81,7 +80,7 @@ export default {
       }
     },
     makeAdmin (user) {
-      this.$axios.$put(`${process.env.EXPRESS_API}/users/${user.row._id}`, {
+      this.$axios.$put(`${this.$config.EXPRESS_API}/users/${user.row._id}`, {
         roles: ['admin']
       })
         .then((res) => {
@@ -98,7 +97,7 @@ export default {
     },
     removeAdmin (user) {
       if (this.userFromStore._id === user.row._id) { return actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.removeAdminToYou')}`, 'is-danger', 'times-circle') }
-      this.$axios.$put(`${process.env.EXPRESS_API}/users/${user.row._id}`, {
+      this.$axios.$put(`${this.$config.EXPRESS_API}/users/${user.row._id}`, {
         roles: ['user']
       })
         .then((res) => {

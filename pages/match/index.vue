@@ -14,10 +14,8 @@
         </button>
       </div>
       <div v-else>
-        <nuxt-link :to="{path: localePath('/match/createcall')}">
-          <button class="button is-rounded is-outlined is-roboto is-black is-medium button-position is-mono">
-            {{ $t('matchmaking.createCallButton') }}
-          </button>
+        <nuxt-link :to="{path: localePath('/match/createcall')} " class="button is-rounded is-outlined is-roboto is-black is-medium button-position is-mono">
+          {{ $t('matchmaking.createCallButton') }}
         </nuxt-link>
       </div>
       <!-- <MatchmakingFilter :filter-change="filterChange" /> -->
@@ -86,7 +84,7 @@ export default {
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get(`${process.env.EXPRESS_API}/callto`)
+      const { data } = await this.$axios.get(`${this.$config.EXPRESS_API}/callto`)
       this.callTo = data
       for (const ct of data) {
         if (ct.enabled === true) {
@@ -118,13 +116,6 @@ export default {
     sendNotConnectedAlert () {
       notConnectedAlert(this.$buefy, this.$t('matchmaking.notConnectedAlertTitle'), this.$t('matchmaking.notConnectedAlertMessage'), this.$t('matchmaking.notConnectedAlertButton'))
     }
-    // filterChange (value) {
-    //   const ctCopy = [...this.callto]
-    //   if (value === 0) { this.filteredCalls = ctCopy }
-    //   if (value === 1) {
-    //     this.filteredCalls = ctCopy.filter(ct => )
-    //   }
-    // }
   }
 }
 </script>

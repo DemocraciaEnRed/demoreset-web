@@ -32,7 +32,7 @@ export default {
         alertCustomError(this.$buefy, `${this.$t('login.emptyFieldError')}`)
         return
       }
-      this.$axios.$post(`${process.env.EXPRESS_API}/auth/forgotpassword`, {
+      this.$axios.$post(`${this.$config.EXPRESS_API}/auth/forgotpassword`, {
         email: this.email
       }).then((response) => {
         console.log(response)

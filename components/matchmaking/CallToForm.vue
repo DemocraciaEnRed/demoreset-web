@@ -1,119 +1,120 @@
 <template>
-  <form v-if="!loading || isNewCall">
-    <b-field :label="$t('matchmaking.formCreateCallTitle')">
-      <b-input v-model="title" type="text" :placeholder="$t('matchmaking.formCreateCallTitle')" required />
-    </b-field>
-
-    <b-field :label="$t('matchmaking.formCreateCallAbout')">
-      <b-input v-model="about" type="text" :placeholder="$t('matchmaking.formCreateCallAbout')" required />
-    </b-field>
-    <div class="columns">
-      <div class="column is-9">
-        <b-field :label="$t('matchmaking.formCreateCallBarriers')">
-          <b-select
-            v-model="tags"
-            required
-            multiple
-            expanded
-            native-size="5"
-            :placeholder="$t('matchmaking.formCreateCallBarriers')"
-          >
-            <option v-for="(tag, index) in barriers" :key="index" :value="tag">
-              {{ tag.translations[0].name }}
-            </option>
-          </b-select>
-        </b-field>
-      </div>
-      <div class="column is-flex tags-flex">
-        <div v-for="(tag,idx) in tags" :key="idx" class="tag is-rounded is-dark is-size-7">
-          {{ tag.translations[0].name }}
+  <div>
+    <form v-if="!loading || isNewCall">
+      <b-field :label="$t('matchmaking.formCreateCallTitle')">
+        <b-input v-model="title" type="text" :placeholder="$t('matchmaking.formCreateCallTitle')" required />
+      </b-field>
+      <b-field :label="$t('matchmaking.formCreateCallAbout')">
+        <b-input v-model="about" type="text" :placeholder="$t('matchmaking.formCreateCallAbout')" required />
+      </b-field>
+      <div class="columns">
+        <div class="column is-9">
+          <b-field :label="$t('matchmaking.formCreateCallBarriers')">
+            <b-select
+              v-model="tags"
+              required
+              multiple
+              expanded
+              native-size="5"
+              :placeholder="$t('matchmaking.formCreateCallBarriers')"
+            >
+              <option v-for="(tag, index) in barriers" :key="index" :value="tag">
+                {{ tag.translations[0].name }}
+              </option>
+            </b-select>
+          </b-field>
+        </div>
+        <div class="column is-flex tags-flex">
+          <div v-for="(tag,idx) in tags" :key="idx" class="tag is-rounded is-dark is-size-7">
+            {{ tag.translations[0].name }}
+          </div>
         </div>
       </div>
-    </div>
-    <b-field :label="$t('matchmaking.formCreateCallType')">
-      <b-select v-if="$i18n.locale == 'es'" v-model="types[0]" placeholder="Selecciona el tipo de llamado" required>
-        <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
-          {{ c.name }}
-        </option>
-      </b-select>
-      <b-select v-else v-model="types[0]" placeholder="Select a type of call" required>
-        <option v-for="c in calltoTypesEn" :key="c.value" :value="c.value">
-          {{ c.name }}
-        </option>
-      </b-select>
-    </b-field>
+      <b-field :label="$t('matchmaking.formCreateCallType')">
+        <b-select v-if="$i18n.locale == 'es'" v-model="types[0]" placeholder="Selecciona el tipo de llamado" required>
+          <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
+            {{ c.name }}
+          </option>
+        </b-select>
+        <b-select v-else v-model="types[0]" placeholder="Select a type of call" required>
+          <option v-for="c in calltoTypesEn" :key="c.value" :value="c.value">
+            {{ c.name }}
+          </option>
+        </b-select>
+      </b-field>
 
-    <b-field :label="$t('matchmaking.formCreateCallCountry')">
-      <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Ingresa tu país" required>
-        <option v-for="c in countriesEs" :key="c.code" :value="c.code">
-          {{ c.name }}
-        </option>
-      </b-select>
-      <b-select v-else v-model="country" placeholder="Enter your country" required>
-        <option v-for="c in countriesEn" :key="c.code" :value="c.code">
-          {{ c.name }}
-        </option>
-      </b-select>
-    </b-field>
+      <b-field :label="$t('matchmaking.formCreateCallCountry')">
+        <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Ingresa tu país" required>
+          <option v-for="c in countriesEs" :key="c.code" :value="c.code">
+            {{ c.name }}
+          </option>
+        </b-select>
+        <b-select v-else v-model="country" placeholder="Enter your country" required>
+          <option v-for="c in countriesEn" :key="c.code" :value="c.code">
+            {{ c.name }}
+          </option>
+        </b-select>
+      </b-field>
 
-    <b-field :label="$t('matchmaking.ubication')">
-      <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" required>
-        <option v-for="c in locationEs" :key="c.value" :value="c.value">
-          {{ c.name }}
-        </option>
-      </b-select>
-      <b-select v-else v-model="location" placeholder="Select location" required>
-        <option v-for="c in locationEn" :key="c.value" :value="c.value">
-          {{ c.name }}
-        </option>
-      </b-select>
-    </b-field>
+      <b-field :label="$t('matchmaking.ubication')">
+        <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" required>
+          <option v-for="c in locationEs" :key="c.value" :value="c.value">
+            {{ c.name }}
+          </option>
+        </b-select>
+        <b-select v-else v-model="location" placeholder="Select location" required>
+          <option v-for="c in locationEn" :key="c.value" :value="c.value">
+            {{ c.name }}
+          </option>
+        </b-select>
+      </b-field>
 
-    <b-field :label="$t('matchmaking.formCreateCallDate')">
-      <b-datepicker
-        ref="datepicker"
-        v-model="endDate"
-        expanded
-        :min-date="unselectableBeforeDate"
-        :placeholder="$t('matchmaking.formCreateCallSelectDate')"
-      />
-      <b-button
-        icon-left="calendar-today"
-        type="is-primary"
-        @click.prevent="$refs.datepicker.toggle()"
-      />
-    </b-field>
+      <b-field :label="$t('matchmaking.formCreateCallDate')">
+        <b-datepicker
+          ref="datepicker"
+          v-model="endDate"
+          expanded
+          :min-date="unselectableBeforeDate"
+          :placeholder="$t('matchmaking.formCreateCallSelectDate')"
+        />
+        <b-button
+          icon-left="calendar-today"
+          type="is-primary"
+          @click.prevent="$refs.datepicker.toggle()"
+        />
+      </b-field>
 
-    <b-field :label="$t('matchmaking.formCreateCallContent')">
-      <client-only>
-        <TipTapEditor v-model="content" />
-      </client-only>
-    </b-field>
-    <div v-if="isNewCall" class="has-text-centered mt-5">
-      <b-button type="submit" class="login-button" @click.prevent="createCall(callToDb)">
-        {{ $t('matchmaking.createCallButton') }}
-      </b-button>
-    </div>
+      <b-field :label="$t('matchmaking.formCreateCallContent')">
+        <client-only>
+          <TipTapEditor v-model="content" />
+        </client-only>
+      </b-field>
+      <div v-if="isNewCall" class="has-text-centered mt-5">
+        <b-button type="submit" class="login-button" @click.prevent="createCall(callToDb)">
+          {{ $t('matchmaking.createCallButton') }}
+        </b-button>
+      </div>
+      <div v-else>
+        <b-button type="submit" class="login-button" @click.prevent="editCall(callToDb)">
+          {{ $t('matchmaking.formEditCallButton') }}
+        </b-button>
+      </div>
+    </form>
     <div v-else>
-      <b-button type="submit" class="login-button" @click.prevent="editCall(callToDb)">
-        {{ $t('matchmaking.formEditCallButton') }}
-      </b-button>
+      <b-skeleton size="is-large" :active="loading" />
+      <b-skeleton size="is-large" :active="loading" />
+      <b-skeleton size="is-large" :active="loading" />
+      <b-skeleton size="is-large" :active="loading" />
+      <b-skeleton size="is-large" :active="loading" />
+      <b-skeleton size="is-large" :active="loading" />
+      <b-skeleton size="is-large" :active="loading" />
+      <b-skeleton size="is-large" :active="loading" />
     </div>
-  </form>
-  <div v-else>
-    <b-skeleton size="is-large" :active="loading" />
-    <b-skeleton size="is-large" :active="loading" />
-    <b-skeleton size="is-large" :active="loading" />
-    <b-skeleton size="is-large" :active="loading" />
-    <b-skeleton size="is-large" :active="loading" />
-    <b-skeleton size="is-large" :active="loading" />
-    <b-skeleton size="is-large" :active="loading" />
-    <b-skeleton size="is-large" :active="loading" />
   </div>
 </template>
 
 <script>
-import { endOfToday, isBefore, isToday, parseISO } from 'date-fns'
+import { addDays, endOfToday, isBefore, isToday, parseISO } from 'date-fns'
 // import { actionNotification } from '../../components/matchmaking/notifications.js'
 import { calltoTypesEs, calltoTypesEn, countriesEn, countriesEs, locationEn, locationEs } from '../../static/index.js'
 import TipTapEditor from '~/components/matchmaking/TipTapEditor.vue'
@@ -213,7 +214,7 @@ export default {
       })
     }
     if (this.isNewCall) {
-      this.endDate = ''
+      this.endDate = addDays(new Date(), 1)
     }
     this.loading = false
   },
