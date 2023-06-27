@@ -93,7 +93,6 @@ export default {
       query: $graphql.getQueryForAllOrganizations(i18n.localeProperties.iso)
     }
     const response = await $axios.post('/graphql', theQuery)
-    console.log(JSON.stringify(response.data.data.organizations))
     return {
       organizationList: response.data.data.organizations
     }
@@ -231,7 +230,6 @@ export default {
           web: null
         }
       } else {
-        console.log(this.selectedOrganization)
         return {
           directusId: this.selectedOrganization.id,
           name: this.selectedOrganization.name,

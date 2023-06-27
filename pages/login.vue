@@ -40,8 +40,8 @@ import { alertCustomError } from '../components/matchmaking/notifications.js'
 export default {
   data: () => {
     return {
-      email: 'admin@admin.com',
-      password: 'administrador',
+      email: '',
+      password: '',
       loading: false
     }
   },
