@@ -149,7 +149,6 @@ export default {
       return distance
     }
   },
-  inject: ['$t'],
   props: {
     commentprop: {
       type: Object,
@@ -324,9 +323,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    },
-    debug (v) {
-      console.log(v)
     }
   }
 }

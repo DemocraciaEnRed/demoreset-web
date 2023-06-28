@@ -157,7 +157,6 @@ export default {
         organization: this.setOrganization()
       }).then((response) => {
         alertSuccess(this.$buefy, `${this.$t('register.accountCreated')}`, `${this.$t('register.accountCreatedMessage')}`)
-        console.log(response)
         // redirect to the email validation view when ready
         this.$router.push({ path: this.localePath('/login') })
       }).catch((error) => {
@@ -239,9 +238,6 @@ export default {
           web: this.web
         }
       }
-    },
-    debug (v) {
-      console.log(v)
     }
   }
 }

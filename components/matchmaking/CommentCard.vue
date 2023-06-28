@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!userFromStore" class="card notConnected" @click="sendNotConnectedAlert">
+  <div v-if="!loggedIn" class="card notConnected" @click="sendNotConnectedAlert">
     <div class="card-content">
       <div class="content">
         {{ $t('matchmaking.writeComment') }}
@@ -34,11 +34,11 @@
 import { actionNotification, notConnectedAlert } from './notifications.js'
 export default {
   name: 'CommentCard',
-  inject: ['$t'],
   data: () => {
     return {
       isActive: false,
-      comment: ''
+      comment: '',
+      loggedIn: false
     }
   },
   computed: {
@@ -46,6 +46,9 @@ export default {
       const user = this.$store.state.user
       return user
     }
+  },
+  mounted () {
+    this.loggedIn = !!this.userFromStore
   },
   methods: {
     sendComment () {

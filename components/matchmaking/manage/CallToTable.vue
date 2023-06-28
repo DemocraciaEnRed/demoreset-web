@@ -42,7 +42,6 @@ export default {
       return formatISO(new Date(date), { representation: 'date' })
     }
   },
-  inject: ['$t'],
   props: {
     ct: {
       type: Array,

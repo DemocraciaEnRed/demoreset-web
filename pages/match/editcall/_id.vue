@@ -1,5 +1,5 @@
 <template>
-  <section v-if="userFromStore() && userFromStore().roles.find(role => role.name === 'admin') && !loading" class="py-5 section container">
+  <section v-if="loggedIn && isAdmin && !loading" class="py-5 section container">
     <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
       {{ $t('matchmaking.editCall') }}
     </h1>
@@ -7,25 +7,22 @@
       <call-to-form :barriers="data.barriers" :callto="data.callto" :is-new-call="isNewCall" :edit-call="editCall" />
     </div>
   </section>
-  <section v-else-if="userFromStore() && userFromStore().roles.find(role => role.name === 'admin') && loading" class="py-5 section container">
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-    <b-skeleton :animated="true" />
-  </section>
   <section v-else class="py-5 section container">
-    {{ redirect() }}
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
+    <b-skeleton :animated="true" />
   </section>
 </template>
 <script>
@@ -56,8 +53,26 @@ export default {
     return {
       data: null,
       loading: true,
-      isNewCall: false
+      isNewCall: false,
+      loggedIn: false,
+      isAdmin: false
     }
+  },
+  computed: {
+    userFromStore () {
+      const user = this.$store.state.user
+      return user
+    },
+    checkIsAdmin () {
+      return this.userFromStore ? !!this.userFromStore.roles.find(role => role.name === 'admin') : false
+    }
+  },
+  mounted () {
+    this.loggedIn = !!this.userFromStore
+    this.isAdmin = this.checkIsAdmin
+    this.$nextTick(() => {
+      if (!this.isAdmin) { this.redirect() }
+    })
   },
   methods: {
     editCall (callToDb) {
@@ -76,12 +91,8 @@ export default {
           this.$router.push('/match')
         })
     },
-    userFromStore () {
-      const user = this.$store.state.user
-      return user
-    },
     redirect () {
-      if (this.userFromStore()) {
+      if (this.loggedIn) {
         this.$router.push({ path: this.localePath('/match') })
       } else {
         this.$router.push({ path: this.localePath('/login') })

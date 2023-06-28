@@ -59,7 +59,7 @@
 <script>
 export default {
   name: 'NavbarComponent',
-  data: () => { return {'loading': false}},
+  data: () => { return { loading: false } },
   computed: {
     availableLocales () {
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
@@ -69,8 +69,8 @@ export default {
       return user
     }
   },
-  mounted() {
-    this.loading = true;
+  mounted () {
+    this.loading = true
   },
   methods: {
     logout () {
