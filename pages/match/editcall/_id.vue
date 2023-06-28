@@ -33,7 +33,7 @@ import { actionNotification, alertCustomError } from '~/components/matchmaking/n
 import CallToForm from '~/components/matchmaking/CallToForm.vue'
 export default {
   components: { CallToForm },
-  async asyncData ({ i18n, $axios, $graphql, route }) {
+  async asyncData ({ i18n, $axios, $graphql, route, $config }) {
     try {
       const data = { barriers: [], callto: {} }
       const theQuery = {
@@ -42,7 +42,7 @@ export default {
       const barriers = await $axios.post('/graphql', theQuery)
       data.barriers = [...barriers.data.data.barrier_types]
 
-      const callto = await $axios.get(`${process.env.EXPRESS_API}/callto/${route.params.id}`)
+      const callto = await $axios.get(`${$config.expressApi}/callto/${route.params.id}`)
       data.callto = { ...callto.data }
       return {
         data,
@@ -65,7 +65,7 @@ export default {
         alertCustomError(this.$buefy, `${this.$t('matchmaking.emptyFields')}`)
         return
       }
-      this.$axios.$patch(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}`, { ...callToDb })
+      this.$axios.$patch(`${this.$config.expressApi}/callto/${this.$route.params.id}`, { ...callToDb })
         .then((response) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.editedCallToAlert')}`, 'is-success', 'check')
           console.log(response)

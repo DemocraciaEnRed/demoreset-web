@@ -42,13 +42,19 @@ export default {
     { src: '~/plugins/axios.js' },
     { src: '~/plugins/init.js', mode: 'client' }
   ],
-  env: {
-    API_URL: process.env.API_URL || 'https://content.demoreset.democraciaenred.org',
-    EXPRESS_API: process.env.EXPRESS_API
+  // env: {
+  //   API_URL: process.env.API_URL || 'https://content.demoreset.democraciaenred.org',
+  //   EXPRESS_API: process.env.EXPRESS_API
+  // },
+  publicRuntimeConfig: {
+    apiUrl: process.env.API_URL || 'https://content.demoreset.democraciaenred.org',
+    expressApi: process.env.EXPRESS_API,
+    axios: {
+      browserBaseURL: process.env.API_URL || 'https://content.demoreset.democraciaenred.org'
+    }
   },
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
-
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
