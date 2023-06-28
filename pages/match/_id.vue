@@ -212,7 +212,7 @@ export default {
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}`)
+      const { data } = await this.$axios.get(`${this.$config.expressApi}/callto/${this.$route.params.id}`)
       this.callTo = data
       const theQuery = {
         query: this.$graphql.getQueryForAllBarriers(this.$i18n.localeProperties.iso)
@@ -264,7 +264,7 @@ export default {
       }
     },
     deleteCallTo () {
-      this.$axios.delete(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}`)
+      this.$axios.delete(`${this.$config.expressApi}/callto/${this.$route.params.id}`)
         .then((res) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.deletedCallToAlert')}`, 'is-danger', 'trash-can')
         })

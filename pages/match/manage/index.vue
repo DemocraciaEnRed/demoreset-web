@@ -50,7 +50,7 @@ export default {
   },
   async fetch () {
     try {
-      const { data } = await this.$axios.get(`${this.$config.EXPRESS_API}/callto`)
+      const { data } = await this.$axios.get(`${this.$config.expressApi}/callto`)
       this.callTo = data
       this.loading = false
     } catch (error) {

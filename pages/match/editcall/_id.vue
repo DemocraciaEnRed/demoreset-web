@@ -39,7 +39,7 @@ export default {
       const barriers = await $axios.post('/graphql', theQuery)
       data.barriers = [...barriers.data.data.barrier_types]
 
-      const callto = await $axios.get(`${$config.EXPRESS_API}/callto/${route.params.id}`)
+      const callto = await $axios.get(`${$config.expressApi}/callto/${route.params.id}`)
       data.callto = { ...callto.data }
       return {
         data,
@@ -80,7 +80,7 @@ export default {
         alertCustomError(this.$buefy, `${this.$t('matchmaking.emptyFields')}`)
         return
       }
-      this.$axios.$patch(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}`, { ...callToDb })
+      this.$axios.$patch(`${this.$config.expressApi}/callto/${this.$route.params.id}`, { ...callToDb })
         .then((response) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.editedCallToAlert')}`, 'is-success', 'check')
           console.log(response)

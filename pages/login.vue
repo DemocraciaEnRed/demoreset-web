@@ -40,8 +40,8 @@ import { alertCustomError } from '../components/matchmaking/notifications.js'
 export default {
   data: () => {
     return {
-      email: 'admin@admin.com',
-      password: 'administrador',
+      email: '',
+      password: '',
       loading: false
     }
   },
@@ -52,12 +52,12 @@ export default {
         return
       }
       this.loading = true
-      this.$axios.$post(`${this.$config.EXPRESS_API}/auth/signin`, {
+      this.$axios.$post(`${this.$config.expressApi}/auth/signin`, {
         email: this.email,
         password: this.password
       }).then(async (response) => {
         await this.$store.dispatch('setToken', response.token)
-        return this.$axios.$get(`${this.$config.EXPRESS_API}/users/me`)
+        return this.$axios.$get(`${this.$config.expressApi}/users/me`)
       }).then(async (response) => {
         await this.$store.dispatch('setUser', response)
         this.$store.dispatch('clearLoginError')

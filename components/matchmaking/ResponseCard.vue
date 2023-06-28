@@ -187,9 +187,9 @@ export default {
     },
     addLike () {
       if (!this.userFromStore) { return this.sendNotConnectedAlert() }
-      this.$axios.$post(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
+      this.$axios.$post(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
         .then((res) => {
-          this.$axios.$get(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
+          this.$axios.$get(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
             .then((res) => {
               this.comment.likes = [...res.likes]
             })
@@ -203,9 +203,9 @@ export default {
           console.error(err)
         })
 
-      // this.$axios.$post(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
+      // this.$axios.$post(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
       //   .then((resPost) => {
-      //     return this.$axios.$get(`${process.env.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
+      //     return this.$axios.$get(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}/like`)
       //   })
       //   .then((resGet) => {
       //     this.comment.likes = [...resGet.likes]
@@ -216,7 +216,7 @@ export default {
       //   })
     },
     deleteComment () {
-      this.$axios.$delete(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}`)
+      this.$axios.$delete(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}`)
         .then((res) => {
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.commentDeleted')}`, 'is-danger', 'trash-can')
         })
@@ -230,7 +230,7 @@ export default {
         })
     },
     deleteReply (replyId) {
-      this.$axios.$delete(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`)
+      this.$axios.$delete(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`)
         .then(async (res) => {
           this.comment = await this.getComment()
           actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.replyDeleted')}`, 'is-danger', 'trash-can')
@@ -254,7 +254,7 @@ export default {
         cancelText: `${this.$t('matchmaking.buttonCancel')}`,
         trapFocus: true,
         onConfirm: (value) => {
-          this.$axios.$put(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}`, {
+          this.$axios.$put(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}`, {
             content: value
           }).then(async (res) => {
             this.comment = await this.getComment()
@@ -277,7 +277,7 @@ export default {
         cancelText: `${this.$t('matchmaking.buttonCancel')}`,
         trapFocus: true,
         onConfirm: (value) => {
-          this.$axios.$put(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`, {
+          this.$axios.$put(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}/reply/${replyId}`, {
             content: value
           }).then(async (res) => {
             this.comment = await this.getComment()
@@ -304,7 +304,7 @@ export default {
         actionNotification(this.$buefy, 3000, `${this.$t('matchmaking.replyEmpty')}`, 'is-warning', 'circle-exclamation')
         return null
       }
-      this.$axios.$post(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}/reply`, {
+      this.$axios.$post(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}/reply`, {
         content: this.replyBoxText
       }).then((res) => {
         this.replyBoxText = ''
@@ -318,7 +318,7 @@ export default {
     },
     async getComment () {
       try {
-        const response = await this.$axios.$get(`${this.$config.EXPRESS_API}/callto/${this.$route.params.id}/comment/${this.comment._id}`)
+        const response = await this.$axios.$get(`${this.$config.expressApi}/callto/${this.$route.params.id}/comment/${this.comment._id}`)
         return response
       } catch (error) {
         console.log(error)
