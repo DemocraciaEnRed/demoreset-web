@@ -68,6 +68,9 @@ export default {
           if (err.response.status === 403) {
             alertCustomError(this.$buefy, 'Tu usuario no está activo, revisa tu correo electrónico')
           }
+          if (err.response.status === 401) {
+            alertCustomError(this.$buefy, 'Usuario o contraseña incorrectos, intenta nuevamente')
+          }
           this.$store.dispatch('clearToken')
           this.$store.dispatch('clearUser')
           await this.$store.dispatch('setLoginError', err.response.data.message)
