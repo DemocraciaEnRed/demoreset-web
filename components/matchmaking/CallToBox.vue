@@ -147,7 +147,7 @@ export default {
       return this.dateDiff / timeUnits
     },
     apiUrl () {
-      return this.$config.API_URL
+      return this.$config.apiUrl
     },
     isActive () { return this.datePercents !== -1 ? '' : 'inactive' },
     tagNames () {

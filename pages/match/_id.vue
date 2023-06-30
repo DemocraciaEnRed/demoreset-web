@@ -230,7 +230,7 @@ export default {
       return null
     },
     apiUrl () {
-      return this.$config.API_URL
+      return this.$config.apiUrl
     },
     URLwhithHttpAdded () {
       if (!this.callTo.owner.organization.web) {
