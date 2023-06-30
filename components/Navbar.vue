@@ -89,9 +89,6 @@ export default {
           await this.$store.dispatch('setLoginError', err.response.data.message)
           // show an error message or something
         })
-        .finally(() => {
-          this.loading = false
-        })
     }
   }
 }
