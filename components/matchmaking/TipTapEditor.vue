@@ -99,6 +99,20 @@
           size="is-small"
         />
       </button>
+      <button :class="`button is-primary is-light ${editor.isActive('link')? 'is-active': ''}`" @click.prevent="setLink">
+        <b-icon
+          pack="fas"
+          icon="link"
+          size="is-small"
+        />
+      </button>
+      <button :class="`button is-primary is-light`" :disabled="!editor.isActive('link')" @click.prevent="editor.chain().focus().unsetLink().run();">
+        <b-icon
+          pack="fas"
+          icon="link-slash"
+          size="is-small"
+        />
+      </button>
     </div>
     <editor-content :editor="editor" class="tip-tap-editor" />
   </div>
@@ -111,6 +125,8 @@ import Highlight from '@tiptap/extension-highlight'
 import TextAlign from '@tiptap/extension-text-align'
 // eslint-disable-next-line import/no-named-as-default
 import StarterKit from '@tiptap/starter-kit'
+// eslint-disable-next-line import/no-named-as-default
+import Link from '@tiptap/extension-link'
 import { Editor, EditorContent } from '@tiptap/vue-2'
 
 export default {
@@ -147,7 +163,8 @@ export default {
         TextAlign.configure({
           types: ['heading', 'paragraph']
         }),
-        Highlight
+        Highlight,
+        Link
       ],
       content: this.value,
       onUpdate: () => { this.$emit('input', this.editor.getHTML()) }
@@ -155,6 +172,37 @@ export default {
   },
   beforeUnmount () {
     this.editor.destroy()
+  },
+  methods: {
+    setLink () {
+      const previousUrl = this.editor.getAttributes('link').href
+      const url = window.prompt('URL', previousUrl)
+
+      // cancelled
+      if (url === null) {
+        return
+      }
+
+      // empty
+      if (url === '') {
+        this.editor
+          .chain()
+          .focus()
+          .extendMarkRange('link')
+          .unsetLink()
+          .run()
+
+        return
+      }
+
+      // update link
+      this.editor
+        .chain()
+        .focus()
+        .extendMarkRange('link')
+        .setLink({ href: url, target: '_blank' })
+        .run()
+    }
   }
 }
 </script>
@@ -184,23 +232,9 @@ export default {
   ul{
     list-style: disc;
   }
-}
-
-.tip-tap-editor .ProseMirror{
-    min-height: 500px;
-    padding: 16px;
-    background-color: hsl(0deg, 0%, 100%);
-    border: 1px solid hsl(0deg, 0%, 86%);
-    border-radius: 4px;
-    color: hsl(0deg, 0%, 21%);
-    &:hover{
-        border-color: rgb(181, 181, 181);
-    }
-    &:focus-visible{
-        outline: 0;
-        border-color: hsl(229deg, 53%, 53%);
-        box-shadow: 0 0 0 0.125em rgba(72, 95, 199, 0.25);
-    }
+  a{
+    color:#FF17FD
+  }
 }
 
 </style>
