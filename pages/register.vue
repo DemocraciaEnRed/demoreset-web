@@ -149,7 +149,7 @@ export default {
         return
       }
       this.$axios.$post(`${this.$config.expressApi}/auth/signup`, {
-        email: this.email,
+        email: this.email.toLocaleLowerCase(),
         first_name: this.first_name,
         last_name: this.last_name,
         country: this.country,

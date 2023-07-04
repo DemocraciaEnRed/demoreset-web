@@ -53,7 +53,7 @@ export default {
       }
       this.loading = true
       this.$axios.$post(`${this.$config.expressApi}/auth/signin`, {
-        email: this.email,
+        email: this.email.toLocaleLowerCase(),
         password: this.password
       }).then(async (response) => {
         await this.$store.dispatch('setToken', response.token)
