@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div class="my-6 is-flex is-justify-content-center is-size-5">
+      <ul>
+        <li>
+          Si tienes dificultad para completar este formulario, por su contenido o idioma, escríbenos a <a href="mailto:xxxx@gmail.com">xxxx@gmail.com</a>
+        </li>
+        <li>If you're having trouble completing this form, due to its content or language, email us at <a href="mailto:xxxx@gmail.com">xxxx@gmail.com</a></li>
+        <li>Si vous avez des difficultés pour remplir ce formulaire, contenu ou langue, écrivez-nous à <a href="mailto:xxxx@gmail.com">xxxx@gmail.com</a></li>
+      </ul>
+    </div>
     <form v-if="!loading || isNewCall">
       <b-field :label="$t('matchmaking.formCreateCallTitle')">
         <b-input v-model="title" type="text" :placeholder="$t('matchmaking.formCreateCallTitle')" required />
@@ -230,6 +239,10 @@ export default {
 }
 </script>
 <style scoped>
+ul li {
+  list-style-type: disc;
+}
+
 .mw-300 {
   max-width: 300px;
   margin: auto;
