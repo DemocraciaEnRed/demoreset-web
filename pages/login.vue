@@ -1,37 +1,42 @@
 <template>
   <section class="py-5 mw-300">
-    <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
-      {{ $t('login.title') }}
-    </h1>
-    <form>
-      <b-field :label="$t('login.email')">
-        <b-input v-model="email" type="email" :placeholder="$t('login.placeholderEmail')" />
-      </b-field>
-      <b-field :label="$t('login.password')">
-        <b-input v-model="password" type="password" password-reveal :placeholder="$t('login.placeholderPassword')" />
-      </b-field>
-      <div class="pb-2 has-text-right">
-        <nuxt-link :to="{ path: localePath('/auth/forgotpassword') }">
-          {{ $t('login.forgotPassword') }}
-        </nuxt-link>
-      </div>
-      <div class="has-text-centered mt-1">
-        <b-button type="submit" class="login-button" @click.prevent="login">
-          {{ $t('login.title') }}
-        </b-button>
-      </div>
-      <div class="divider" />
-      <div>
-        <p class="is-uppercase has-text-weight-medium is-size-5 has-text-centered">
-          {{ $t('login.registerTitle') }}
-        </p>
-        <nuxt-link :to="{path: localePath('/register')}">
-          <b-button class="login-button mt-2">
-            {{ $t('login.registerButton') }}
+    <div v-if="!loggedIn">
+      <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
+        {{ $t('login.title') }}
+      </h1>
+      <form>
+        <b-field :label="$t('login.email')">
+          <b-input v-model="email" type="email" :placeholder="$t('login.placeholderEmail')" />
+        </b-field>
+        <b-field :label="$t('login.password')">
+          <b-input v-model="password" type="password" password-reveal :placeholder="$t('login.placeholderPassword')" />
+        </b-field>
+        <div class="pb-2 has-text-right">
+          <nuxt-link :to="{ path: localePath('/auth/forgotpassword') }">
+            {{ $t('login.forgotPassword') }}
+          </nuxt-link>
+        </div>
+        <div class="has-text-centered mt-1">
+          <b-button type="submit" class="login-button" @click.prevent="login">
+            {{ $t('login.title') }}
           </b-button>
-        </nuxt-link>
-      </div>
-    </form>
+        </div>
+        <div class="divider" />
+        <div>
+          <p class="is-uppercase has-text-weight-medium is-size-5 has-text-centered">
+            {{ $t('login.registerTitle') }}
+          </p>
+          <nuxt-link :to="{path: localePath('/register')}">
+            <b-button class="login-button mt-2">
+              {{ $t('login.registerButton') }}
+            </b-button>
+          </nuxt-link>
+        </div>
+      </form>
+    </div>
+    <div v-else>
+      {{ redirect() }}
+    </div>
   </section>
 </template>
 
@@ -42,8 +47,18 @@ export default {
     return {
       email: '',
       password: '',
-      loading: false
+      loading: false,
+      loggedIn: false
     }
+  },
+  computed: {
+    userFromStore () {
+      const user = this.$store.state.user
+      return user
+    }
+  },
+  mounted () {
+    this.loggedIn = !!this.userFromStore
   },
   methods: {
     login () {
@@ -79,6 +94,11 @@ export default {
         .finally(() => {
           this.loading = false
         })
+    },
+    redirect () {
+      if (this.loggedIn) {
+        this.$router.push({ path: this.localePath('/') })
+      }
     }
   }
 }
