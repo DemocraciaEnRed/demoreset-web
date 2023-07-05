@@ -4,7 +4,7 @@
       <h1 class="is-uppercase has-text-weight-bold is-size-4 pb-6 has-text-centered">
         {{ $t('login.title') }}
       </h1>
-      <form>
+      <form @keypress.enter="login">
         <b-field :label="$t('login.email')">
           <b-input v-model="email" type="email" :placeholder="$t('login.placeholderEmail')" />
         </b-field>

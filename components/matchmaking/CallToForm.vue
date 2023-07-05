@@ -17,7 +17,7 @@
         <b-input v-model="about" type="text" :placeholder="$t('matchmaking.formCreateCallAbout')" required />
       </b-field>
       <div class="columns">
-        <div class="column is-9">
+        <div class="column is-8">
           <b-field :label="$t('matchmaking.formCreateCallBarriers')">
             <b-select
               v-model="tags"
@@ -34,18 +34,18 @@
           </b-field>
         </div>
         <div class="column is-flex tags-flex">
-          <div v-for="(tag,idx) in tags" :key="idx" class="tag is-rounded is-dark is-size-7">
+          <div v-for="(tag,idx) in tags" :key="idx" class="tag is-rounded is-dark is-size-7 wrap-tag-text px-3 py-2">
             {{ tag.translations[0].name }}
           </div>
         </div>
       </div>
       <b-field :label="$t('matchmaking.formCreateCallType')">
-        <b-select v-if="$i18n.locale == 'es'" v-model="types[0]" placeholder="Selecciona el tipo de llamado" required>
+        <b-select v-if="$i18n.locale == 'es'" v-model="types[0]" placeholder="Selecciona el tipo de llamado" expanded required>
           <option v-for="c in calltoTypesEs" :key="c.value" :value="c.value">
             {{ c.name }}
           </option>
         </b-select>
-        <b-select v-else v-model="types[0]" placeholder="Select a type of call" required>
+        <b-select v-else v-model="types[0]" placeholder="Select a type of call" expanded required>
           <option v-for="c in calltoTypesEn" :key="c.value" :value="c.value">
             {{ c.name }}
           </option>
@@ -53,12 +53,12 @@
       </b-field>
 
       <b-field :label="$t('matchmaking.formCreateCallCountry')">
-        <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Ingresa tu país" required>
+        <b-select v-if="$i18n.locale == 'es'" v-model="country" placeholder="Ingresa tu país" expanded required>
           <option v-for="c in countriesEs" :key="c.code" :value="c.code">
             {{ c.name }}
           </option>
         </b-select>
-        <b-select v-else v-model="country" placeholder="Enter your country" required>
+        <b-select v-else v-model="country" placeholder="Enter your country" expanded required>
           <option v-for="c in countriesEn" :key="c.code" :value="c.code">
             {{ c.name }}
           </option>
@@ -66,12 +66,12 @@
       </b-field>
 
       <b-field :label="$t('matchmaking.ubication')">
-        <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" required>
+        <b-select v-if="$i18n.locale == 'es'" v-model="location" placeholder="Selecciona la locación" expanded required>
           <option v-for="c in locationEs" :key="c.value" :value="c.value">
             {{ c.name }}
           </option>
         </b-select>
-        <b-select v-else v-model="location" placeholder="Select location" required>
+        <b-select v-else v-model="location" placeholder="Select location" expanded required>
           <option v-for="c in locationEn" :key="c.value" :value="c.value">
             {{ c.name }}
           </option>
@@ -258,6 +258,11 @@ ul li {
   max-width: 100%;
   border-radius: 10px;
   border: 2px solid #000;
+}
+
+.wrap-tag-text {
+  text-wrap: wrap;
+  height: auto;
 }
 
 </style>
