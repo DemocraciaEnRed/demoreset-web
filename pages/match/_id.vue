@@ -6,8 +6,8 @@
           <div class="hero-body mx-6">
             <div class="is-flex us-flex-direction-row is-justify-content-space-between">
               <div class="columns is-multiline pb-6">
-                <div class="column is-narrow">
-                  <figure v-if="callTo.owner.organization.logoUrl !== null" class="image is-64x64">
+                <div v-if="callTo.owner.organization.logoUrl !== null" class="column is-narrow">
+                  <figure class="image is-64x64">
                     <img :src="`${apiUrl}/assets/${callTo.owner.organization.logoUrl}?${transformationImage}`" class="is-rounded">
                   </figure>
                 </div>
@@ -26,7 +26,7 @@
                     {{ callTo.owner.organization.country_en }}
                   </p>
                 </div>
-                <div v-if="callTo.owner.organization.web !== null || callTo.owner.organization.web !== ''" class="column is-full">
+                <div v-if="callTo.owner.organization.web !== null && callTo.owner.organization.web !== ''" class="column is-full">
                   <a :href="URLwhithHttpAdded" target="_blank"> {{ URLwhithHttpAdded }}</a>
                 </div>
               </div>
@@ -291,6 +291,9 @@ export default {
       const cTags = this.callTo.tags.map(t => this.barriers.find(barrier => barrier.field_name === t))
       const mappedTagNames = [...cTags].map(tag => tag.translations[0].name)
       return mappedTagNames
+    },
+    debug (v) {
+      console.log(v)
     }
   }
 }

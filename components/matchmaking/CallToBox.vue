@@ -26,7 +26,8 @@
           <div v-if="tagNames.length > 0" class="is-flex">
             <span class="mr-3 is-size-6">Tags:</span>
             <div>
-              <span v-for="(tag,idx) in tagNames" :key="idx" class="tag is-rounded is-size-7 mr-1 mb-1">{{ tag }}</span>
+              <span v-for="(tag,idx) in tagNames" :key="idx" :class="`tag is-rounded is-size-7 mr-1 mb-1 ${tag.length > 40 && 'wrap-tag-text'}`">{{ tag }}
+              </span>
             </div>
           </div>
           <div class="content">
@@ -159,6 +160,11 @@ export default {
         return null
       })
     }
+  },
+  methods: {
+    debug (v) {
+      console.log(v)
+    }
   }
 }
 </script>
@@ -172,6 +178,24 @@ export default {
 
 .h-100{
   height: 100%;
+}
+
+.wrap-tag-text {
+  @include desktop-only {
+    text-wrap: wrap;
+    height: auto;
+    padding: 8px;
+  }
+  @include tablet-only {
+    text-wrap: wrap;
+    height: auto;
+    padding: 8px;
+  }
+  @include until(600px){
+    text-wrap: wrap;
+    height: auto;
+    padding: 8px;
+  }
 }
 
 .box{
