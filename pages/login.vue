@@ -63,7 +63,7 @@ export default {
   methods: {
     login () {
       if (!this.email || !this.password) {
-        alertCustomError(this.$buefy, 'Todos los campos son requeridos')
+        alertCustomError(this.$buefy, `${this.$t('login.errorRequiredFields')}`)
         return
       }
       this.loading = true
@@ -81,10 +81,10 @@ export default {
       })
         .catch(async (err) => {
           if (err.response.status === 403) {
-            alertCustomError(this.$buefy, 'Tu usuario no está activo, revisa tu correo electrónico')
+            alertCustomError(this.$buefy, `${this.$t('login.errorUserNotActive')}`)
           }
           if (err.response.status === 401) {
-            alertCustomError(this.$buefy, 'Usuario o contraseña incorrectos, intenta nuevamente')
+            alertCustomError(this.$buefy, `${this.$t('login.errorWrongCredentials')}`)
           }
           this.$store.dispatch('clearToken')
           this.$store.dispatch('clearUser')

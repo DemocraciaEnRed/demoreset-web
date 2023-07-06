@@ -23,6 +23,9 @@ const login = {
   errorTokenMsg: 'The password recovery link has expired or does not exist. <br> Please request a new password recovery link.',
   errorTokenConfirm: 'Request again',
   errorTokenCancel: 'Cancel',
+  errorRequiredFields: 'All the fields are required',
+  errorUserNotActive: 'Your user is not active yet, please check your email',
+  errorWrongCredentials: 'User or password incorrect, try again',
   navbarLogin: 'Log in',
   navbarLogout: 'Log out'
 }

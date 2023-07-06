@@ -23,6 +23,9 @@ const login = {
   errorTokenMsg: 'El link de recuperación de contraseña ha expirado o no existe. <br> Por favor, solicita un nuevo link de recuperación de contraseña.',
   errorTokenConfirm: 'Volver a solicitar',
   errorTokenCancel: 'Cancelar',
+  errorRequiredFields: 'Todos los campos son requeridos',
+  errorUserNotActive: 'Tu usuario no está activo aún, por favor revisa tu correo electrónico',
+  errorWrongCredentials: 'Usuario o contraseña incorrectos, intenta nuevamente',
   navbarLogin: 'Ingresar',
   navbarLogout: 'Cerrar sesión'
 }
