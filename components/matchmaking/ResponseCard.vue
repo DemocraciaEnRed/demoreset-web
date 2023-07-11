@@ -9,7 +9,7 @@
               <span v-else class="has-text-weight-semibold is-mono">{{ `${comment.user.first_name} ${comment.user.last_name}` }}</span>
               <p class="is-size-7">
                 {{ comment.createdAt | timeAgo($i18n.locale) }}
-                <!-- {{ comment.updatedAt > comment.createdAt ? ` - ${$t('matchmaking.edited')} ` : '' }} -->
+                {{ comment.updatedAt > comment.createdAt ? ` - ${$t('matchmaking.edited')} ` : '' }}
               </p>
             </div>
             <div v-if="userFromStore && userFromStore._id === comment.user._id || userFromStore && checkIsAdmin()">
