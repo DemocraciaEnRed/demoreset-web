@@ -3,10 +3,10 @@
     <div class="my-6 is-flex is-justify-content-center is-size-5">
       <ul>
         <li>
-          Si tienes dificultad para completar este formulario, por su contenido o idioma, escríbenos a <a href="mailto:xxxx@gmail.com">xxxx@gmail.com</a>
+          Si tienes dificultad para completar este formulario, por su contenido o idioma, escríbenos a <a href="mailto:demoreset@extituto.org">demoreset@extituto.org</a>
         </li>
-        <li>If you're having trouble completing this form, due to its content or language, email us at <a href="mailto:xxxx@gmail.com">xxxx@gmail.com</a></li>
-        <li>Si vous avez des difficultés pour remplir ce formulaire, contenu ou langue, écrivez-nous à <a href="mailto:xxxx@gmail.com">xxxx@gmail.com</a></li>
+        <li>If you're having trouble completing this form, due to its content or language, email us at <a href="mailto:demoreset@extituto.org">demoreset@extituto.org</a></li>
+        <li>Si vous avez des difficultés pour remplir ce formulaire, contenu ou langue, écrivez-nous à <a href="mailto:demoreset@extituto.org">demoreset@extituto.org</a></li>
       </ul>
     </div>
     <form v-if="!loading || isNewCall">
