@@ -75,8 +75,12 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://i18n.nuxtjs.org/setup
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/google-gtag'
   ],
+  'google-gtag': {
+    id: 'G-YRPQJNXYST', // Used as fallback if no runtime config is provided,
+  },
   styleResources: {
     // your settings here
     scss: ['~assets/scss/_variables.scss'],
