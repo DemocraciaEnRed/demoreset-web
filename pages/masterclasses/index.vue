@@ -112,7 +112,7 @@ export default {
   },
   computed: {
     apiUrl () {
-      return this.$config.API_URL
+      return this.$config.apiUrl
     },
     publishedMasterclasses () {
       return this.masterclasses.filter(masterclass => masterclass.status === 'published')

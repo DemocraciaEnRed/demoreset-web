@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     apiUrl () {
-      return this.$config.API_URL
+      return this.$config.apiUrl
     }
   }
 }
